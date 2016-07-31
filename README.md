@@ -13,5 +13,5 @@
 * Basic information infrastructure
 
 
-**Currently Implementing:**
-* Game Design test Scene
+**Currently implementing:**
+* Game Design test scene
