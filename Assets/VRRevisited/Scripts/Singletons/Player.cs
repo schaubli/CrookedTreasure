@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
-public interface IPerformable {
-	void Perform();
-}
+public class Player : MonoBehaviour {
 
-public class GameConfig : MonoBehaviour {
-
-	public static GameConfig Instance;
-	[SerializeField]
-	public List<Card> cards; // All Card in the Game
+	public static Player Instance;
 	
+	private ResourcePool pool;
 
+	public ResourcePool GetResourcePool() {
+		if(pool == null) {
+			pool = gameObject.GetComponent<ResourcePool>();
+			if(pool==null){
+				pool = gameObject.AddComponent<ResourcePool>() as ResourcePool;
+			}
+		}
+		return pool;
+	}
 
 	void Awake()
 	{

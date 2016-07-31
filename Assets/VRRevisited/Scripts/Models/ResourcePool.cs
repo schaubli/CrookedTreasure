@@ -10,7 +10,7 @@ public enum ResourceType {
 }
 
 [System.Serializable]
-public class ResourcePool {
+public class ResourcePool : MonoBehaviour {
 
 	[SerializeField]
 	public Resource[] resources = new Resource[4] {	new Resource(ResourceType.Food), 
