@@ -11,7 +11,11 @@ public class GameConfig : MonoBehaviour {
 	public static GameConfig Instance;
 	[SerializeField]
 	public List<Card> cards; // All Card in the Game
-	
+	[Range(0,1)]
+	public float improveRate = 0.5f;
+	[Range(0,5)]
+	public int improvableEnvironments = 0;
+
 
 
 	void Awake()

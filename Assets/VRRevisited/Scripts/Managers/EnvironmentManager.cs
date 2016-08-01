@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,7 +8,29 @@ public class EnvironmentManager : MonoBehaviour {
 	public static EnvironmentManager Instance;
 	[SerializeField]
 	public List<Environment> environments = new List<Environment>();
+	private float improveRate;
+	private int improvedEnvironments = 0;
+	private int improvableEnvironments = 0;
 
+
+	public void ExploreEnvironments() {
+		if(improvedEnvironments<improvableEnvironments){
+			if(Random.value <= improveRate) {
+				bool improvable = false;
+				Environment env = null;
+				while(improvable == false) {
+					env = environments[Random.Range(0,environments.Count)];
+					improvable = env.IsImprovable();
+				}
+				env.SetImproved();
+				improvedEnvironments++;
+			} else {
+				Debug.Log("Found nothing special");
+			}
+		} else {
+			Debug.Log("You explored the whole island");
+		}
+	}
 
 	public ResourcePool GetResourcePool(ResourceActionTarget target) {
 		switch(target) {
@@ -31,9 +54,13 @@ public class EnvironmentManager : MonoBehaviour {
 	}
 
 	public ResourcePool GetResourcePool(EnvironmentType type) {
+		return GetEnvironment(type).GetResourcePool();
+	}
+
+	public Environment GetEnvironment(EnvironmentType type) {
 		foreach(Environment environment in environments) {
 			if(environment.type == type){
-				return environment.GetResourcePool();
+				return environment;
 			}
 		}
 		Debug.LogError("Could not find environment for type "+type);
@@ -58,5 +85,19 @@ public class EnvironmentManager : MonoBehaviour {
 
 		//Sets this to not be destroyed when reloading scene
 		DontDestroyOnLoad(gameObject);
+	}
+
+	void Start() {
+		Init();
+	}
+
+	private void Init() {//get cards that are in game from GameConfig and shuffle them
+		environments.Clear();
+		environments = gameObject.GetComponentsInChildren<Environment>().ToList();
+		improveRate = GameConfig.Instance.improveRate;
+		this.improvableEnvironments = GameConfig.Instance.improvableEnvironments;
+		if(improvableEnvironments > this.environments.Count) {
+			improvableEnvironments = environments.Count-1;//-1 because we cant improve Island
+		}
 	}
 }

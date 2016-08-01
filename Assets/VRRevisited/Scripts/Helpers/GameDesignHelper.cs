@@ -11,4 +11,8 @@ public class GameDesignHelper : MonoBehaviour {
 	public void PrintCardStack(){
 		CardManager.Instance.PrintCardStack();
 	}
+
+	public void Explore() {
+		EnvironmentManager.Instance.ExploreEnvironments();
+	}
 }
