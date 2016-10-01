@@ -45,9 +45,10 @@ public class TileManager : MonoBehaviour {
 	}
 
 	public Tile AddNewTile(int x, int y) {
-		GameObject tileGameObject = (GameObject) Instantiate(tilePrefab, Tile.GetWorldPosition(x,y), Quaternion.identity);
+		GameObject tileGameObject = (GameObject) Instantiate(tilePrefab, Vector3.zero, Quaternion.identity);
 		Tile newTile = tileGameObject.GetComponent<Tile>();
 		newTile.gameObject.transform.SetParent(this.transform);
+		newTile.transform.localPosition = Tile.GetWorldPosition(x,y);
 		newTile.InitTile(x,y);
 		tiles.Add(newTile.GetPositionVector(), newTile);
 		newTile.gameObject.name = "Tile ("+newTile.GetX()+", "+newTile.GetY()+")";
