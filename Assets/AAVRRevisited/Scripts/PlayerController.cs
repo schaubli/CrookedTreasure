@@ -25,9 +25,6 @@ public class PlayerController : MonoBehaviour {
 		playerFigure.transform.localPosition = tile.transform.localPosition; // Move Player to new Position
 		//Rotate toward new tile
 		Quaternion rotation =  Quaternion.FromToRotation(Vector3.forward, tile.transform.localPosition-oldPlayerTile.transform.localPosition);
-		Vector3 eulers = rotation.eulerAngles;
-		eulers.z = 0; //Avoid flipping
-		rotation = Quaternion.Euler(eulers);
 		playerFigure.transform.rotation = rotation;
 		playerFigure.GetComponent<Animator>().Play("MoveForward");
 	}
