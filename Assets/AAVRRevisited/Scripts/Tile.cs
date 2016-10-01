@@ -9,6 +9,7 @@ public class Tile : MonoBehaviour {
 	private bool isPlayerOnTile = false;
 	private bool isShown = false;
 	private MeshRenderer tileRenderer;
+	private Environment environment;
 
 	public void InitTile(int x, int y) {
 		InitTile(new TileVec(x,y));
@@ -18,6 +19,7 @@ public class Tile : MonoBehaviour {
 		this.positionVector = vec;
 		this.gameObject.transform.rotation = Quaternion.Euler(0,90,0);
 		this.tileRenderer = gameObject.GetComponent<MeshRenderer>();
+		this.environment = gameObject.GetComponent<Environment>();
 	}
 
 	public int GetX() {
@@ -26,6 +28,12 @@ public class Tile : MonoBehaviour {
 
 	public int GetY() {
 		return positionVector.Y;
+	}
+
+	public Environment Environment {
+		get {
+			return this.environment;
+		} 
 	}
 
 	public void SetPlayerOnTile() {

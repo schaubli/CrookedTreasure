@@ -2,21 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public enum EnvironmentType{
-	Island,
-	Mountain,
+public enum EnvironmentOldType
+{
 	Ocean,
-	Coast,
+	Island,
+	Monster,
+	Coast, 
 	Forest,
+	Mountain,
 	Valley
 }
 
 [System.Serializable]
-public class Environment : MonoBehaviour{
+public class EnvironmentOld : MonoBehaviour{
 	[SerializeField]
 	new public string name =  "Environment";
 	[SerializeField]
-	public EnvironmentType type;
+	public EnvironmentOldType type;
 	[SerializeField]
 	[HideInInspector]
 	private ResourcePool pool;
@@ -122,13 +124,13 @@ public class Environment : MonoBehaviour{
 	}
 
 	public bool IsImprovable() {
-		if(type == EnvironmentType.Island) {
+		if(type == EnvironmentOldType.Island) {
 			return false;
 		}
 		return !isImproved;
 	}
 
-	public Environment(EnvironmentType type) {
+	public EnvironmentOld(EnvironmentOldType type) {
 		this.type = type;
 		this.name = type.ToString();
 	}
@@ -148,7 +150,7 @@ public class Environment : MonoBehaviour{
 		Debug.Log(explorationDescription);
 	}
 
-	private EnvironmentType lasttype;
+	private EnvironmentOldType lasttype;
 	void OnValidate() {
 		if(type != lasttype){
 			this.name = type.ToString();
