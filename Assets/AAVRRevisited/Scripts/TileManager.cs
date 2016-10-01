@@ -42,16 +42,16 @@ public class TileManager : MonoBehaviour {
 	}
 
 	public Tile AddNewTile(int x, int y) {
-		GameObject tileGameObject = (GameObject) Instantiate(tilePrefab, Vector3.zero, Quaternion.identity);
+		GameObject tileGameObject = (GameObject) Instantiate(tilePrefab, Vector3.zero,Quaternion.identity);
 		Tile newTile = tileGameObject.GetComponent<Tile>();
 		newTile.gameObject.transform.SetParent(this.transform);
 		newTile.transform.localPosition = Tile.GetWorldPosition(x,y);
-		newTile.InitTile(x,y);
+        newTile.InitTile(x,y);
 		tiles.Add(newTile.GetPositionVector(), newTile);
 		tilelist.Add(newTile);
 		newTile.gameObject.name = "Tile ("+newTile.GetX()+", "+newTile.GetY()+")";
-		
-		return newTile;
+
+        return newTile;
 	}
 
 	public Tile GetTile(TileVec vec) {
@@ -79,6 +79,9 @@ public class TileManager : MonoBehaviour {
         {
             Destroy(tile.gameObject);
         }
+        Destroy(PlayerController.Instance.playerFigure.gameObject);
+        tiles = new Dictionary<TileVec, Tile>();
+        tilelist = new List<Tile>();
         this.Start();
     }
 }

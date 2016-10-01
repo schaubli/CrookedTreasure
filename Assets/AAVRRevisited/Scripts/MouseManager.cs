@@ -10,6 +10,7 @@ public class MouseManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        /*
 		if(Input.GetMouseButtonDown(0)) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hitInfo;
@@ -24,6 +25,7 @@ public class MouseManager : MonoBehaviour {
 				//Debug.Log("Hit nuthin");
 			}
 		}
+        */
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
             TileManager.Instance.ResetTiles();
