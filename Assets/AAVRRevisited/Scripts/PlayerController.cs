@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	public GameObject playerPrefab;
-	private GameObject playerFigure;
+	public GameObject playerFigure;
 	private Tile playerTile;
 	private Tile oldPlayerTile; //Tile the player was last
 

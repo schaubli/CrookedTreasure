@@ -17,7 +17,7 @@ public class Tile : MonoBehaviour {
 
 	public void InitTile(TileVec vec) {
 		this.positionVector = vec;
-		this.gameObject.transform.rotation = Quaternion.Euler(0,90,0);
+		this.gameObject.transform.localRotation = Quaternion.Euler(0,90,0);
 		this.tileRenderer = gameObject.GetComponent<MeshRenderer>();
 		this.environment = gameObject.GetComponent<Environment>();
 	}
