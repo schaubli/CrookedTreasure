@@ -31,6 +31,7 @@ public class ResourceAction : IPerformable {
 	public int amount;
 
 	public void Perform() {
+        /*
 		switch (target){
 			case ResourceActionTarget.Player:
 				ResourcePool pool = Player.Instance.GetResourcePool();
@@ -53,6 +54,6 @@ public class ResourceAction : IPerformable {
 				break;
 			default:
 			break;
-		}
+		}*/
 	}
 }

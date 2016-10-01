@@ -34,8 +34,8 @@ public class EnvironmentOldManager : MonoBehaviour {
 
 	public ResourcePool GetResourcePool(ResourceActionTarget target) {
 		switch(target) {
-			case ResourceActionTarget.Player:
-				return Player.Instance.GetResourcePool();
+		//	case ResourceActionTarget.Player:
+		//		return Player.Instance.GetResourcePool();
 			case ResourceActionTarget.Island:
 				return this.GetResourcePool(EnvironmentOldType.Island);
 			case ResourceActionTarget.Mountain:
