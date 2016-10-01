@@ -75,4 +75,12 @@ public class TileManager : MonoBehaviour {
     		return instance;
     	}
 	}
+
+    public void ResetTiles() {
+        foreach (Tile tile in tiles.Values)
+        {
+            Destroy(tile.gameObject);
+        }
+        this.Start();
+    }
 }

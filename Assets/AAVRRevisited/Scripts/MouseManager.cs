@@ -24,5 +24,10 @@ public class MouseManager : MonoBehaviour {
 				//Debug.Log("Hit nuthin");
 			}
 		}
-	}
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            TileManager.Instance.ResetTiles();
+        }
+
+    }
 }
