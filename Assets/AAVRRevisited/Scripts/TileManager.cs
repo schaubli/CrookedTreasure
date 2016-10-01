@@ -10,6 +10,7 @@ public class TileManager : MonoBehaviour {
 	int width = 10;
 	int height = 10;
 	public Dictionary<TileVec, Tile> tiles = new Dictionary<TileVec, Tile>();
+	public List<Tile> tilelist= new List<Tile>();
 	private static TileManager instance;
 
 	// Use this for initialization
@@ -26,6 +27,7 @@ public class TileManager : MonoBehaviour {
 		SortHierarchy();
 		Tile rootTile = GetTile(new TileVec(0,0));
 		PlayerController playerControll = (PlayerController) (FindObjectOfType(typeof(PlayerController)));
+		EnvironmentManager.Instance.AssignEnvironments(this.tilelist);
 		playerControll.Initiate(rootTile);
 		rootTile.SetPlayerOnTile();
 		rootTile.ShowTile();
@@ -33,13 +35,8 @@ public class TileManager : MonoBehaviour {
 	}
 
 	private void SortHierarchy() {
-		List<Tile> list = new List<Tile>();
-     	//Fill with objects of CustomClass...
-		foreach(Tile tile in tiles.Values) {
-			list.Add(tile);
-		}
-		list.Sort((x,y) => (int) ((x.DistanceFromRoot()*10000+x.AngleFromRoot()).CompareTo(y.DistanceFromRoot()*10000+y.AngleFromRoot())));
-		foreach(Tile tile in list) {
+		tilelist.Sort((x,y) => (int) ((x.DistanceFromRoot()*10000+x.AngleFromRoot()).CompareTo(y.DistanceFromRoot()*10000+y.AngleFromRoot())));
+		foreach(Tile tile in tilelist) {
 			tile.transform.SetAsLastSibling();
 		}
 	}
@@ -51,6 +48,7 @@ public class TileManager : MonoBehaviour {
 		newTile.transform.localPosition = Tile.GetWorldPosition(x,y);
 		newTile.InitTile(x,y);
 		tiles.Add(newTile.GetPositionVector(), newTile);
+		tilelist.Add(newTile);
 		newTile.gameObject.name = "Tile ("+newTile.GetX()+", "+newTile.GetY()+")";
 		
 		return newTile;

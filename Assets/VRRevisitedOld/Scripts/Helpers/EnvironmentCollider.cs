@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class EnvironmentCollider : MonoBehaviour, IPointerClickHandler {
 
-	public EnvironmentType type;
+	public EnvironmentOldType type;
 
 	// Use this for initialization
 	void Start () {
@@ -14,9 +14,9 @@ public class EnvironmentCollider : MonoBehaviour, IPointerClickHandler {
 
 	public void OnPointerClick(PointerEventData eventData) {
 		Debug.Log("Selected Environment "+type.ToString());
-		EnvironmentManager.Instance.GetEnvironment(type).GetDrop(ResourceType.Food);
-		EnvironmentManager.Instance.GetEnvironment(type).GetDrop(ResourceType.Wood);
-		EnvironmentManager.Instance.GetEnvironment(type).GetDrop(ResourceType.Stone);
-		EnvironmentManager.Instance.GetEnvironment(type).GetDrop(ResourceType.Rope);
+		EnvironmentOldManager.Instance.GetEnvironmentOld(type).GetDrop(ResourceType.Food);
+		EnvironmentOldManager.Instance.GetEnvironmentOld(type).GetDrop(ResourceType.Wood);
+		EnvironmentOldManager.Instance.GetEnvironmentOld(type).GetDrop(ResourceType.Stone);
+		EnvironmentOldManager.Instance.GetEnvironmentOld(type).GetDrop(ResourceType.Rope);
 	}
 }

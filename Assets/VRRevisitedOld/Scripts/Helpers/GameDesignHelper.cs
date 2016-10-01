@@ -13,6 +13,6 @@ public class GameDesignHelper : MonoBehaviour {
 	}
 
 	public void Explore() {
-		EnvironmentManager.Instance.ExploreEnvironments();
+		//EnvironmentManager.Instance.ExploreEnvironments();
 	}
 }
