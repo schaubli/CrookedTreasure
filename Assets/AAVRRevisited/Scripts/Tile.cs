@@ -153,12 +153,14 @@ public class Tile : MonoBehaviour {
 	}
 
 	public void ShowTile() {
-		tileRenderer.enabled = true;
+		//tileRenderer.enabled = true;
+		gameObject.SetActive(true);
 		this.isShown = true;
 	}
 	
 	public void HideTile() {
-		tileRenderer.enabled = false;
+		//tileRenderer.enabled = false;
+		gameObject.SetActive(false);
 		this.isShown = false;
 	}
 
