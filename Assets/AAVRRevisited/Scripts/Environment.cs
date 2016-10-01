@@ -16,12 +16,19 @@ public class Environment : MonoBehaviour{
 	private GameObject model;
 
 	public void ApplySettings(EnvironmentSetting setting) {
+		DeleteSettings();
 		if(setting.modelPrefab != null) {
 			this.model = (GameObject) Instantiate(setting.modelPrefab, transform.position, GetRandomQuat());
 			model.transform.SetParent(this.transform);
 		}
 		this.type = setting.type;
 		this.name = setting.name;
+	}
+
+	public void DeleteSettings() {
+		if(this.model!=null) {
+			Destroy(this.model);
+		}
 	}
 
 	public static Quaternion GetRandomQuat() {

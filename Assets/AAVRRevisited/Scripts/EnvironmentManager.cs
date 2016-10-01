@@ -14,10 +14,20 @@ public class EnvironmentManager : MonoBehaviour {
 	
 	public void AssignEnvironments(List<Tile> tiles){
 		this.environments.Clear();
+		int tilecount = tiles.Count;
 		foreach(Tile t in tiles) {
 			this.environments.Add(t.Environment);
-			t.Environment.ApplySettings(settings[0]);
+			EnvironmentSetting newSettings = settings[0];
+			for(int i = 1; i<settings.Count;i++) {
+				float randomValue = Random.value;
+				float probability = (float) settings[i].spawnAmount/tilecount;
+				if(randomValue<probability) {
+					newSettings = settings[i];
+				}
+			}
+			t.Environment.ApplySettings(newSettings);
 		}
+
 	}
 
 	void OnValidate() {
