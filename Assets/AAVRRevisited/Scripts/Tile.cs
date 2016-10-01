@@ -31,19 +31,19 @@ public class Tile : MonoBehaviour {
 	public void SetPlayerOnTile() {
 		this.isPlayerOnTile = true;
 		tileRenderer.material = TileManager.Instance.playerTileMaterial;
-		Vector3 newPos = transform.position;
-		//newPos.y += 0.001f;
-		transform.position = newPos;
-		TileManager.Instance.SetPlayerTile(this);
+		/*Vector3 newPos = transform.position;
+		newPos.y += 0.001f;
+		transform.position = newPos;*/
+		PlayerController.Instance.MovePlayerToTile(this);
 		ShowNeighbours();
 	}
 
 	public void RemovePlayerFromTile() {
 		this.isPlayerOnTile = false;
 		tileRenderer.material = TileManager.Instance.defaultTileMaterial;
-		Vector3 newPos = transform.position;
+		/*Vector3 newPos = transform.position;
 		//newPos.y -= 0.001f;
-		transform.position = newPos;
+		transform.position = newPos;*/
 	}
 
 	public TileVec GetPositionVector() {

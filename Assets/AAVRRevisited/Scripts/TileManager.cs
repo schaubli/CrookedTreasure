@@ -7,9 +7,6 @@ public class TileManager : MonoBehaviour {
 	public GameObject tilePrefab;
 	public Material playerTileMaterial;
 	public Material defaultTileMaterial;
-	public GameObject playerPrefab;
-	private GameObject playerFigure;
-	private Tile playerTile;
 	int width = 10;
 	int height = 10;
 	public Dictionary<TileVec, Tile> tiles = new Dictionary<TileVec, Tile>();
@@ -28,8 +25,9 @@ public class TileManager : MonoBehaviour {
 		}
 		SortHierarchy();
 		Tile rootTile = GetTile(new TileVec(0,0));
+		PlayerController playerControll = (PlayerController) (FindObjectOfType(typeof(PlayerController)));
+		playerControll.Initiate(rootTile);
 		rootTile.SetPlayerOnTile();
-		this.playerTile = rootTile;
 		rootTile.ShowTile();
 		rootTile.ShowNeighbours();
 	}
@@ -75,24 +73,5 @@ public class TileManager : MonoBehaviour {
 			}
     		return instance;
     	}
-	}
-
-	public void SetPlayerTile(Tile tile) {
-		Tile oldPlayerTile = this.playerTile;
-		if(oldPlayerTile == null){
-			oldPlayerTile = tile;
-		}
-		this.playerTile = tile;
-		if(playerFigure == null) {
-			playerFigure = (GameObject) Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-		}
-		playerFigure.transform.localPosition = tile.transform.localPosition; // Move Player to new Position
-		//Rotate toward new tile
-		Quaternion rotation =  Quaternion.FromToRotation(Vector3.forward, tile.transform.localPosition-oldPlayerTile.transform.localPosition);
-		Vector3 eulers = rotation.eulerAngles;
-		eulers.z = 0; //Avoid flipping
-		rotation = Quaternion.Euler(eulers);
-		playerFigure.transform.rotation = rotation;
-		playerFigure.GetComponent<Animator>().Play("MoveForward");
 	}
 }

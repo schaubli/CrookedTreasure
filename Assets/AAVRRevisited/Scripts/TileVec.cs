@@ -8,20 +8,20 @@ public struct TileVec: IComparable<TileVec> {
 
 	private int x;
 	private int y;
-	private Vector2 vector;
+	//private Vector2 vector;
 	public int X { get{return this.x;}}
 	public int Y { get{return this.y;}}
 
 	public TileVec(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.vector = new Vector2(x,y);
+		//this.vector = new Vector2(x,y);
 	}
 
 	public TileVec(Vector2 vec) {
 		this.x = (int) vec.x;
 		this.y = (int) vec.y;
-		this.vector = new Vector2(x,y);
+		//this.vector = new Vector2(x,y);
 	}
 
 	public override string ToString() {
