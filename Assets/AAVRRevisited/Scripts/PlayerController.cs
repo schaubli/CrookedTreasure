@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour {
 	public void MovePlayerToTile(Tile tile) {
 		oldPlayerTile = this.playerTile;
 		playerTile = tile;
+		if(playerFigure.transform==null) {
+			Debug.LogError("Make Sure there is not another Player active in the scene");
+		}
 		playerFigure.transform.localPosition = tile.transform.localPosition; // Move Player to new Position
 		//Rotate toward new tile
 		Quaternion rotation =  Quaternion.FromToRotation(Vector3.forward, tile.transform.localPosition-oldPlayerTile.transform.localPosition);
