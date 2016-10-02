@@ -25,7 +25,7 @@ public class Environment : MonoBehaviour{
 		if(setting.modelPrefab != null) {
 			this.model = (GameObject) Instantiate(setting.modelPrefab, transform.position, GetRandomQuat());
 			model.transform.SetParent(this.transform);
-		Debug.Log(this.model.activeSelf);
+			model.SetActive(true);
 		}
 		this.type = setting.type;
 		this.name = setting.name;
