@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour {
     public GameObject playerFigure;
 	private Tile playerTile;
 	private Tile oldPlayerTile; //Tile the player was last
+	public int playerStartHealth;
+	public int playerMaxHealth;
 
 
 	// Use this for initialization
@@ -31,7 +33,7 @@ public class PlayerController : MonoBehaviour {
 		Quaternion rotation =  Quaternion.FromToRotation(Vector3.forward, tile.transform.localPosition-oldPlayerTile.transform.localPosition);
 		playerFigure.transform.localRotation = rotation;
 		playerFigure.GetComponent<Animator>().Play("MoveForward");
-        Player.Instance.removeBananas(10);
+        Player.Instance.removeHealth(10);
 	}
 	
 	private static PlayerController instance;

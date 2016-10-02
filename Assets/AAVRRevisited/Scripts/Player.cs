@@ -1,32 +1,75 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
+
+public interface IPlayerEventTarget : IEventSystemHandler
+{
+    // functions that can be called via the messaging system
+    void UpdatePlayer();
+}
 
 public class Player : MonoBehaviour {
 
     public static Player Instance;
 
-    private int bananas;
+    private int health;
+    private int maxHealth;
 
     // Use this for initialization
     void Start()
     {
-        this.setBananas(50);
+        this.setHealthMax(PlayerController.Instance.playerMaxHealth);
+        this.setHealth(PlayerController.Instance.playerStartHealth);
     }
 
-    public int getBananas() {
-        return this.bananas;
+    public int getHealth() {
+        return this.health;
     }
 
-    public void addBananas(int amount) {
-        this.bananas += amount;
+    public int getMaxHealth() {
+        return this.maxHealth;
     }
 
-    public void removeBananas(int amount) {
-        this.bananas -= amount;
+    public void addHealth(int amount) {
+        this.health += amount;
+        if(this.health >this.maxHealth) {
+            this.setHealth(this.maxHealth);
+        }
+        ExecuteEvents.Execute<IPlayerEventTarget>(gameObject, null, (x,y)=>x.UpdatePlayer());
     }
 
-    public void setBananas(int amount) {
-        this.bananas = amount;    
+    public void removeHealth(int amount) {
+        this.health -= amount;
+        ExecuteEvents.Execute<IPlayerEventTarget>(gameObject, null, (x,y)=>x.UpdatePlayer());
+    }
+
+    public void setHealth(int amount) {
+        this.health = amount;
+        if(this.health >this.maxHealth) {
+            this.setHealth(this.maxHealth);
+        }
+        ExecuteEvents.Execute<IPlayerEventTarget>(gameObject, null, (x,y)=>x.UpdatePlayer());
+    }
+
+    public void addHealthMax(int amount) {
+        this.maxHealth += amount;
+        ExecuteEvents.Execute<IPlayerEventTarget>(gameObject, null, (x,y)=>x.UpdatePlayer());
+    }
+
+    public void removeHealthMax(int amount) {
+        this.maxHealth -= amount;
+        if(this.health >this.maxHealth) {
+            this.setHealth(this.maxHealth);
+        }
+        ExecuteEvents.Execute<IPlayerEventTarget>(gameObject, null, (x,y)=>x.UpdatePlayer());
+    }
+
+    public void setHealthMax(int amount) {
+        this.maxHealth = amount;
+        if(this.health >this.maxHealth) {
+            this.setHealth(this.maxHealth);
+        }
+        ExecuteEvents.Execute<IPlayerEventTarget>(gameObject, null, (x,y)=>x.UpdatePlayer());
     }
 
     void Awake()
