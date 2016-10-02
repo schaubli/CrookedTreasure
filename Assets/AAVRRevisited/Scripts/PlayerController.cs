@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
 
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour {
 	public void MovePlayerToTile(Tile tile) {
 		oldPlayerTile = this.playerTile;
 		playerTile = tile;
-		if(playerFigure.transform==null) {
+		if(playerFigure==null) {
 			Debug.LogError("Make Sure there is not another Player active in the scene");
 		}
 		playerFigure.transform.localPosition = tile.transform.localPosition; // Move Player to new Position
@@ -33,7 +34,26 @@ public class PlayerController : MonoBehaviour {
 		Quaternion rotation =  Quaternion.FromToRotation(Vector3.forward, tile.transform.localPosition-oldPlayerTile.transform.localPosition);
 		playerFigure.transform.localRotation = rotation;
 		playerFigure.GetComponent<Animator>().Play("MoveForward");
+		List<Tile> neighbours = tile.GetNeighbourTiles();
+		int islandcount = 0;
+		int monstercount = 0;
+		foreach(Tile t in neighbours) {
+			if(t.Environment.type == EnvironmentType.Island){
+				islandcount++;
+			} else if(t.Environment.type == EnvironmentType.Monster){
+				monstercount++;
+			}
+		}
+		if(islandcount>0 || monstercount>0) {
+			StartVRMode(islandcount, monstercount);
+		}
         Player.Instance.removeHealth(10);
+	}
+
+	private void StartVRMode(int islandCount, int monsterCount) {
+		//Start VR Mode and show the correct amount of islands and monsters
+
+		
 	}
 	
 	private static PlayerController instance;

@@ -1,0 +1,199 @@
+fileFormatVersion: 2
+guid: 20b4969d1a0b24a5a927edf03df88b9a
+timeCreated: 1475408519
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: CINEMA_4D_Editor
+    100002: Joint
+    100004: Joint_1
+    100006: Joint_2
+    100008: Joint_3
+    100010: Joint_3_2
+    100012: Joint_3_3
+    100014: Joint_3_4
+    100016: Joint_3_5
+    100018: Joint_3_6
+    100020: Joint_3_7
+    100022: Joint_3_8
+    100024: Joint_3_9
+    100026: Joint_4
+    100028: Joint_4_2
+    100030: Joint_4_3
+    100032: Joint_4_4
+    100034: Joint_4_5
+    100036: Joint_4_6
+    100038: Joint_4_7
+    100040: Joint_4_8
+    100042: Joint_4_9
+    100044: Joint_5
+    100046: Joint_5_2
+    100048: Joint_5_3
+    100050: Joint_5_4
+    100052: Joint_5_5
+    100054: Joint_5_6
+    100056: Joint_5_7
+    100058: Joint_5_8
+    100060: Joint_5_9
+    100062: Joint_6
+    100064: Joint_6_2
+    100066: Joint_6_3
+    100068: Joint_6_4
+    100070: Joint_6_5
+    100072: Joint_6_6
+    100074: Joint_6_7
+    100076: Joint_6_8
+    100078: Joint_6_9
+    100080: Joint_7
+    100082: //RootNode
+    100084: Kugel
+    100086: Loft
+    100088: Loft_1
+    100090: Loft_2
+    100092: Loft_3
+    100094: Loft_4
+    100096: Loft_5
+    100098: Loft_6
+    100100: Loft_7
+    100102: Symmetrie
+    400000: CINEMA_4D_Editor
+    400002: Joint
+    400004: Joint_1
+    400006: Joint_2
+    400008: Joint_3
+    400010: Joint_3_2
+    400012: Joint_3_3
+    400014: Joint_3_4
+    400016: Joint_3_5
+    400018: Joint_3_6
+    400020: Joint_3_7
+    400022: Joint_3_8
+    400024: Joint_3_9
+    400026: Joint_4
+    400028: Joint_4_2
+    400030: Joint_4_3
+    400032: Joint_4_4
+    400034: Joint_4_5
+    400036: Joint_4_6
+    400038: Joint_4_7
+    400040: Joint_4_8
+    400042: Joint_4_9
+    400044: Joint_5
+    400046: Joint_5_2
+    400048: Joint_5_3
+    400050: Joint_5_4
+    400052: Joint_5_5
+    400054: Joint_5_6
+    400056: Joint_5_7
+    400058: Joint_5_8
+    400060: Joint_5_9
+    400062: Joint_6
+    400064: Joint_6_2
+    400066: Joint_6_3
+    400068: Joint_6_4
+    400070: Joint_6_5
+    400072: Joint_6_6
+    400074: Joint_6_7
+    400076: Joint_6_8
+    400078: Joint_6_9
+    400080: Joint_7
+    400082: //RootNode
+    400084: Kugel
+    400086: Loft
+    400088: Loft_1
+    400090: Loft_2
+    400092: Loft_3
+    400094: Loft_4
+    400096: Loft_5
+    400098: Loft_6
+    400100: Loft_7
+    400102: Symmetrie
+    2300000: Kugel
+    2300002: Symmetrie
+    3300000: Kugel
+    3300002: Symmetrie
+    4300000: Loft_7
+    4300002: Loft_6
+    4300004: Loft_5
+    4300006: Loft_4
+    4300008: Loft_3
+    4300010: Loft_2
+    4300012: Loft_1
+    4300014: Loft
+    4300016: Kugel
+    4300018: Symmetrie
+    7400000: CINEMA_4D_Basis
+    9500000: //RootNode
+    13700000: Loft
+    13700002: Loft_1
+    13700004: Loft_2
+    13700006: Loft_3
+    13700008: Loft_4
+    13700010: Loft_5
+    13700012: Loft_6
+    13700014: Loft_7
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

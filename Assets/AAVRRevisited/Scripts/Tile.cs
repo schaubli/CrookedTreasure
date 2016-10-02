@@ -8,6 +8,7 @@ public class Tile : MonoBehaviour {
 	private TileVec positionVector;
 	private bool isPlayerOnTile = false;
 	private bool isShown = false;
+	//private bool isRimPiece = false;
 	private MeshRenderer tileRenderer;
 	private Environment environment;
 
@@ -136,6 +137,16 @@ public class Tile : MonoBehaviour {
 		return false;
 	}
 
+	public List<Tile> GetNeighbourTiles() {
+		List<Tile> tiles = new List<Tile>();
+		foreach(TileVec tilevec in GetNeighbours()) {
+			Tile neighbour = TileManager.Instance.GetTile(tilevec);
+			if( neighbour != null) {
+				tiles.Add(neighbour);
+			}
+		}
+		return tiles;
+	}
 	public List<TileVec> GetNeighbours() {
 		List<TileVec> neighbours = new List<TileVec>();
 		int ownX = this.GetX();

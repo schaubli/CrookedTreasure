@@ -25,6 +25,16 @@ public class EnvironmentManager : MonoBehaviour {
 					newSettings = settings[i];
 				}
 			}
+
+			//Set the center/root tile to water
+			if(t.GetX() == 0 && t.GetY() == 0) {
+				newSettings = this.settings[0];
+			}
+
+			//Set the outer Tiles islands
+			if(t.GetX() ==-TileManager.Instance.Width || t.GetX() ==+TileManager.Instance.Width || t.GetY() ==-TileManager.Instance.Height || t.GetY() ==+TileManager.Instance.Height) {
+				newSettings = this.settings[1];
+			}
 			t.Environment.ApplySettings(newSettings);
 		}
 

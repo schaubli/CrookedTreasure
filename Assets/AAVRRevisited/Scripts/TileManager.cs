@@ -7,8 +7,8 @@ public class TileManager : MonoBehaviour {
 	public GameObject tilePrefab;
 	public Material playerTileMaterial;
 	public Material defaultTileMaterial;
-	int width = 10;
-	int height = 10;
+	private int width = 10;
+	private int height = 10;
 	public Dictionary<TileVec, Tile> tiles = new Dictionary<TileVec, Tile>();
 	public List<Tile> tilelist= new List<Tile>();
 	private static TileManager instance;
@@ -39,6 +39,9 @@ public class TileManager : MonoBehaviour {
 			return 4*(width*height);
 		}
 	}
+
+	public int Width{get{return this.width;}}
+	public int Height{get{return this.height;}}
 
 	private void SortHierarchy() {
 		tilelist.Sort((x,y) => (int) ((x.DistanceFromRoot()*10000+x.AngleFromRoot()).CompareTo(y.DistanceFromRoot()*10000+y.AngleFromRoot())));

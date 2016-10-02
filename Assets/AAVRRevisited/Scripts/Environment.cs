@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public enum EnvironmentType{
 	Ocean,
 	Island,
-	Monster
+	Monster,
+	Reef
 }
 
 [System.Serializable]
@@ -24,6 +25,7 @@ public class Environment : MonoBehaviour{
 		if(setting.modelPrefab != null) {
 			this.model = (GameObject) Instantiate(setting.modelPrefab, transform.position, GetRandomQuat());
 			model.transform.SetParent(this.transform);
+		Debug.Log(this.model.activeSelf);
 		}
 		this.type = setting.type;
 		this.name = setting.name;
