@@ -73,7 +73,7 @@ public class Tile : MonoBehaviour {
 		foreach(TileVec tilevec in neighbours) {
 			Tile neighbour = TileManager.Instance.GetTile(tilevec);
 			if( neighbour != null) {
-				if(neighbour.isPlayerOnTile == true) {
+				if(neighbour.isPlayerOnTile == true && this.environment.IsWalkable == true) {
 					neighbour.RemovePlayerFromTile();
 					this.SetPlayerOnTile();
 					break;

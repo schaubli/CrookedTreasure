@@ -33,6 +33,12 @@ public class TileManager : MonoBehaviour {
 		rootTile.ShowTile();
 		rootTile.ShowNeighbours();
 	}
+	
+	public int TileCount{
+		get{
+			return 4*(width*height);
+		}
+	}
 
 	private void SortHierarchy() {
 		tilelist.Sort((x,y) => (int) ((x.DistanceFromRoot()*10000+x.AngleFromRoot()).CompareTo(y.DistanceFromRoot()*10000+y.AngleFromRoot())));

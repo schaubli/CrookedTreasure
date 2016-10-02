@@ -16,6 +16,8 @@ public class EnvironmentSetting{
 	[Range(0, 400)] public int spawnAmount;
 	[SerializeField]
 	public GameObject modelPrefab;
+	[SerializeField]
+	public bool isWalkable;
 
 	[HideInInspector]
 	public EnvironmentType lasttype;

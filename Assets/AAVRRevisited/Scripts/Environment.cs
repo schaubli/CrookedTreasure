@@ -14,6 +14,9 @@ public class Environment : MonoBehaviour{
 	[SerializeField]
 	public EnvironmentType type;
 	private GameObject model;
+	private bool isWalkable;
+	public bool IsWalkable{get{return this.isWalkable;}}
+
 
 	public void ApplySettings(EnvironmentSetting setting) {
 		DeleteSettings();
@@ -23,6 +26,7 @@ public class Environment : MonoBehaviour{
 		}
 		this.type = setting.type;
 		this.name = setting.name;
+		this.isWalkable = setting.isWalkable;
 	}
 
 	public void DeleteSettings() {
