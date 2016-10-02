@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public enum EnvironmentType{
 	Ocean,
-	Island
+	Island,
+	Monster
 }
 
 [System.Serializable]

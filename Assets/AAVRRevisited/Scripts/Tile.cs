@@ -43,7 +43,7 @@ public class Tile : MonoBehaviour {
 		newPos.y += 0.001f;
 		transform.position = newPos;*/
 		PlayerController.Instance.MovePlayerToTile(this);
-		ShowNeighbours();
+		ShowFarNeighbours();
 	}
 
 	public void RemovePlayerFromTile() {
@@ -90,6 +90,19 @@ public class Tile : MonoBehaviour {
 				if(neighbour.isShown == false) {
 					neighbour.ShowTile();
 				}
+			}
+		}
+	}
+
+	public void ShowFarNeighbours() {
+		List<TileVec> neighbours = this.GetNeighbours();
+		foreach(TileVec tilevec in neighbours) {
+			Tile neighbour = TileManager.Instance.GetTile(tilevec);
+			if( neighbour != null) {
+				if(neighbour.isShown == false) {
+					neighbour.ShowTile();
+				}
+				neighbour.ShowNeighbours();
 			}
 		}
 	}
