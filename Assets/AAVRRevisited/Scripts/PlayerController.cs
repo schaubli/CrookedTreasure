@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour {
 	public int playerMaxHealth;
 	[HideInInspector]
 	public bool isPlayerMovable = true;
+	public AnimationCurve rotateAnimation;
+	public IEnumerator animationCoroutine;
 
 
 	// Use this for initialization
@@ -31,11 +33,13 @@ public class PlayerController : MonoBehaviour {
 		if(playerFigure==null) {
 			Debug.LogError("Make Sure there is not another Player active in the scene");
 		}
-		playerFigure.transform.localPosition = tile.transform.localPosition; // Move Player to new Position
+		
 		//Rotate toward new tile
 		Quaternion rotation =  Quaternion.FromToRotation(Vector3.forward, tile.transform.localPosition-oldPlayerTile.transform.localPosition);
-		PlayRotationAnimation(rotation.eulerAngles.y-playerFigure.transform.localRotation.eulerAngles.y);
-		playerFigure.transform.localRotation = rotation;
+		animationCoroutine = AnimateRotation(playerFigure.transform, Mathf.RoundToInt(rotation.eulerAngles.y-playerFigure.transform.localRotation.eulerAngles.y), tile.transform.localPosition);
+		StartCoroutine(animationCoroutine);
+		
+		//Check for Enemies and Islands
 		List<Tile> neighbours = tile.GetNeighbourTiles();
 		int islandcount = 0;
 		int monstercount = 0;
@@ -58,43 +62,21 @@ public class PlayerController : MonoBehaviour {
 		
 	}
 
-	public void PlayRotationAnimation(float angle) {
-		switch(Mathf.RoundToInt(angle)) {
-			case 60:
-			case -300:
-				playerFigure.GetComponent<Animator>().Play("RotateRight60");
-				playerFigure.GetComponent<Animator>().Play("MoveForward");
-				Invoke("EnablePlayerMovement",1.8f);
-			break;
-			case 120:
-			case-240:
-				playerFigure.GetComponent<Animator>().Play("RotateRight120");
-				playerFigure.GetComponent<Animator>().Play("MoveForward");
-				Invoke("EnablePlayerMovement",1.8f);
-			break;
-			case 180:
-			case -180:
-				playerFigure.GetComponent<Animator>().Play("RotateRight180");
-				playerFigure.GetComponent<Animator>().Play("MoveForward");
-				Invoke("EnablePlayerMovement",1.8f);
-			break;
-			case -120:
-			case 240:
-				playerFigure.GetComponent<Animator>().Play("RotateLeft120");
-				playerFigure.GetComponent<Animator>().Play("MoveForward");
-				Invoke("EnablePlayerMovement",1.8f);
-			break;
-			case -60:
-			case 300:
-				playerFigure.GetComponent<Animator>().Play("RotateLeft60");
-				playerFigure.GetComponent<Animator>().Play("MoveForward");
-				Invoke("EnablePlayerMovement",1.8f);
-			break;
-			default:
-				playerFigure.GetComponent<Animator>().Play("MoveForwardShort");
-				Invoke("EnablePlayerMovement",1.1f);
-			break;
+	private IEnumerator AnimateRotation(Transform startTransform, int degrees, Vector3 newPosition) {
+		float startdegrees = startTransform.localRotation.eulerAngles.y;
+		float duration = 1f;
+		float time = 0;
+		while( time<duration && degrees != 0) {
+			time += Time.deltaTime;
+			Vector3 newRot = startTransform.localRotation.eulerAngles;
+			newRot.y = startdegrees + degrees*this.rotateAnimation.Evaluate(time/duration);
+			playerFigure.transform.localRotation = Quaternion.Euler(newRot);
+			yield return new WaitForEndOfFrame();
 		}
+		// Move Player to new Position
+		playerFigure.transform.localPosition = newPosition;
+		playerFigure.GetComponent<Animator>().Play("MoveForward");
+		Invoke("EnablePlayerMovement",1.01f);
 	}
 
 	private void EnablePlayerMovement() {
