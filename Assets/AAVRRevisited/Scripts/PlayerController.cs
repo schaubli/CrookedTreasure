@@ -18,7 +18,9 @@ public class PlayerController : MonoBehaviour {
 	public IEnumerator animationCoroutine;
 
     private TriggerType triggerType = TriggerType.VR_TRIGGER;
+	#if ! UNITY_EDITOR_OSX
     private TransitionManager mTransitionManager;
+	#endif
     public enum TriggerType
     {
         VR_TRIGGER,
@@ -35,7 +37,9 @@ public class PlayerController : MonoBehaviour {
 		this.playerTile = rootTile;
         this.rootTile = rootTile;
 
-        mTransitionManager = FindObjectOfType<TransitionManager>();
+		#if ! UNITY_EDITOR_OSX
+			mTransitionManager = FindObjectOfType<TransitionManager>();
+		#endif
     }
 	
 	public void MovePlayerToTile(Tile tile) {
@@ -73,7 +77,9 @@ public class PlayerController : MonoBehaviour {
 	private void StartVRMode(int islandCount, int monsterCount) {
         //Start VR Mode and show the correct amount of islands and monsters
         bool goingBackToAR = (triggerType == TriggerType.AR_TRIGGER);
-        mTransitionManager.Play(goingBackToAR);
+		#if ! UNITY_EDITOR_OSX
+    		mTransitionManager.Play(goingBackToAR);
+		#endif
     }
 
 		
