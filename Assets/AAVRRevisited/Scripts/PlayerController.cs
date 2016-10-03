@@ -86,6 +86,11 @@ public class PlayerController : MonoBehaviour {
 	
 
 	private IEnumerator AnimateRotation(Transform startTransform, int degrees, Vector3 newPosition) {
+		if(degrees>180 ) {
+			degrees = -(360-degrees);
+		} else if(degrees <-180) {
+			degrees += 360;
+		}
 		float startdegrees = startTransform.localRotation.eulerAngles.y;
 		float duration = 1f;
 		float time = 0;
@@ -99,7 +104,7 @@ public class PlayerController : MonoBehaviour {
 		// Move Player to new Position
 		playerFigure.transform.localPosition = newPosition;
 		playerFigure.GetComponent<Animator>().Play("MoveForward");
-		Invoke("EnablePlayerMovement",1.01f);
+		Invoke("EnablePlayerMovement",1.1f);
 	}
 
 	private void EnablePlayerMovement() {

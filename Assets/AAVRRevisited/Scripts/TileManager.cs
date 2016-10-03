@@ -24,6 +24,7 @@ public class TileManager : MonoBehaviour {
 				AddNewTile(x,y);
 			}
 		}
+		Application.targetFrameRate = 60;
 		SortHierarchy();
 		Tile rootTile = GetTile(new TileVec(0,0));
 		PlayerController playerControll = (PlayerController) (FindObjectOfType(typeof(PlayerController)));
