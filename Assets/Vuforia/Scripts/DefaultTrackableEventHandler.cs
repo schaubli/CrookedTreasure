@@ -69,6 +69,8 @@ namespace Vuforia
         private void OnTrackingFound()
         {
             Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
+            Canvas[] canvasComponents = GetComponentsInChildren<Canvas>(true);
+            Light[] lightComponents = GetComponentsInChildren<Light>(true);
             Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
             // Enable rendering:
@@ -76,6 +78,17 @@ namespace Vuforia
             {
                 component.enabled = true;
             }
+
+            foreach (Canvas component in canvasComponents)
+            {
+                component.enabled = true;
+            }
+
+            foreach (Light component in lightComponents)
+            {
+                component.enabled = true;
+            }
+
 
             // Enable colliders:
             foreach (Collider component in colliderComponents)
@@ -90,6 +103,8 @@ namespace Vuforia
         private void OnTrackingLost()
         {
             Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
+            Canvas[] canvasComponents = GetComponentsInChildren<Canvas>(true);
+            Light[] lightComponents = GetComponentsInChildren<Light>(true);
             Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
             // Disable rendering:
@@ -97,6 +112,17 @@ namespace Vuforia
             {
                 component.enabled = false;
             }
+
+            foreach (Canvas component in canvasComponents)
+            {
+                component.enabled = false;
+            }
+
+            foreach (Light component in lightComponents)
+            {
+                component.enabled = false;
+            }
+
 
             // Disable colliders:
             foreach (Collider component in colliderComponents)

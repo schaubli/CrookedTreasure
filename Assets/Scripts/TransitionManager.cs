@@ -185,11 +185,45 @@ public class TransitionManager : MonoBehaviour
         {
             go.SetActive(!InAR);
         }
-
+        /*
         foreach (var go in AROnlyObjects)
         {
-            go.SetActive(InAR);
-        }
+            
+            Renderer[] rendererComponents = go.GetComponentsInChildren<Renderer>(true);
+            Canvas[] canvasComponents = go.GetComponentsInChildren<Canvas>(true);
+            Light[] lightComponents = go.GetComponentsInChildren<Light>(true);
+
+            // go.SetActive(InAR);
+            if (InAR)
+            {
+                foreach (Renderer component in rendererComponents)
+                {
+                 //   component.enabled = true;
+                }
+                foreach (Canvas component in canvasComponents)
+                {
+                    component.enabled = true;
+                }
+                foreach (Light component in lightComponents)
+                {
+                    component.enabled = true;
+                }
+            }
+            else {
+                foreach (Renderer component in rendererComponents)
+                {
+                    //component.enabled = false;
+                }
+                foreach (Canvas component in canvasComponents)
+                {
+                    component.enabled = false;
+                }
+                foreach (Light component in lightComponents)
+                {
+                    component.enabled = false;
+                }
+            }
+        }*/
     }
 
     private void SetBlackMaskVisible(bool visible, float fadeFactor)

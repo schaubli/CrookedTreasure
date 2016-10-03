@@ -28,7 +28,8 @@ public class MouseManager : MonoBehaviour {
         */
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            TileManager.Instance.ResetTiles();
+            // TileManager.Instance.ResetTiles();
+            Application.LoadLevel(0);
         }
 
     }
