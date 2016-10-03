@@ -12,6 +12,10 @@ public class PlayerController : MonoBehaviour {
     private Tile rootTile;
     public int playerStartHealth;
 	public int playerMaxHealth;
+	[HideInInspector]
+	public bool isPlayerMovable = true;
+	public AnimationCurve rotateAnimation;
+	public IEnumerator animationCoroutine;
 
     private TriggerType triggerType = TriggerType.VR_TRIGGER;
     private TransitionManager mTransitionManager;
@@ -40,11 +44,13 @@ public class PlayerController : MonoBehaviour {
 		if(playerFigure==null) {
 			Debug.LogError("Make Sure there is not another Player active in the scene");
 		}
-		playerFigure.transform.localPosition = tile.transform.localPosition; // Move Player to new Position
+		
 		//Rotate toward new tile
 		Quaternion rotation =  Quaternion.FromToRotation(Vector3.forward, tile.transform.localPosition-oldPlayerTile.transform.localPosition);
-		playerFigure.transform.localRotation = rotation;
-		playerFigure.GetComponent<Animator>().Play("MoveForward");
+		animationCoroutine = AnimateRotation(playerFigure.transform, Mathf.RoundToInt(rotation.eulerAngles.y-playerFigure.transform.localRotation.eulerAngles.y), tile.transform.localPosition);
+		StartCoroutine(animationCoroutine);
+		
+		//Check for Enemies and Islands
 		List<Tile> neighbours = tile.GetNeighbourTiles();
 		int islandcount = 0;
 		int monstercount = 0;
@@ -68,8 +74,31 @@ public class PlayerController : MonoBehaviour {
         //Start VR Mode and show the correct amount of islands and monsters
         bool goingBackToAR = (triggerType == TriggerType.AR_TRIGGER);
         mTransitionManager.Play(goingBackToAR);
-
     }
+
+		
+	
+
+	private IEnumerator AnimateRotation(Transform startTransform, int degrees, Vector3 newPosition) {
+		float startdegrees = startTransform.localRotation.eulerAngles.y;
+		float duration = 1f;
+		float time = 0;
+		while( time<duration && degrees != 0) {
+			time += Time.deltaTime;
+			Vector3 newRot = startTransform.localRotation.eulerAngles;
+			newRot.y = startdegrees + degrees*this.rotateAnimation.Evaluate(time/duration);
+			playerFigure.transform.localRotation = Quaternion.Euler(newRot);
+			yield return new WaitForEndOfFrame();
+		}
+		// Move Player to new Position
+		playerFigure.transform.localPosition = newPosition;
+		playerFigure.GetComponent<Animator>().Play("MoveForward");
+		Invoke("EnablePlayerMovement",1.01f);
+	}
+
+	private void EnablePlayerMovement() {
+		this.isPlayerMovable = true;
+	}
 	
 	private static PlayerController instance;
 	public static PlayerController Instance { 
