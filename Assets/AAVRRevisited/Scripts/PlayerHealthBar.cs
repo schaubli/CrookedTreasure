@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerHealthBar : MonoBehaviour, IPlayerEventTarget {
 
 	public RectTransform maskRectTransform;
+	public Text healthBarText;
 	private Player player;
 	private float defaultWidth;
 	// Use this for initialization
@@ -19,6 +21,9 @@ public class PlayerHealthBar : MonoBehaviour, IPlayerEventTarget {
 			RectTransform newMaskRect = maskRectTransform;
 			float newWidth = this.defaultWidth * ((float) player.getHealth()/(float) player.getMaxHealth());
 			this.maskRectTransform.sizeDelta = new Vector2( newWidth, newMaskRect.sizeDelta.y);
+		}
+		if(healthBarText!= null) {
+			healthBarText.text = player.getHealth()+"/"+player.getMaxHealth();
 		}
 	}
 }
