@@ -14,6 +14,7 @@ namespace VRStandardAssets.Utils
         [SerializeField] private Image m_Image;                     // Reference to the image component that represents the reticle.
         [SerializeField] private Transform m_ReticleTransform;      // We need to affect the reticle's transform.
         [SerializeField] private Transform m_Camera;                // The reticle is always placed relative to the camera.
+        [SerializeField] public float hitoffset = 0.5f;
 
 
         private Vector3 m_OriginalScale;                            // Since the scale of the reticle changes, the original scale needs to be stored.
@@ -67,7 +68,7 @@ namespace VRStandardAssets.Utils
         // This overload of SetPosition is used when the VREyeRaycaster has hit something.
         public void SetPosition (RaycastHit hit)
         {
-            m_ReticleTransform.position = hit.point;
+            m_ReticleTransform.position = hit.point - m_Camera.forward * hitoffset;
             m_ReticleTransform.localScale = m_OriginalScale * hit.distance;
             
             // If the reticle should use the normal of what has been hit...
