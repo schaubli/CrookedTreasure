@@ -78,7 +78,9 @@ public class PlayerController : MonoBehaviour {
         //Start VR Mode and show the correct amount of islands and monsters
         bool goingBackToAR = (triggerType == TriggerType.AR_TRIGGER);
 		#if ! UNITY_EDITOR_OSX
-    		mTransitionManager.Play(goingBackToAR);
+			if(mTransitionManager != null) {
+    			mTransitionManager.Play(goingBackToAR);
+			}
 		#endif
     }
 

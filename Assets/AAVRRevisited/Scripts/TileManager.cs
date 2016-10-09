@@ -46,8 +46,10 @@ public class TileManager : MonoBehaviour {
 
 	private void SortHierarchy() {
 		tilelist.Sort((x,y) => (int) ((x.DistanceFromRoot()*10000+x.AngleFromRoot()).CompareTo(y.DistanceFromRoot()*10000+y.AngleFromRoot())));
+		int index = 0;
 		foreach(Tile tile in tilelist) {
 			tile.transform.SetAsLastSibling();
+			tile.gameObject.name = "Tile "+index++;
 		}
 	}
 

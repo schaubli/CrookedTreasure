@@ -138,6 +138,17 @@ public class Tile : MonoBehaviour {
 		return false;
 	}
 
+	public List<Tile> GetWalkableNeighbours() {
+		List<Tile> tiles = new List<Tile>();
+		foreach(TileVec tilevec in GetNeighbours()) {
+			Tile neighbour = TileManager.Instance.GetTile(tilevec);
+			if( neighbour != null && neighbour.Environment.IsWalkable == true) {
+				tiles.Add(neighbour);
+			}
+		}
+		return tiles;
+	}
+
 	public List<Tile> GetNeighbourTiles() {
 		List<Tile> tiles = new List<Tile>();
 		foreach(TileVec tilevec in GetNeighbours()) {
@@ -148,6 +159,7 @@ public class Tile : MonoBehaviour {
 		}
 		return tiles;
 	}
+	
 	public List<TileVec> GetNeighbours() {
 		List<TileVec> neighbours = new List<TileVec>();
 		int ownX = this.GetX();
