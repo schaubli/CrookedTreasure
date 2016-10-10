@@ -20,6 +20,9 @@ public class PlayerHealthBar : MonoBehaviour, IPlayerEventTarget {
 		if(player.getMaxHealth() >0) {
 			RectTransform newMaskRect = maskRectTransform;
 			float newWidth = this.defaultWidth * ((float) player.getHealth()/(float) player.getMaxHealth());
+			if(newWidth <0) {
+				newWidth =0;
+			}
 			this.maskRectTransform.sizeDelta = new Vector2( newWidth, newMaskRect.sizeDelta.y);
 		}
 		if(healthBarText!= null) {

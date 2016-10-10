@@ -6,7 +6,8 @@ public enum EnvironmentType{
 	Ocean,
 	Island,
 	Monster,
-	Reef
+	Reef,
+	Treasure
 }
 
 [System.Serializable]

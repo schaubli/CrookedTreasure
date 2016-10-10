@@ -12,6 +12,8 @@ public class TileManager : MonoBehaviour {
 	public Dictionary<TileVec, Tile> tiles = new Dictionary<TileVec, Tile>();
 	public List<Tile> tilelist= new List<Tile>();
 	private static TileManager instance;
+	private Tile rootTile;
+	public Tile RootTile{get {return this.rootTile;}}
 
 	// Use this for initialization
 	void Start () {
@@ -19,20 +21,20 @@ public class TileManager : MonoBehaviour {
 		if(tilePrefab == null) {
 			Debug.LogError("Tile prefab is not defined in TileManager");
 		}
-		for(int y = -height; y<height; y++) {
-			for(int x = -width; x<width; x++) {
+		for(int y = -height; y<=height; y++) {
+			for(int x = -width; x<=width; x++) {
 				AddNewTile(x,y);
 			}
 		}
 		Application.targetFrameRate = 60;
 		SortHierarchy();
-		Tile rootTile = GetTile(new TileVec(0,0));
+		this.rootTile = GetTile(new TileVec(0,0));
 		PlayerController playerControll = (PlayerController) (FindObjectOfType(typeof(PlayerController)));
 		EnvironmentManager.Instance.AssignEnvironments(this.tilelist);
 		playerControll.Initiate(rootTile);
-		rootTile.SetPlayerOnTile();
-		rootTile.ShowTile();
-		rootTile.ShowNeighbours();
+		this.rootTile.SetPlayerOnTile();
+		this.rootTile.ShowTile();
+		this.rootTile.ShowNeighbours();
 	}
 	
 	public int TileCount{
@@ -71,6 +73,16 @@ public class TileManager : MonoBehaviour {
 		if(tiles.TryGetValue(vec, out t)){
 			return t;
 		}
+		//Debug.LogWarning("Could not find Tile at position "+vec.ToString()+" "+t);
+		return null;
+	}
+
+	public Tile GetTileByEnvironmentType(EnvironmentType type) {
+		foreach(Tile tile in tilelist) {
+			if(tile.Environment.type == type) {
+				return tile;
+			}
+ 		}
 		//Debug.LogWarning("Could not find Tile at position "+vec.ToString()+" "+t);
 		return null;
 	}
