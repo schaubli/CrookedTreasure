@@ -7,8 +7,8 @@ public class TileManager : MonoBehaviour {
 	public GameObject tilePrefab;
 	public Material playerTileMaterial;
 	public Material defaultTileMaterial;
-	private int width = 10;
-	private int height = 10;
+	public int width = 10;
+	public int height = 10;
 	public Dictionary<TileVec, Tile> tiles = new Dictionary<TileVec, Tile>();
 	public List<Tile> tilelist= new List<Tile>();
 	private static TileManager instance;
@@ -17,7 +17,6 @@ public class TileManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		instance = this;
 		if(tilePrefab == null) {
 			Debug.LogError("Tile prefab is not defined in TileManager");
 		}
@@ -91,8 +90,11 @@ public class TileManager : MonoBehaviour {
 		get {
 			if(instance == null)
 			{
-				GameObject obj = new GameObject();
-				instance = (TileManager) obj.AddComponent( typeof(TileManager));
+				instance = (TileManager)FindObjectOfType(typeof(TileManager));
+				if(instance == null) {
+					GameObject obj = new GameObject();
+					instance = (TileManager) obj.AddComponent( typeof(TileManager));
+				}
 			}
     		return instance;
     	}

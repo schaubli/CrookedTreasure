@@ -8,7 +8,7 @@ public static class PathFinder
 {
     //distance f-ion should return distance between two adjacent nodes
     //estimate should return distance between any node and destination node
-    public static Path FindPath( Tile start, Tile destination) {
+    public static Path FindPath( Tile start, Tile destination, bool forcePath = false) {
         //set of already checked nodes
         List<Tile> closed = new List<Tile>();
         //queued nodes in open set
@@ -23,9 +23,15 @@ public static class PathFinder
                 continue;
             if (path.LastStep.Equals(destination))
                 return path;
- 
+            
+            List<Tile> neighbours = new List<Tile>();
             closed.Add(path.LastStep);
-            List<Tile> neighbours = path.LastStep.GetWalkableNeighbours();
+            if(forcePath) {
+                neighbours = path.LastStep.GetNeighbourTiles();
+            } else {
+                neighbours = path.LastStep.GetWalkableNeighbours();
+            }
+            
  
             foreach (Tile t in neighbours)
             {

@@ -44,7 +44,7 @@ namespace Vuforia
         [FactorySetter]
         void SetBehaviourComponentFactory()
         {
-            Debug.Log("Setting BehaviourComponentFactory");
+            //Debug.Log("Setting BehaviourComponentFactory");
             BehaviourComponentFactory.Instance = new VuforiaBehaviourComponentFactory();
         }
     }
