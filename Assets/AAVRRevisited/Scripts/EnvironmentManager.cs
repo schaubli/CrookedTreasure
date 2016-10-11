@@ -54,7 +54,7 @@ public class EnvironmentManager : MonoBehaviour {
 		}
 	}
 
-	public bool IsPositionOK(EnvironmentType type, Tile tile, int currentCount, int maxCount) {
+	private bool IsPositionOK(EnvironmentType type, Tile tile, int currentCount, int maxCount) {
 
 		if(tile.Environment.type != EnvironmentType.Ocean) { //Dont allow overwriting an existing environment
 			return false;
@@ -74,6 +74,11 @@ public class EnvironmentManager : MonoBehaviour {
 						return false;
 					}
 				}
+                                //Dont place Treasures unreachable for Player
+                                if(PathFinder.IsReachable(tile, TileManager.Instance.RootTile)==false){
+                                        return false;
+                                }
+
 			break;
 			
 			default:
