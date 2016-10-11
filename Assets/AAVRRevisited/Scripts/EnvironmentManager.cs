@@ -3,6 +3,12 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
+public enum RetryCause {
+Overdraw,
+TreasureDistance,
+TreasureRootDistance,
+TreasureReachability
+}
 
 //Every Tile will have an Environment and the EnvironmentManager will determine which Tile becomes which environment
 public class EnvironmentManager : MonoBehaviour {
@@ -15,6 +21,7 @@ public class EnvironmentManager : MonoBehaviour {
 	public List<EnvironmentSetting> settings = new List<EnvironmentSetting>();
 	private List<Environment> environments = new List<Environment>();
 	private Random seedRandom;
+        private Dictionary<RetryCause, int> retries = new Dictionary<RetryCause, int>();
 	
 	public void AssignEnvironments(List<Tile> tiles){
 		this.environments.Clear();
