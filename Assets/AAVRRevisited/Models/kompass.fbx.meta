@@ -1,0 +1,122 @@
+fileFormatVersion: 2
+guid: e8b7ef6e98c701348a2653aea051df6b
+timeCreated: 1477329487
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Beschriftung
+    100002: CINEMA_4D_Editor
+    100004: "Deckfl\xE4che_1"
+    100006: "Deckfl\xE4che_2"
+    100008: drehzylinder
+    100010: Kompass
+    100012: //RootNode
+    100014: Nadel
+    100016: Nadel_2
+    100018: Norden_1
+    100020: Norden_1_2
+    100022: "S\xFCden"
+    100024: "S\xFCden_2"
+    400000: Beschriftung
+    400002: CINEMA_4D_Editor
+    400004: "Deckfl\xE4che_1"
+    400006: "Deckfl\xE4che_2"
+    400008: drehzylinder
+    400010: Kompass
+    400012: //RootNode
+    400014: Nadel
+    400016: Nadel_2
+    400018: Norden_1
+    400020: Norden_1_2
+    400022: "S\xFCden"
+    400024: "S\xFCden_2"
+    2300000: Beschriftung
+    2300002: "Deckfl\xE4che_1"
+    2300004: "Deckfl\xE4che_2"
+    2300006: drehzylinder
+    2300008: Kompass
+    2300010: Nadel_2
+    2300012: Norden_1_2
+    2300014: "S\xFCden_2"
+    3300000: Beschriftung
+    3300002: "Deckfl\xE4che_1"
+    3300004: "Deckfl\xE4che_2"
+    3300006: drehzylinder
+    3300008: Kompass
+    3300010: Nadel_2
+    3300012: Norden_1_2
+    3300014: "S\xFCden_2"
+    4300000: Kompass
+    4300002: Nadel_2
+    4300004: Norden_1_2
+    4300006: "S\xFCden_2"
+    4300008: drehzylinder
+    4300010: Beschriftung
+    4300012: "Deckfl\xE4che_1"
+    4300014: "Deckfl\xE4che_2"
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
