@@ -33,7 +33,7 @@ public class TileManager : MonoBehaviour {
 		playerControll.Initiate(rootTile);
 		this.rootTile.SetPlayerOnTile();
 		this.rootTile.ShowTile();
-		this.rootTile.ShowNeighbours();
+		this.rootTile.ShowFarNeighbours();
 	}
 	
 	public int TileCount{

@@ -18,6 +18,7 @@ public class EnvironmentSetting{
 	public GameObject modelPrefab;
 	[SerializeField]
 	public bool isWalkable;
+	public float minRadius;
 
 	[HideInInspector]
 	public EnvironmentType lasttype;

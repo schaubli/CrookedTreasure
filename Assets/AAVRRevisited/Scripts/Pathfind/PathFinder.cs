@@ -3,12 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Pathfind;
+
+public enum PathParameter {
+    AnyTile,
+    Walkable,
+    WalkableAndVisible
+}
  
 public static class PathFinder
 {
     //distance f-ion should return distance between two adjacent nodes
     //estimate should return distance between any node and destination node
-    public static Path FindPath( Tile start, Tile destination, bool forcePath = false) {
+    public static Path FindPath( Tile start, Tile destination, PathParameter parameter = PathParameter.Walkable) {
         //set of already checked nodes
         List<Tile> closed = new List<Tile>();
         //queued nodes in open set
@@ -26,10 +32,12 @@ public static class PathFinder
             
             List<Tile> neighbours = new List<Tile>();
             closed.Add(path.LastStep);
-            if(forcePath) {
+            if(parameter == PathParameter.AnyTile) {
                 neighbours = path.LastStep.GetNeighbourTiles();
-            } else {
+            } else if (parameter == PathParameter.Walkable){
                 neighbours = path.LastStep.GetWalkableNeighbours();
+            } else if(parameter == PathParameter.WalkableAndVisible) {
+                neighbours = path.LastStep.GetWalkableAndVisibleNeighbours();
             }
             
  
