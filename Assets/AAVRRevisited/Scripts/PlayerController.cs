@@ -17,16 +17,21 @@ public class PlayerController : MonoBehaviour {
 	public AnimationCurve rotateAnimation;
 	public IEnumerator animationCoroutine;
 
+    public GameObject vrHandlerGameobject;
+    private VRhandler vrHandler;
+
     private TriggerType triggerType = TriggerType.VR_TRIGGER;
 	#if ! UNITY_EDITOR_OSX
     private TransitionManager mTransitionManager;
-	#endif
+    #endif
     public enum TriggerType
     {
         VR_TRIGGER,
         AR_TRIGGER
     }
 
+ 
+    
     // Use this for initialization
     public void Initiate (Tile rootTile) {
 		instance = this;
@@ -38,8 +43,9 @@ public class PlayerController : MonoBehaviour {
         this.rootTile = rootTile;
 
 		#if ! UNITY_EDITOR_OSX
-			mTransitionManager = FindObjectOfType<TransitionManager>();
-		#endif
+		mTransitionManager = FindObjectOfType<TransitionManager>();
+        vrHandler = vrHandlerGameobject.GetComponent<VRhandler>();
+        #endif
     }
 	
 	public void MovePlayerToTile(Tile tile) {
@@ -75,13 +81,31 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void StartVRMode(int islandCount, int monsterCount) {
-        //Start VR Mode and show the correct amount of islands and monsters
         bool goingBackToAR = (triggerType == TriggerType.AR_TRIGGER);
-		#if ! UNITY_EDITOR_OSX
-			if(mTransitionManager != null) {
-    			mTransitionManager.Play(goingBackToAR);
-			}
-		#endif
+        #if !UNITY_EDITOR_OSX
+
+        if (vrHandler != null)
+        {
+            if (monsterCount > 0 && islandCount == 0)
+            {
+                vrHandler.mode = 0;
+                vrHandler.enemy = 0;
+                vrHandler.initVR();
+            }
+            else if (islandCount > 0 && monsterCount == 0) {
+                vrHandler.mode = 1;
+                vrHandler.enemy = 0;
+                vrHandler.initVR();
+            }
+        }
+
+        if (mTransitionManager != null) {
+    		mTransitionManager.Play(goingBackToAR);
+		}
+
+       
+            
+        #endif
     }
 
 		
