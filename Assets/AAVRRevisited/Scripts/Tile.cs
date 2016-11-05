@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Pathfind;
 using System.Collections.Generic;
 
 public class Tile : MonoBehaviour {
@@ -8,6 +9,8 @@ public class Tile : MonoBehaviour {
 	private TileVec positionVector;
 	private bool isPlayerOnTile = false;
 	private bool isShown = false;
+	public Tile playerTile;
+	private bool isDiscovered = false;
 	//private bool isRimPiece = false;
 	private MeshRenderer tileRenderer;
 	private Environment environment;
@@ -44,7 +47,6 @@ public class Tile : MonoBehaviour {
 		newPos.y += 0.001f;
 		transform.position = newPos;*/
 		PlayerController.Instance.MovePlayerToTile(this);
-		ShowFarNeighbours();
 	}
 
 	public void RemovePlayerFromTile() {
@@ -70,41 +72,61 @@ public class Tile : MonoBehaviour {
 	}
 	
 	public void TrySetPlayer() {
-		List<TileVec> neighbours = this.GetNeighbours();
-		foreach(TileVec tilevec in neighbours) {
-			Tile neighbour = TileManager.Instance.GetTile(tilevec);
-			if( neighbour != null) {
-				if(neighbour.isPlayerOnTile == true && this.environment.IsWalkable == true && PlayerController.Instance.isPlayerMovable) {
-					PlayerController.Instance.isPlayerMovable = false;
-					neighbour.RemovePlayerFromTile();
-					this.SetPlayerOnTile();
-					break;
-				}
+		if(PlayerController.Instance.isPlayerMovable == true) {
+			PlayerController.Instance.isPlayerMovable = false;
+			Path pathToTile = PathFinder.FindPath(PlayerController.Instance.playerTile, this, PathParameter.WalkableAndVisible);
+			if(pathToTile != null) {
+				StartCoroutine(PlayerController.Instance.MoveAlongPath(pathToTile.TilesOnPath()));
+			} else {
+				PlayerController.Instance.isPlayerMovable = true;
 			}
 		}
 	}
 
+	/*
+	public static void MovePlayerToTile(Tile oldTile, Tile newTile) {
+		oldTile.RemovePlayerFromTile();
+		newTile.SetPlayerOnTile();
+	}*/
+
 	public void ShowNeighbours() {
-		List<TileVec> neighbours = this.GetNeighbours();
-		foreach(TileVec tilevec in neighbours) {
-			Tile neighbour = TileManager.Instance.GetTile(tilevec);
+		List<Tile> neighbours = this.GetFarNeighbourTiles();
+		foreach(Tile neighbour in neighbours) {
 			if( neighbour != null) {
 				if(neighbour.isShown == false) {
 					neighbour.ShowTile();
+				}
+			}
+		}
+	}
+	public void HideNeighbours() {
+		List<Tile> neighbours = this.GetFarNeighbourTiles();
+		foreach(Tile neighbour in neighbours) {
+			if( neighbour != null) {
+				if(neighbour.isShown == true) {
+					neighbour.HideTile();
 				}
 			}
 		}
 	}
 
 	public void ShowFarNeighbours() {
-		List<TileVec> neighbours = this.GetNeighbours();
-		foreach(TileVec tilevec in neighbours) {
-			Tile neighbour = TileManager.Instance.GetTile(tilevec);
+		List<Tile> neighbours = this.GetFarNeighbourTiles();
+		foreach(Tile neighbour in neighbours) {
 			if( neighbour != null) {
 				if(neighbour.isShown == false) {
 					neighbour.ShowTile();
 				}
-				neighbour.ShowNeighbours();
+			}
+		}
+	}
+	public void HideFarNeighbours() {
+		List<Tile> neighbours = this.GetFarNeighbourTiles();
+		foreach(Tile neighbour in neighbours) {
+			if( neighbour != null) {
+				if(neighbour.isShown == true) {
+					neighbour.HideTile();
+				}
 			}
 		}
 	}
@@ -149,9 +171,31 @@ public class Tile : MonoBehaviour {
 		return tiles;
 	}
 
+	public List<Tile> GetWalkableAndVisibleNeighbours() {
+		List<Tile> tiles = new List<Tile>();
+		foreach(TileVec tilevec in GetNeighbours()) {
+			Tile neighbour = TileManager.Instance.GetTile(tilevec);
+			if( neighbour != null && neighbour.Environment.IsWalkable == true && neighbour.IsDiscovered == true) {
+				tiles.Add(neighbour);
+			}
+		}
+		return tiles;
+	}
+
 	public List<Tile> GetNeighbourTiles() {
 		List<Tile> tiles = new List<Tile>();
 		foreach(TileVec tilevec in GetNeighbours()) {
+			Tile neighbour = TileManager.Instance.GetTile(tilevec);
+			if( neighbour != null) {
+				tiles.Add(neighbour);
+			}
+		}
+		return tiles;
+	}
+
+	public List<Tile> GetFarNeighbourTiles() {
+		List<Tile> tiles = new List<Tile>();
+		foreach(TileVec tilevec in GetFarNeighbours()) {
 			Tile neighbour = TileManager.Instance.GetTile(tilevec);
 			if( neighbour != null) {
 				tiles.Add(neighbour);
@@ -180,6 +224,47 @@ public class Tile : MonoBehaviour {
 		return neighbours;
 	}
 
+	public List<TileVec> GetFarNeighbours() {
+		List<TileVec> neighbours = new List<TileVec>();
+		int ownX = this.GetX();
+		int ownY = this.GetY();
+		if(Mathf.Abs(ownY%2) == 1) {
+			neighbours.Add(new TileVec(ownX, ownY+1));
+			neighbours.Add(new TileVec(ownX+1, ownY+1));
+			neighbours.Add(new TileVec(ownX-1, ownY+1));
+			neighbours.Add(new TileVec(ownX+2, ownY+1));
+
+			neighbours.Add(new TileVec(ownX, ownY-1));
+			neighbours.Add(new TileVec(ownX+1, ownY-1));
+			neighbours.Add(new TileVec(ownX-1, ownY-1));
+			neighbours.Add(new TileVec(ownX+2, ownY-1));
+		} else {
+			neighbours.Add(new TileVec(ownX-1, ownY+1));
+			neighbours.Add(new TileVec(ownX, ownY+1));
+			neighbours.Add(new TileVec(ownX-2, ownY+1));
+			neighbours.Add(new TileVec(ownX+1, ownY+1));
+
+			neighbours.Add(new TileVec(ownX-1, ownY-1));
+			neighbours.Add(new TileVec(ownX, ownY-1));
+			neighbours.Add(new TileVec(ownX-2, ownY-1));
+			neighbours.Add(new TileVec(ownX+1, ownY-1));
+		}
+		neighbours.Add(new TileVec(ownX-1, ownY));
+		neighbours.Add(new TileVec(ownX+1, ownY));
+		neighbours.Add(new TileVec(ownX-2, ownY));
+		neighbours.Add(new TileVec(ownX+2, ownY));
+
+		neighbours.Add(new TileVec(ownX-1, ownY-2));
+		neighbours.Add(new TileVec(ownX, ownY-2));
+		neighbours.Add(new TileVec(ownX+1, ownY-2));
+
+		neighbours.Add(new TileVec(ownX-1, ownY+2));
+		neighbours.Add(new TileVec(ownX, ownY+2));
+		neighbours.Add(new TileVec(ownX+1, ownY+2));
+
+		return neighbours;
+	}
+
 	public float DistanceFromRoot() {
 		return (transform.localPosition.magnitude);
 	}
@@ -196,16 +281,24 @@ public class Tile : MonoBehaviour {
 			return this.isShown;
 		}
 	}
+	public bool IsDiscovered {
+		get {
+			return this.isDiscovered;
+		}
+	}
 
 	public void ShowTile() {
 		//tileRenderer.enabled = true;
 		gameObject.SetActive(true);
+		this.gameObject.GetComponent<Animator>().Play("FadeIn");
 		this.isShown = true;
+		this.isDiscovered = true;
 	}
 	
 	public void HideTile() {
 		//tileRenderer.enabled = false;
-		gameObject.SetActive(false);
+		//gameObject.SetActive(false);
+		this.gameObject.GetComponent<Animator>().Play("FadeOut");
 		this.isShown = false;
 	}
 
