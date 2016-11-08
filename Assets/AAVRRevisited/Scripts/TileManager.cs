@@ -7,8 +7,10 @@ public class TileManager : MonoBehaviour {
 	public GameObject tilePrefab;
 	public Material playerTileMaterial;
 	public Material defaultTileMaterial;
+	public bool generateRandomMap;
 	public int width = 10;
 	public int height = 10;
+	public GameObject[] levels; // Array that contains all levels
 	public Dictionary<TileVec, Tile> tiles = new Dictionary<TileVec, Tile>();
 	public List<Tile> tilelist= new List<Tile>();
 	private static TileManager instance;
@@ -17,20 +19,43 @@ public class TileManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Application.targetFrameRate = 60;
 		if(tilePrefab == null) {
 			Debug.LogError("Tile prefab is not defined in TileManager");
 		}
+
+		if(this.generateRandomMap) {
+			this.GenerateRandomMap();
+		} else {
+			this.GenerateMapFromPrefab(this.levels[0]);
+		}
+
+		SortHierarchy();
+		EnvironmentManager.Instance.AssignEnvironments(this.tilelist);
+
+		this.rootTile = GetTile(new TileVec(0,0));
+		PlacePlayerOnTile(rootTile);
+	}
+
+	private void GenerateRandomMap() { // Generates a map of the given size and assigns random environments
 		for(int y = -height; y<=height; y++) {
 			for(int x = -width; x<=width; x++) {
 				AddNewTile(x,y);
 			}
 		}
-		Application.targetFrameRate = 60;
-		SortHierarchy();
-		this.rootTile = GetTile(new TileVec(0,0));
-		PlayerController playerControll = (PlayerController) (FindObjectOfType(typeof(PlayerController)));
-		EnvironmentManager.Instance.AssignEnvironments(this.tilelist);
-		playerControll.Initiate(rootTile);
+	}
+
+	private void GenerateMapFromPrefab(GameObject gameObj) {
+		GameObject level = Instantiate<GameObject>(gameObj);
+		Tile[] newTiles = level.GetComponentsInChildren<Tile>();
+		foreach(Tile tile in newTiles) {
+			this.AddExistingTile(tile);
+
+		}
+	}
+
+	private void PlacePlayerOnTile(Tile tile) {
+		((PlayerController) (FindObjectOfType(typeof(PlayerController)))).Initiate(rootTile);
 		this.rootTile.SetPlayerOnTile();
 		this.rootTile.ShowTile();
 		this.rootTile.ShowFarNeighbours();
@@ -54,17 +79,22 @@ public class TileManager : MonoBehaviour {
 		}
 	}
 
-	public Tile AddNewTile(int x, int y) {
+	public Tile AddNewTile(int x, int y) { //Adds a new Tile at the given position;
 		GameObject tileGameObject = (GameObject) Instantiate(tilePrefab, Vector3.zero,Quaternion.identity);
 		Tile newTile = tileGameObject.GetComponent<Tile>();
 		newTile.gameObject.transform.SetParent(this.transform);
 		newTile.transform.localPosition = Tile.GetWorldPosition(x,y);
         newTile.InitTile(x,y);
 		tiles.Add(newTile.GetPositionVector(), newTile);
-		tilelist.Add(newTile);
+		this.tilelist.Add(newTile);
 		newTile.gameObject.name = "Tile ("+newTile.GetX()+", "+newTile.GetY()+")";
 
         return newTile;
+	}
+
+	private void AddExistingTile(Tile tile) { //Adds an existing tile to the tilelist
+		this.tilelist.Add(tile);
+		this.tiles.Add(tile.GetPositionVector(), tile);
 	}
 
 	public Tile GetTile(TileVec vec) {
