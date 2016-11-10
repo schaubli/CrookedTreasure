@@ -9,7 +9,8 @@ public enum RetryCause {
 	TreasureDistance,
 	TreasureRootDistance,
 	TreasureReachability,
-	RootTile
+	RootTile,
+	MinRadius
 }
 
 //Every Tile will have an Environment and the EnvironmentManager will determine which Tile becomes which environment
@@ -96,6 +97,12 @@ public class EnvironmentManager : MonoBehaviour {
 			AddRetry(RetryCause.RootTile);
 			return false;
 		}
+
+		if(tile.transform.localPosition.magnitude < setting.minRadius) {
+			AddRetry(RetryCause.MinRadius);
+			return false;
+		}
+
 		switch(setting.type) {
 
 			case EnvironmentType.Treasure:
@@ -125,7 +132,7 @@ public class EnvironmentManager : MonoBehaviour {
 				if(PathFinder.IsReachable(tile, TileManager.Instance.RootTile) == false) {  //Check if Treasure is Reachable
 
 					//Clear all tiles on the way from treasure to root if treasure is not reachable
-					Path forcedPath = PathFinder.FindPath(tile, TileManager.Instance.RootTile, true);
+					Path forcedPath = PathFinder.FindPath(tile, TileManager.Instance.RootTile, PathParameter.AnyTile);
 					List<Tile> tilesOnForcedPath = forcedPath.TilesOnPath();
 					foreach(Tile pathTile in tilesOnForcedPath) { 
 						if(pathTile.Environment.IsWalkable == false) { // Clear Environment if it is in the way and can not be walked
