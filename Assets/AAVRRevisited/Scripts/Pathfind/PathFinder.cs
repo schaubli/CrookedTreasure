@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Pathfind;
 
 public enum PathParameter {
@@ -39,7 +37,9 @@ public static class PathFinder
             } else if(parameter == PathParameter.WalkableAndVisible) {
                 neighbours = path.LastStep.GetWalkableAndVisibleNeighbours();
             }
-            
+            if(neighbours.Count == 0) {
+                Debug.Log("Could not find Neighbours for "+path.LastStep.gameObject.name);
+            }            
  
             foreach (Tile t in neighbours)
             {

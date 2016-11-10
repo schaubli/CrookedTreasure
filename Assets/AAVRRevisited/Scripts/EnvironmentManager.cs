@@ -193,6 +193,7 @@ public class EnvironmentManager : MonoBehaviour {
 		return null;
 	}
 
+
 	void Awake()
 	{
 		//Check if instance already exists

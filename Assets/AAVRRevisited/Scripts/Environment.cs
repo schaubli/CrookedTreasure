@@ -57,4 +57,8 @@ public class Environment : MonoBehaviour{
 	[HideInInspector]
 	public  EnvironmentType lasttype;
 
+	void Start() {
+		this.isWalkable = EnvironmentManager.Instance.GetEnvironmentByType(this.type).isWalkable;
+	}
+
 }

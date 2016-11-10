@@ -26,15 +26,17 @@ public class TileManager : MonoBehaviour {
 
 		if(this.generateRandomMap) {
 			this.GenerateRandomMap();
+			EnvironmentManager.Instance.AssignEnvironments(this.tilelist);
+			this.rootTile = GetTile(new TileVec(0,0));
+			PlacePlayerOnTile(rootTile);
 		} else {
 			this.GenerateMapFromPrefab(this.levels[0]);
+			PlacePlayerOnTile(rootTile); // Root tile is found in the generating process
 		}
 
 		SortHierarchy();
-		EnvironmentManager.Instance.AssignEnvironments(this.tilelist);
 
-		this.rootTile = GetTile(new TileVec(0,0));
-		PlacePlayerOnTile(rootTile);
+		
 	}
 
 	private void GenerateRandomMap() { // Generates a map of the given size and assigns random environments
@@ -49,8 +51,12 @@ public class TileManager : MonoBehaviour {
 		GameObject level = Instantiate<GameObject>(gameObj);
 		Tile[] newTiles = level.GetComponentsInChildren<Tile>();
 		foreach(Tile tile in newTiles) {
+			tile.InitTile(TileVec.FromTransform(tile.transform));
 			this.AddExistingTile(tile);
-
+			if(tile.gameObject.tag == "Respawn") {
+				this.rootTile = tile;
+			}
+			tile.gameObject.SetActive(false);
 		}
 	}
 
