@@ -8,13 +8,13 @@ public class VREnemyKrake : MonoBehaviour {
     public int cooldown;
     public int cdcounter;
 
+
     // Use this for initialization
     void Start () {
         this.health = 100;
         this.attack = 10;
         this.cooldown = 120;
         this.cdcounter = 0;
-        
     }
 
     void Update() {
@@ -30,11 +30,13 @@ public class VREnemyKrake : MonoBehaviour {
     void Attack() {
         // Start animation etc.
         Debug.Log("Krake attacks");
+        Player.Instance.removeHealth(this.attack);
     }
 
     void Die() {
 
         Debug.Log("Krake died");
+        Destroy(this.gameObject);
         // Death Animation
     }
 
@@ -42,6 +44,8 @@ public class VREnemyKrake : MonoBehaviour {
 
     public void TakeDamage(int dmg)
     {
+
+        Debug.Log("Krake took dmg");
         this.health -= dmg;
         if (this.health <= 0)
         {

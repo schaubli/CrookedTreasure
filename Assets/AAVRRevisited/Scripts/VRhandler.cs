@@ -33,6 +33,7 @@ public class VRhandler : MonoBehaviour {
                         GameObject monsterVRGameObject = (GameObject)Instantiate(monsterPrefab);
                         VREnemyKrake krake = monsterVRGameObject.GetComponent<VREnemyKrake>();
                         
+
                         break;
                     case 1: //Ship
                         break;

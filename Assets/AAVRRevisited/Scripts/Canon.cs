@@ -6,20 +6,57 @@ using System.Collections;
 public class Canon : MonoBehaviour {
 
     public GameObject Player;
-    private float initRotY;
+    public GameObject Cannonball;
+    public GameObject vrHandler;
+    public int damage;
+    private GameObject cannonballObject;
+    public int cooldown;
+    private int cooldowncounter;
+    private float rotationOffset;
+
     // Use this for initialization
     void Start () {
-        initRotY = transform.rotation.y;
-
+        rotationOffset = -90;
+        cooldowncounter = 0;
+        cannonballObject = null;
+        if (Cannonball == null)
+        {
+            Debug.LogError("Cannonball is not defined in Canon.cs");
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
-        var playerRot = Player.transform.rotation.y;
-        /*if (playerRot > 180) {
-            playerRot -= 360;
-        }*/
+        if (vrHandler.GetComponent<VRhandler>().mode == 0)
+        {
+            var playerEulerY = Player.transform.eulerAngles.y;
+            if (playerEulerY < 180)
+            {
+                Vector3 eulerRotation = new Vector3(transform.eulerAngles.x, playerEulerY + rotationOffset, transform.eulerAngles.z);
+                transform.rotation = Quaternion.Euler(eulerRotation);
+            }
+            if (this.cooldowncounter == cooldown)
+            {
+                this.Shoot();
+                this.cooldowncounter = 0;
+            }
 
-        transform.rotation = new Quaternion (0, playerRot+ initRotY, 0, transform.rotation.w); 
-	}
+            cooldowncounter += 1;
+        }
+    }
+
+    void Shoot() {
+        if (cannonballObject != null) {
+            Destroy(cannonballObject);
+        }
+        cannonballObject = (GameObject)Instantiate(Cannonball,transform.position, Quaternion.identity);
+        Canonball cannonballScript = cannonballObject.GetComponent<Canonball>();
+        
+        cannonballScript.SetRotationY(this.transform.rotation.eulerAngles.y);
+        cannonballScript.SetPosition(this.transform.position);
+        cannonballScript.SetDamage(this.damage);
+        cannonballScript.Fire();
+
+    }
+
 }
