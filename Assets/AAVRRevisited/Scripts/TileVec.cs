@@ -4,9 +4,13 @@ using System.Collections;
 
 
 //We use the TileVec to specify the Position of Tiles to not confuse them with 3D Vectors
+[System.Serializable]
 public struct TileVec: IComparable<TileVec> {
 
+	[SerializeField]
 	private int x;
+	
+	[SerializeField]
 	private int y;
 	//private Vector2 vector;
 	public int X { get{return this.x;}}
@@ -31,4 +35,17 @@ public struct TileVec: IComparable<TileVec> {
     {
         return Math.Abs(x-other.X) + Math.Abs(y-other.Y);
     }
+
+	public static TileVec FromTransform(Transform trans) {
+		float xf = trans.localPosition.x;
+		float yf = trans.localPosition.z;
+		int y = Mathf.RoundToInt(yf / 0.8660254038f);
+		int x;
+		if(y%2 == 0) {
+			x = Mathf.RoundToInt(xf);
+		} else {
+			x = Mathf.RoundToInt(xf-0.5f);
+		}
+		return new TileVec(x,y);
+	}
 }

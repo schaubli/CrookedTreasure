@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Pathfind;
 using System.Collections.Generic;
 
 public class Tile : MonoBehaviour {
 
 	//This is not the position of the Tile in Unity coordinates but in the Tile coordinate System
-	private TileVec positionVector;
+	public TileVec positionVector;
 	private bool isPlayerOnTile = false;
 	private bool isShown = false;
-	public Tile playerTile;
 	private bool isDiscovered = false;
 	//private bool isRimPiece = false;
 	private MeshRenderer tileRenderer;
@@ -23,7 +21,9 @@ public class Tile : MonoBehaviour {
 		this.positionVector = vec;
 		this.gameObject.transform.localRotation = Quaternion.Euler(0,90,0);
 		this.tileRenderer = gameObject.GetComponent<MeshRenderer>();
+		if(tileRenderer == null) Debug.LogWarning("No MeshRenderer found for Tile "+gameObject.name);
 		this.environment = gameObject.GetComponent<Environment>();
+		if(environment == null) Debug.LogWarning("No Environment found for Tile "+gameObject.name);
 	}
 
 	public int GetX() {
@@ -79,7 +79,10 @@ public class Tile : MonoBehaviour {
 				StartCoroutine(PlayerController.Instance.MoveAlongPath(pathToTile.TilesOnPath()));
 			} else {
 				PlayerController.Instance.isPlayerMovable = true;
+				Debug.Log("Could not find path to "+gameObject.name);
 			}
+		} else {
+			Debug.Log("Player is not movable");
 		}
 	}
 
@@ -166,7 +169,13 @@ public class Tile : MonoBehaviour {
 			Tile neighbour = TileManager.Instance.GetTile(tilevec);
 			if( neighbour != null && neighbour.Environment.IsWalkable == true) {
 				tiles.Add(neighbour);
-			}
+			}/* else {
+				if(neighbour == null) {
+					Debug.Log("No neighbour found at position "+tilevec);
+				} else {
+					Debug.Log("Neighbour: "+neighbour.gameObject.name+" is not walkable");
+				}
+			}*/
 		}
 		return tiles;
 	}
@@ -177,7 +186,15 @@ public class Tile : MonoBehaviour {
 			Tile neighbour = TileManager.Instance.GetTile(tilevec);
 			if( neighbour != null && neighbour.Environment.IsWalkable == true && neighbour.IsDiscovered == true) {
 				tiles.Add(neighbour);
-			}
+			} /*else {
+				if(neighbour == null) {
+					Debug.Log("No neighbour found at position "+tilevec);
+				} else if(neighbour.Environment.IsWalkable == false) {
+					Debug.Log("Neighbour: "+neighbour.gameObject.name+" is not walkable");
+				} else {
+					Debug.Log("Neighbour: "+neighbour.gameObject.name+" is not discovered");
+				}
+			}*/
 		}
 		return tiles;
 	}
