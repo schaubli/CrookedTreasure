@@ -45,7 +45,9 @@ public class PlayerController : MonoBehaviour {
 
 		#if ! UNITY_EDITOR_OSX
 		mTransitionManager = FindObjectOfType<TransitionManager>();
-        vrHandler = vrHandlerGameobject.GetComponent<VRhandler>();
+		if(vrHandlerGameobject != null) {
+       		vrHandler = vrHandlerGameobject.GetComponent<VRhandler>();
+		}
         #endif
     }
 	
