@@ -57,6 +57,9 @@ public class TileManager : MonoBehaviour {
 				this.rootTile = tile;
 			}
 			tile.gameObject.SetActive(false);
+			if(tile.macroEnvironment != null) {
+				tile.macroEnvironment.SetActive(false);
+			}
 		}
 	}
 

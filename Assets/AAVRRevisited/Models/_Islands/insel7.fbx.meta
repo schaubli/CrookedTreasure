@@ -1,0 +1,177 @@
+fileFormatVersion: 2
+guid: 8697f7cd886421746aa8efbdd85ec075
+timeCreated: 1479228585
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Banane
+    100002: Banane_1
+    100004: Banane_1_2
+    100006: Banane_2
+    100008: Banane_2_2
+    100010: Banane_2_3
+    100012: "Bl\xE4tter"
+    100014: "Bl\xE4tter_2"
+    100016: "Bl\xE4tter_3"
+    100018: "Bl\xE4tter_4"
+    100020: "Bl\xE4tter_5"
+    100022: "Bl\xE4tter_6"
+    100024: CINEMA_4D_Editor
+    100026: CINEMA_4D_Editor_2
+    100028: Insel
+    100030: //RootNode
+    100032: Landschaft
+    100034: Palme1
+    100036: Palme2
+    100038: Palmen
+    100040: Schiefe_Palme
+    100042: Stamm
+    100044: Stamm_2
+    100046: Stamm_3
+    100048: Stamm_4
+    100050: Stamm_5
+    100052: Stamm_6
+    100054: Statute
+    100056: Staute
+    100058: Staute_2
+    100060: Staute_3
+    100062: Staute_4
+    100064: Staute_5
+    400000: Banane
+    400002: Banane_1
+    400004: Banane_1_2
+    400006: Banane_2
+    400008: Banane_2_2
+    400010: Banane_2_3
+    400012: "Bl\xE4tter"
+    400014: "Bl\xE4tter_2"
+    400016: "Bl\xE4tter_3"
+    400018: "Bl\xE4tter_4"
+    400020: "Bl\xE4tter_5"
+    400022: "Bl\xE4tter_6"
+    400024: CINEMA_4D_Editor
+    400026: CINEMA_4D_Editor_2
+    400028: Insel
+    400030: //RootNode
+    400032: Landschaft
+    400034: Palme1
+    400036: Palme2
+    400038: Palmen
+    400040: Schiefe_Palme
+    400042: Stamm
+    400044: Stamm_2
+    400046: Stamm_3
+    400048: Stamm_4
+    400050: Stamm_5
+    400052: Stamm_6
+    400054: Statute
+    400056: Staute
+    400058: Staute_2
+    400060: Staute_3
+    400062: Staute_4
+    400064: Staute_5
+    2300000: Banane_1_2
+    2300002: Banane_2_2
+    2300004: Banane_2_3
+    2300006: "Bl\xE4tter_2"
+    2300008: "Bl\xE4tter_4"
+    2300010: "Bl\xE4tter_6"
+    2300012: Landschaft
+    2300014: Stamm_2
+    2300016: Stamm_4
+    2300018: Stamm_6
+    2300020: Staute_2
+    2300022: Staute_3
+    2300024: Staute_5
+    3300000: Banane_1_2
+    3300002: Banane_2_2
+    3300004: Banane_2_3
+    3300006: "Bl\xE4tter_2"
+    3300008: "Bl\xE4tter_4"
+    3300010: "Bl\xE4tter_6"
+    3300012: Landschaft
+    3300014: Stamm_2
+    3300016: Stamm_4
+    3300018: Stamm_6
+    3300020: Staute_2
+    3300022: Staute_3
+    3300024: Staute_5
+    4300000: Staute_2
+    4300002: Banane_2_2
+    4300004: "Bl\xE4tter_2"
+    4300006: Stamm_2
+    4300008: Banane_1_2
+    4300010: Staute_3
+    4300012: "Bl\xE4tter_4"
+    4300014: Stamm_4
+    4300016: Staute_5
+    4300018: Banane_2_3
+    4300020: "Bl\xE4tter_6"
+    4300022: Stamm_6
+    4300024: Landschaft
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

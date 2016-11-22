@@ -12,6 +12,7 @@ public class Tile : MonoBehaviour {
 	//private bool isRimPiece = false;
 	private MeshRenderer tileRenderer;
 	private Environment environment;
+	public GameObject macroEnvironment;
 
 	public void InitTile(int x, int y) {
 		InitTile(new TileVec(x,y));
@@ -293,6 +294,15 @@ public class Tile : MonoBehaviour {
 		return angle;
 	}
 
+	public void RemoveChildObjects() {
+		Transform[] childs = this.gameObject.GetComponentsInChildren<Transform>();
+		foreach(Transform trans in childs) {
+			if(trans != this.transform) {
+				Destroy(trans.gameObject);
+			}
+		}
+	}
+
 	public bool IsShown{
 		get{
 			return this.isShown;
@@ -310,6 +320,9 @@ public class Tile : MonoBehaviour {
 		this.gameObject.GetComponent<Animator>().Play("FadeIn");
 		this.isShown = true;
 		this.isDiscovered = true;
+		if(macroEnvironment != null) {
+			macroEnvironment.SetActive(true);
+		}
 	}
 	
 	public void HideTile() {
