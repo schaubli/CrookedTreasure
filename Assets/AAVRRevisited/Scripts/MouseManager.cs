@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MouseManager : MonoBehaviour {
 
@@ -29,7 +30,7 @@ public class MouseManager : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
             // TileManager.Instance.ResetTiles();
-            Application.LoadLevel(0);
+            SceneManager.LoadScene(0);
         }
 
     }
