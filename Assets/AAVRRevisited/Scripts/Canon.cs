@@ -16,7 +16,7 @@ public class Canon : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        rotationOffset = -90;
+        rotationOffset = +90;
         cooldowncounter = 0;
         cannonballObject = null;
         if (Cannonball == null)

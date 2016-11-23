@@ -96,7 +96,10 @@ public class PlayerController : MonoBehaviour {
                 vrHandler.initVR();
             }
             else if (islandCount > 0 && monsterCount == 0) {
-                vrHandler.mode = 1;
+                //vrHandler.mode = 1;
+                //vrHandler.enemy = 0;
+                // Debugging:
+                vrHandler.mode = 0;
                 vrHandler.enemy = 0;
                 vrHandler.initVR();
             }

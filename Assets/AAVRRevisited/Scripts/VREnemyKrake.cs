@@ -7,14 +7,15 @@ public class VREnemyKrake : MonoBehaviour {
     public int attack;
     public int cooldown;
     public int cdcounter;
-
+    public bool dead;
 
     // Use this for initialization
     void Start () {
         this.health = 100;
         this.attack = 10;
-        this.cooldown = 120;
+        this.cooldown = 180;
         this.cdcounter = 0;
+        this.dead = false;
     }
 
     void Update() {
@@ -36,7 +37,8 @@ public class VREnemyKrake : MonoBehaviour {
     void Die() {
 
         Debug.Log("Krake died");
-        Destroy(this.gameObject);
+        // Destroy(this.gameObject); --> Handle in vrhandler
+        this.dead = true;
         // Death Animation
     }
 

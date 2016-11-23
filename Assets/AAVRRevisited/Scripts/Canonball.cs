@@ -15,7 +15,7 @@ public class Canonball : MonoBehaviour {
         this.transform.position = new Vector3(cannonPos.x,cannonPos.y, cannonPos.z);
     }
     public void SetRotationY(float cannonEulerAnglesY) {
-        Vector3 eulerRotation = new Vector3(-40, cannonEulerAnglesY + 90, 0);
+        Vector3 eulerRotation = new Vector3(-40, cannonEulerAnglesY - 90, 0);
         transform.rotation = Quaternion.Euler(eulerRotation);
     }
 
