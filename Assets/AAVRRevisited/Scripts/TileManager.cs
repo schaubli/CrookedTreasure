@@ -21,7 +21,9 @@ public class TileManager : MonoBehaviour {
 	void Start () {
 		Application.targetFrameRate = 60;
 		if(tilePrefab == null) {
-			Debug.LogError("Tile prefab is not defined in TileManager");
+			//Debug.LogError("Tile prefab is not defined in TileManager");
+			DestroyImmediate(this.gameObject);
+			return;
 		}
 
 		if(this.generateRandomMap) {
@@ -57,6 +59,9 @@ public class TileManager : MonoBehaviour {
 				this.rootTile = tile;
 			}
 			tile.gameObject.SetActive(false);
+			if(tile.macroEnvironment != null) {
+				tile.macroEnvironment.SetActive(false);
+			}
 		}
 	}
 
@@ -93,7 +98,7 @@ public class TileManager : MonoBehaviour {
         newTile.InitTile(x,y);
 		tiles.Add(newTile.GetPositionVector(), newTile);
 		this.tilelist.Add(newTile);
-		newTile.gameObject.name = "Tile ("+newTile.GetX()+", "+newTile.GetY()+")";
+		newTile.gameObject.name = "Tile ("+newTile.X+", "+newTile.Y+")";
 
         return newTile;
 	}

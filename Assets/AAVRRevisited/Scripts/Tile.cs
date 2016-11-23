@@ -12,6 +12,7 @@ public class Tile : MonoBehaviour {
 	//private bool isRimPiece = false;
 	private MeshRenderer tileRenderer;
 	private Environment environment;
+	public GameObject macroEnvironment;
 
 	public void InitTile(int x, int y) {
 		InitTile(new TileVec(x,y));
@@ -26,13 +27,77 @@ public class Tile : MonoBehaviour {
 		if(environment == null) Debug.LogWarning("No Environment found for Tile "+gameObject.name);
 	}
 
-	public int GetX() {
-		return positionVector.X;
+	public int X {
+		get{ return positionVector.X; }
 	}
 
-	public int GetY() {
-		return positionVector.Y;
+	public int Y {
+		get{ return positionVector.Y; }
 	}
+
+	#region Neighbour_Tiles
+
+	private Tile left;
+	public Tile Left{
+		get{
+			if(this.left == null) {
+				this.left = TileManager.Instance.GetTile(new TileVec(X-1,Y));
+			}
+			return this.left;
+		}
+	}
+
+	private Tile right;
+	public Tile Right{
+		get{
+			if(this.right == null) {
+				this.right = TileManager.Instance.GetTile(new TileVec(X+1,Y));
+			}
+			return this.right;
+		}
+	}
+
+	private Tile topLeft;
+	public Tile TopLeft{
+		get{
+			if(this.topLeft == null) {
+				this.topLeft = TileManager.Instance.GetTile(new TileVec((X%2==0?X:X+1)-1,Y+1));
+			}
+			return this.topLeft;
+		}
+	}
+
+	private Tile topRight;
+	public Tile TopRight{
+		get{
+			if(this.topRight == null) {
+				this.topRight = TileManager.Instance.GetTile(new TileVec((X%2==0?X:X+1),Y+1));
+			}
+			return this.topRight;
+		}
+	}
+
+	private Tile bottomLeft;
+	public Tile BottomLeft{
+		get{
+			if(this.bottomLeft == null) {
+				this.bottomLeft = TileManager.Instance.GetTile(new TileVec((X%2==0?X:X+1)-1,Y-1));
+			}
+			return this.bottomLeft;
+		}
+	}
+
+	private Tile bottomRight;
+	public Tile BottomRight{
+		get{
+			if(this.bottomRight == null) {
+				this.bottomRight = TileManager.Instance.GetTile(new TileVec((X%2==0?X:X+1),Y-1));
+			}
+			return this.bottomRight;
+		}
+	}
+
+	#endregion
 
 	public Environment Environment {
 		get {
@@ -135,10 +200,10 @@ public class Tile : MonoBehaviour {
 	}
 
 	public bool IsNeighbour(Tile tile) {
-		int ownX = this.GetX();
-		int ownY = this.GetY();
-		int otherX = tile.GetX();
-		int otherY = tile.GetY();
+		int ownX = this.X;
+		int ownY = this.Y;
+		int otherX = tile.X;
+		int otherY = tile.Y;
 		if(Mathf.Abs(ownY%2) == 1) {
 			if(ownY == otherY+1 || ownY == otherY-1) {
 				if(otherX == ownX || otherX == ownX+1) {
@@ -223,8 +288,8 @@ public class Tile : MonoBehaviour {
 	
 	public List<TileVec> GetNeighbours() {
 		List<TileVec> neighbours = new List<TileVec>();
-		int ownX = this.GetX();
-		int ownY = this.GetY();
+		int ownX = this.X;
+		int ownY = this.Y;
 		if(Mathf.Abs(ownY%2) == 1) {
 			neighbours.Add(new TileVec(ownX, ownY+1));
 			neighbours.Add(new TileVec(ownX+1, ownY+1));
@@ -243,8 +308,8 @@ public class Tile : MonoBehaviour {
 
 	public List<TileVec> GetFarNeighbours() {
 		List<TileVec> neighbours = new List<TileVec>();
-		int ownX = this.GetX();
-		int ownY = this.GetY();
+		int ownX = this.X;
+		int ownY = this.Y;
 		if(Mathf.Abs(ownY%2) == 1) {
 			neighbours.Add(new TileVec(ownX, ownY+1));
 			neighbours.Add(new TileVec(ownX+1, ownY+1));
@@ -293,6 +358,15 @@ public class Tile : MonoBehaviour {
 		return angle;
 	}
 
+	public void RemoveChildObjects() {
+		Transform[] childs = this.gameObject.GetComponentsInChildren<Transform>();
+		foreach(Transform trans in childs) {
+			if(trans != this.transform) {
+				Destroy(trans.gameObject);
+			}
+		}
+	}
+
 	public bool IsShown{
 		get{
 			return this.isShown;
@@ -310,6 +384,9 @@ public class Tile : MonoBehaviour {
 		this.gameObject.GetComponent<Animator>().Play("FadeIn");
 		this.isShown = true;
 		this.isDiscovered = true;
+		if(macroEnvironment != null) {
+			macroEnvironment.SetActive(true);
+		}
 	}
 	
 	public void HideTile() {

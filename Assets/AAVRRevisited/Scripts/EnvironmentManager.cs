@@ -36,12 +36,12 @@ public class EnvironmentManager : MonoBehaviour {
 			EnvironmentSetting newSettings = GetEnvironmentByType(EnvironmentType.Ocean);
 
 			//Set the center/root tile to water
-			if(t.GetX() == 0 && t.GetY() == 0) {//Root tile
+			if(t.X == 0 && t.Y == 0) {//Root tile
 				newSettings = GetEnvironmentByType(EnvironmentType.Ocean);
 			}
 
 			//Set the outer Tiles reefs
-			if(t.GetX() ==-TileManager.Instance.Width || t.GetX() ==+TileManager.Instance.Width || t.GetY() ==-TileManager.Instance.Height || t.GetY() ==+TileManager.Instance.Height) {
+			if(t.X ==-TileManager.Instance.Width || t.X ==+TileManager.Instance.Width || t.Y ==-TileManager.Instance.Height || t.Y ==+TileManager.Instance.Height) {
 				newSettings = GetEnvironmentByType(EnvironmentType.Reef);
 			}
 			t.Environment.ApplySettings(newSettings);

@@ -80,7 +80,8 @@ public class PlayerController : MonoBehaviour {
                 StartVRMode(islandcount, monstercount);
             }
 		}
-        Player.Instance.removeHealth(10);
+
+        //Player.Instance.removeHealth(10);
 	}
 
 	private void StartVRMode(int islandCount, int monsterCount) {
@@ -162,9 +163,19 @@ public class PlayerController : MonoBehaviour {
 		}
 		playerFigure.transform.localPosition = newPosition;
 		playerFigure.GetComponent<Animator>().Play("MoveForward");
+		CheckNewPosition(newTile);
 
 		yield return new WaitForEndOfFrame();
 		Invoke("OnAnimationEnded",1.1f);
+	}
+
+	private void CheckNewPosition(Tile tile) { //Check if something special happens on the new Tile
+		EnvironmentType newEnvironment = tile.Environment.type;
+		if(newEnvironment == EnvironmentType.Banana) {
+			Player.Instance.addHealth(20);
+			tile.RemoveChildObjects(); //Remove Banana
+			tile.Environment.ApplySettings(EnvironmentManager.Instance.GetEnvironmentByType(EnvironmentType.Ocean));
+		}
 	}
 
 	private void OnAnimationEnded() {
