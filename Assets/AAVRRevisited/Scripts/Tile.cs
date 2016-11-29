@@ -97,6 +97,25 @@ public class Tile : MonoBehaviour {
 		}
 	}
 
+	public Tile GetNeighbourInDirection(TileDirection direction) {
+		switch(direction) {
+			case TileDirection.Left:
+				return this.Left;
+			case TileDirection.Right:
+				return this.Right;
+			case TileDirection.TopLeft:
+				return this.TopLeft;
+			case TileDirection.TopRight:
+				return this.TopRight;
+			case TileDirection.BottomLeft:
+				return this.BottomLeft;
+			case TileDirection.BottomRight:
+				return this.BottomRight;
+			default:
+			return this;
+		}
+	}
+
 	#endregion
 
 	public Environment Environment {
