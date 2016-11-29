@@ -68,9 +68,9 @@ public class VRhandler : MonoBehaviour {
         Debug.Log("Mode switched to Looting");
 
         // Set position and rotation of camera
-        cameraRig.transform.position = new Vector3(-3.56f, 0.59f, -13.42f);
-        Vector3 cameraRigEulerRotation = new Vector3(0, 180, 0);
-        cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
+       // cameraRig.transform.position = new Vector3(-3.56f, 0.59f, -13.42f);
+       // Vector3 cameraRigEulerRotation = new Vector3(0, 180, 0);
+       // cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
         
         this.spawnLoot();
     }
@@ -80,10 +80,10 @@ public class VRhandler : MonoBehaviour {
         Debug.Log(rndNum + " Lootcrates spawned");
         for (int i = 0; i < rndNum; i++)
         {
-            //x : zwischen 8 und -14
+            //x : zwischen 9 und 15
             //y : -5
-            //z : zwischen -20 und -30
-            Vector3 rndPosition = new Vector3(Random.value * 22 - 13, -5, Random.value * 10 - 30);
+            //z : zwischen -7 und 7
+            Vector3 rndPosition = new Vector3(Random.value * 6 + 9, -5, Random.value * 14 - 7);
             GameObject lootCrateObject = (GameObject)Instantiate(lootCratePrefab);
             // LootCrate lootCrateScript = lootCrateObject.GetComponent<LootCrate>();
             lootCrateObject.gameObject.transform.position = rndPosition;

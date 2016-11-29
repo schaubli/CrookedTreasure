@@ -27,7 +27,7 @@ public class Canon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (vrHandler.GetComponent<VRhandler>().mode == 0)
+        if (vrHandler.GetComponent<VRhandler>().mode == 0 || vrHandler.GetComponent<VRhandler>().mode == 2)
         {
             var playerEulerY = Player.transform.eulerAngles.y;
             if (playerEulerY < 180)
@@ -41,6 +41,8 @@ public class Canon : MonoBehaviour {
                 this.cooldowncounter = 0;
             }
 
+            
+
             cooldowncounter += 1;
         }
     }
@@ -52,7 +54,7 @@ public class Canon : MonoBehaviour {
         cannonballObject = (GameObject)Instantiate(Cannonball,transform.position, Quaternion.identity);
         Canonball cannonballScript = cannonballObject.GetComponent<Canonball>();
         
-        cannonballScript.SetRotationY(this.transform.rotation.eulerAngles.y);
+        cannonballScript.SetRotation(this.transform.rotation.eulerAngles.y, Player.transform.rotation.eulerAngles.x);
         cannonballScript.SetPosition(this.transform.position);
         cannonballScript.SetDamage(this.damage);
         cannonballScript.Fire();

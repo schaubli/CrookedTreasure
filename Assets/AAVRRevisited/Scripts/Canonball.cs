@@ -12,10 +12,10 @@ public class Canonball : MonoBehaviour {
     }
 
     public void SetPosition(Vector3 cannonPos) {
-        this.transform.position = new Vector3(cannonPos.x,cannonPos.y, cannonPos.z);
+        this.transform.position = new Vector3(cannonPos.x,cannonPos.y + 0.26f, cannonPos.z);
     }
-    public void SetRotationY(float cannonEulerAnglesY) {
-        Vector3 eulerRotation = new Vector3(-40, cannonEulerAnglesY - 90, 0);
+    public void SetRotation(float cannonEulerAnglesY, float playerEulerAnglesX) {
+        Vector3 eulerRotation = new Vector3(playerEulerAnglesX, cannonEulerAnglesY - 90, 0);
         transform.rotation = Quaternion.Euler(eulerRotation);
     }
 
@@ -40,6 +40,12 @@ public class Canonball : MonoBehaviour {
         {
             Debug.Log("Hit");
             other.gameObject.GetComponent<VREnemyKrake>().TakeDamage(this.damage);
+            Destroy(this.gameObject);
+        }
+
+        if (other.gameObject.CompareTag("LootCrate"))
+        {
+            other.gameObject.GetComponent<LootCrate>().Hit();
             Destroy(this.gameObject);
         }
     }

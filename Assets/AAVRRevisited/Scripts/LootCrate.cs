@@ -25,4 +25,8 @@ public class LootCrate : MonoBehaviour {
             }
         }
     }
+
+    public void Hit() {
+        Destroy(this.gameObject);
+    }
 }
