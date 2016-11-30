@@ -158,7 +158,7 @@ public class Tile : MonoBehaviour {
 	public void TrySetPlayer() {
 		if(PlayerController.Instance.isPlayerMovable == true) {
 			PlayerController.Instance.isPlayerMovable = false;
-			Path pathToTile = PathFinder.FindPath(PlayerController.Instance.playerTile, this, PathParameter.WalkableAndVisible);
+			Path pathToTile = PathFinder.FindPath(PlayerController.Instance.currentTile, this, PathParameter.WalkableAndVisible);
 			if(pathToTile != null) {
 				StartCoroutine(PlayerController.Instance.MoveAlongPath(pathToTile.TilesOnPath()));
 			} else {

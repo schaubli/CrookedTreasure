@@ -8,7 +8,8 @@ public enum EnvironmentType{
 	Monster,
 	Reef,
 	Treasure,
-	Banana
+	Banana,
+	EnemyShip
 }
 
 [System.Serializable]

@@ -146,7 +146,7 @@ public class TileManager : MonoBehaviour {
         {
             Destroy(tile.gameObject);
         }
-        Destroy(PlayerController.Instance.playerFigure.gameObject);
+        Destroy(PlayerController.Instance.movingGameObject.gameObject);
         tiles = new Dictionary<TileVec, Tile>();
         tilelist = new List<Tile>();
         this.Start();
