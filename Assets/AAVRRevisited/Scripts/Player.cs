@@ -90,4 +90,8 @@ public class Player : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
+    public void OnAnimationEnded() {
+        PlayerController.Instance.OnAnimationEnded();
+    }
+
 }

@@ -56,42 +56,23 @@ public class PlayerController : EntityMover {
 				tile.ShowTile();
 			}
 		}
-		movingGameObject.transform.localPosition = newPosition;
-		movingGameObject.GetComponent<Animator>().Play("MoveForward");
-		CheckNewPosition(newTile);
-
-		Invoke("OnAnimationEnded",1.1f);
-	}
-
-    public override void CheckNewPosition(Tile tile) { //Check if something special happens on the new Tile
-    	EntityMover[] movers = FindObjectsOfType(typeof(EntityMover)) as EntityMover[];  
+		EntityMover[] movers = FindObjectsOfType(typeof(EntityMover)) as EntityMover[];  
     	foreach(EntityMover mover in movers) {
     		if ( mover.gameObject != this.gameObject) {
     			mover.MoveNext();
     		}
     	}
-		EnvironmentType newEnvironment = tile.Environment.type;
+
+		//Check for Enemies and Islands
+		
+		EnvironmentType newEnvironment = newTile.Environment.type;
 		if(newEnvironment == EnvironmentType.Banana) {
 			Player.Instance.addHealth(20);
-			tile.RemoveChildObjects(); //Remove Banana
-			tile.Environment.ApplySettings(EnvironmentManager.Instance.GetEnvironmentByType(EnvironmentType.Ocean));
+			newTile.RemoveChildObjects(); //Remove Banana
+			newTile.Environment.ApplySettings(EnvironmentManager.Instance.GetEnvironmentByType(EnvironmentType.Ocean));
 		}
-	}
-	
-	public override void MovePlayerToTile(Tile tile) {
-		lastTile = this.currentTile;
-		currentTile = tile;
-		if(movingGameObject==null) {
-			Debug.LogError("Make Sure there is not another Player active in the scene");
-		}
-		
-		//Rotate toward new tile
-		Quaternion rotation =  Quaternion.FromToRotation(Vector3.forward, tile.transform.localPosition-lastTile.transform.localPosition);
-		animationCoroutine = AnimateRotation(movingGameObject.transform, Mathf.RoundToInt(rotation.eulerAngles.y-movingGameObject.transform.localRotation.eulerAngles.y), tile.transform.localPosition, tile);
-		StartCoroutine(animationCoroutine);
-		
-		//Check for Enemies and Islands
-		List<Tile> neighbours = tile.GetNeighbourTiles();
+
+		List<Tile> neighbours = newTile.GetNeighbourTiles();
 		int islandcount = 0;
 		int monstercount = 0;
 		foreach(Tile t in neighbours) {
@@ -102,13 +83,11 @@ public class PlayerController : EntityMover {
 			}
 		}
 		if(islandcount>0 || monstercount>0) {
-            if (tile != this.rootTile)
+            if (newTile != this.rootTile)
             {
                 StartVRMode(islandcount, monstercount);
             }
 		}
-
-        //Player.Instance.removeHealth(10);
 	}
 
 	private void StartVRMode(int islandCount, int monsterCount) {

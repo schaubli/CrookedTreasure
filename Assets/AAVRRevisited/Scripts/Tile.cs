@@ -35,6 +35,10 @@ public class Tile : MonoBehaviour {
 		get{ return positionVector.Y; }
 	}
 
+	public TileVec GetPositionVector() {
+		return this.positionVector;
+	}
+
 	#region Neighbour_Tiles
 
 	private Tile left;
@@ -61,7 +65,7 @@ public class Tile : MonoBehaviour {
 	public Tile TopLeft{
 		get{
 			if(this.topLeft == null) {
-				this.topLeft = TileManager.Instance.GetTile(new TileVec((X%2==0?X:X+1)-1,Y+1));
+				this.topLeft = TileManager.Instance.GetTile(new TileVec((Y%2==0?X-1:X),Y+1));
 			}
 			return this.topLeft;
 		}
@@ -71,7 +75,7 @@ public class Tile : MonoBehaviour {
 	public Tile TopRight{
 		get{
 			if(this.topRight == null) {
-				this.topRight = TileManager.Instance.GetTile(new TileVec((X%2==0?X:X+1),Y+1));
+				this.topRight = TileManager.Instance.GetTile(new TileVec((Y%2==0?X:X+1),Y+1));
 			}
 			return this.topRight;
 		}
@@ -81,7 +85,7 @@ public class Tile : MonoBehaviour {
 	public Tile BottomLeft{
 		get{
 			if(this.bottomLeft == null) {
-				this.bottomLeft = TileManager.Instance.GetTile(new TileVec((X%2==0?X:X+1)-1,Y-1));
+				this.bottomLeft = TileManager.Instance.GetTile(new TileVec((Y%2==0?X-1:X),Y-1));
 			}
 			return this.bottomLeft;
 		}
@@ -91,7 +95,7 @@ public class Tile : MonoBehaviour {
 	public Tile BottomRight{
 		get{
 			if(this.bottomRight == null) {
-				this.bottomRight = TileManager.Instance.GetTile(new TileVec((X%2==0?X:X+1),Y-1));
+				this.bottomRight = TileManager.Instance.GetTile(new TileVec((Y%2==0?X:X+1),Y-1));
 			}
 			return this.bottomRight;
 		}
@@ -125,24 +129,15 @@ public class Tile : MonoBehaviour {
 	}
 
 	public void SetPlayerOnTile() {
-		this.isPlayerOnTile = true;
-		tileRenderer.material = TileManager.Instance.playerTileMaterial;
 		/*Vector3 newPos = transform.position;
 		newPos.y += 0.001f;
 		transform.position = newPos;*/
-		PlayerController.Instance.MovePlayerToTile(this);
 	}
 
 	public void RemovePlayerFromTile() {
-		this.isPlayerOnTile = false;
-		tileRenderer.material = TileManager.Instance.defaultTileMaterial;
 		/*Vector3 newPos = transform.position;
 		//newPos.y -= 0.001f;
 		transform.position = newPos;*/
-	}
-
-	public TileVec GetPositionVector() {
-		return this.positionVector;
 	}
 
 
@@ -156,17 +151,18 @@ public class Tile : MonoBehaviour {
 	}
 	
 	public void TrySetPlayer() {
-		if(PlayerController.Instance.isPlayerMovable == true) {
-			PlayerController.Instance.isPlayerMovable = false;
+		if(PlayerController.Instance.IsPlayerMovable == true) {
+			PlayerController.Instance.IsPlayerMovable = false;
 			Path pathToTile = PathFinder.FindPath(PlayerController.Instance.currentTile, this, PathParameter.WalkableAndVisible);
 			if(pathToTile != null) {
 				StartCoroutine(PlayerController.Instance.MoveAlongPath(pathToTile.TilesOnPath()));
 			} else {
-				PlayerController.Instance.isPlayerMovable = true;
+				PlayerController.Instance.IsPlayerMovable = true;
 				Debug.Log("Could not find path to "+gameObject.name);
 			}
 		} else {
-			Debug.Log("Player is not movable");
+			Debug.Log("Tried to move but Ship is still in animation");
+			//Debug.Log(PlayerController.Instance.isRotationAnimationPlaying);
 		}
 	}
 
@@ -415,4 +411,7 @@ public class Tile : MonoBehaviour {
 		this.isShown = false;
 	}
 
+	public void DeactivateGameObject() {
+		gameObject.SetActive(false);
+	}
 }

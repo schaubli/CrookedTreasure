@@ -18,8 +18,8 @@ public class EntityMover : MonoBehaviour {
 
 	public GameObject movingGameObject;
 	[HideInInspector]
-	public bool isPlayerMovable = true;
-	private bool isRotationAnimationPlaying = false;
+	private bool isPlayerMovable = true;
+	private bool isMovingAnimationPlaying = false;
 	public Tile currentTile; 
 	[HideInInspector]
 	public Tile lastTile;
@@ -28,22 +28,33 @@ public class EntityMover : MonoBehaviour {
 	public TileDirection[] movements;
 	private int currentMovementIndex = 0;
 
-	public IEnumerator MoveAlongPath(List<Tile> tiles) {
-		Debug.Log("Moving along "+tiles.Count+" tiles");
-		while(tiles.Count > 0) { //Move Player from Tile to Tile
-			this.isRotationAnimationPlaying = true;
-			Debug.Log("Moving to tile "+tiles[0].gameObject.name);
-			this.currentTile.RemovePlayerFromTile();
-			tiles[0].SetPlayerOnTile();
-			tiles.RemoveAt(0);
-			yield return new WaitUntil(() => this.isRotationAnimationPlaying == false );
-			yield return new WaitForEndOfFrame();
-			yield return new WaitForEndOfFrame();
+	private static bool debugMovement = false;
+
+	public bool IsPlayerMovable {
+		get{ 
+			return this.isPlayerMovable;
 		}
-		this.isPlayerMovable = true;
+		set {
+			this.isPlayerMovable = value;
+		}
 	}
 
-	public IEnumerator AnimateRotation(Transform startTransform, int degrees, Vector3 newPosition, Tile newTile) {
+	public IEnumerator MoveAlongPath(List<Tile> tiles) { //Called when clicking on
+		Debug.Log("Moving along "+tiles.Count+" tiles");
+		while(tiles.Count > 0) { //Move Player from Tile to Tile
+			this.isMovingAnimationPlaying = true;
+			Debug.Log("Moving to tile "+tiles[0].gameObject.name);
+			yield return StartCoroutine(MovePlayerToTile(tiles[0]));			
+			tiles.RemoveAt(0);
+			DebugMovement("Waiting until end of animation");
+			yield return new WaitUntil(() => isMovingAnimationPlaying == false);
+			yield return new WaitForEndOfFrame();
+		}
+		this.IsPlayerMovable = true;
+		DebugMovement("Moving along path finished");
+	}
+
+	public IEnumerator AnimateRotation(Transform startTransform, int degrees, Vector3 newPosition, Tile newTile) { //Called before moving to tile
 		if(degrees>180 ) {
 			degrees = -(360-degrees);
 		} else if(degrees <-180) {
@@ -52,6 +63,7 @@ public class EntityMover : MonoBehaviour {
 		float startdegrees = startTransform.localRotation.eulerAngles.y;
 		float duration = 1f;
 		float time = 0;
+		DebugMovement("Rotating towards new tile");
 		while( time<duration && degrees != 0) {//Rotate
 			time += Time.deltaTime;
 			Vector3 newRot = startTransform.localRotation.eulerAngles;
@@ -59,38 +71,40 @@ public class EntityMover : MonoBehaviour {
 			movingGameObject.transform.localRotation = Quaternion.Euler(newRot);
 			yield return new WaitForEndOfFrame();
 		}
+		yield return new WaitForEndOfFrame();
+		DebugMovement("Rotation finished");
+		movingGameObject.transform.localPosition = newPosition;
+		DebugMovement("Moving forward");
+		movingGameObject.GetComponent<Animator>().Play("MoveForward");
 		OnAfterRotation(newPosition, newTile);
 	}
 
 	public virtual void OnAfterRotation(Vector3 newPosition, Tile newTile) {
-		movingGameObject.transform.localPosition = newPosition;
-		movingGameObject.GetComponent<Animator>().Play("MoveForward");
-		Invoke("OnAnimationEnded",1.1f);
-	}
-
-	public virtual void CheckNewPosition(Tile tile) { //Check if something special happens on the new Tile
 
 	}
 
-	public virtual void MovePlayerToTile(Tile tile) {
+	public IEnumerator MovePlayerToTile(Tile tile) { // Called by tile
 		lastTile = this.currentTile;
 		currentTile = tile;
 		if(movingGameObject==null) {
-			Debug.LogError("Make Sure there is not another Player active in the scene");
+			Debug.LogError("Make sure there is not another Player active in the scene");
 		}
-		
+		yield return new WaitForEndOfFrame();
 		//Rotate toward new tile
 		Quaternion rotation =  Quaternion.FromToRotation(Vector3.forward, tile.transform.localPosition-lastTile.transform.localPosition);
 		animationCoroutine = AnimateRotation(movingGameObject.transform, Mathf.RoundToInt(rotation.eulerAngles.y-movingGameObject.transform.localRotation.eulerAngles.y), tile.transform.localPosition, tile);
-		StartCoroutine(animationCoroutine);
+		yield return StartCoroutine(animationCoroutine);
 	}
 
-	private void OnAnimationEnded() {
-		this.isRotationAnimationPlaying = false;
+	public void OnAnimationEnded() { // Called at end of MoveForward animation
+		this.isMovingAnimationPlaying = false;
+		DebugMovement("Moving finished");
 	}
 
-	public void MoveNext() {
+	public void MoveNext() { // Called 
 		Tile newTile = this.currentTile.GetNeighbourInDirection(movements[currentMovementIndex]);
+
+		//Debug.Log(gameObject.name+" moving to "+movements[currentMovementIndex]);
 		
 		this.currentMovementIndex+=1;
 		if(currentMovementIndex >=movements.Length) {
@@ -98,15 +112,14 @@ public class EntityMover : MonoBehaviour {
 		}
 		
 		//MoveToTile(newTile);
+		this.isMovingAnimationPlaying = true;
+		DebugMovement("Moving "+gameObject.name+" to tile "+newTile.gameObject.name);
+		StartCoroutine(MovePlayerToTile(newTile));
+	}
 
-		Debug.Log(gameObject.name+" moved next to "+newTile.gameObject.name);
-
-		if(isRotationAnimationPlaying == false) {
-			this.isRotationAnimationPlaying = true;
-			Debug.Log("Moving "+gameObject.name+" to tile "+newTile.gameObject.name);
-			MovePlayerToTile(newTile);
-		} else {
-			Debug.Log("Still rotating");
+	private void DebugMovement(string debugMessage) {
+		if(debugMovement) {
+			Debug.Log(debugMessage);
 		}
 	}
 }
