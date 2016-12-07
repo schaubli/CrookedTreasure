@@ -30,8 +30,8 @@ public class Canonball : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-     this.transform.position = this.transform.position + transform.forward * 0.5f;
-        this.transform.Rotate(1.5f, 0, 0);
+     this.transform.position = this.transform.position + transform.forward * 0.6f;
+        this.transform.Rotate(1.2f, 0, 0);
     }
     
     void OnTriggerEnter(Collider other)

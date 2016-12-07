@@ -14,6 +14,7 @@ public class Canon : MonoBehaviour {
     private int cooldowncounter;
     private float rotationOffset;
 
+
     // Use this for initialization
     void Start () {
         rotationOffset = +90;
@@ -58,6 +59,9 @@ public class Canon : MonoBehaviour {
         cannonballScript.SetPosition(this.transform.position);
         cannonballScript.SetDamage(this.damage);
         cannonballScript.Fire();
+
+       
+        GetComponent<Animation>().Play("CannonRecoil");
 
     }
 
