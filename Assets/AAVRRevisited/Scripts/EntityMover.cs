@@ -47,6 +47,7 @@ public class EntityMover : MonoBehaviour {
 			yield return StartCoroutine(MovePlayerToTile(tiles[0]));			
 			tiles.RemoveAt(0);
 			DebugMovement("Waiting until end of animation");
+			yield return new WaitForEndOfFrame();
 			yield return new WaitUntil(() => isMovingAnimationPlaying == false);
 			yield return new WaitForEndOfFrame();
 		}
@@ -61,7 +62,7 @@ public class EntityMover : MonoBehaviour {
 			degrees += 360;
 		}
 		float startdegrees = startTransform.localRotation.eulerAngles.y;
-		float duration = 1f;
+		float duration = 1f/180f*(Mathf.Abs(degrees)+90);
 		float time = 0;
 		DebugMovement("Rotating towards new tile");
 		while( time<duration && degrees != 0) {//Rotate
@@ -120,6 +121,12 @@ public class EntityMover : MonoBehaviour {
 	private void DebugMovement(string debugMessage) {
 		if(debugMovement) {
 			Debug.Log(debugMessage);
+		}
+	}
+
+	void OnValidate() {
+		if(this.currentTile != null) {
+			this.transform.position = currentTile.transform.position;
 		}
 	}
 }

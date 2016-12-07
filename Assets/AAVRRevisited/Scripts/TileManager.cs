@@ -31,6 +31,7 @@ public class TileManager : MonoBehaviour {
 			EnvironmentManager.Instance.AssignEnvironments(this.tilelist);
 			this.rootTile = GetTile(new TileVec(0,0));
 			PlacePlayerOnTile(rootTile);
+			DeactivateEnemyShips();
 		} else {
 			this.GenerateMapFromPrefab(this.levels[0]);
 			PlacePlayerOnTile(rootTile); // Root tile is found in the generating process
@@ -47,6 +48,10 @@ public class TileManager : MonoBehaviour {
 				AddNewTile(x,y);
 			}
 		}
+	}
+
+	private void DeactivateEnemyShips() {
+		
 	}
 
 	private void GenerateMapFromPrefab(GameObject gameObj) {

@@ -11,6 +11,7 @@ public class PlayerController : EntityMover {
 
     public GameObject vrHandlerGameobject;
     private VRhandler vrHandler;
+	private EntityMover[] movers;    
 
     private TriggerType triggerType = TriggerType.VR_TRIGGER;
 	#if ! UNITY_EDITOR_OSX
@@ -30,6 +31,7 @@ public class PlayerController : EntityMover {
 		movingGameObject = (GameObject) Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
 		movingGameObject.transform.SetParent(this.transform);
 		movingGameObject.transform.SetAsFirstSibling();
+		movers = FindObjectsOfType(typeof(EntityMover)) as EntityMover[];
 		lastTile = rootTile;
 		this.currentTile = rootTile;
         this.rootTile = rootTile;
