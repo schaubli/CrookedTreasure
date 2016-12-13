@@ -36,10 +36,7 @@ public class TileManager : MonoBehaviour {
 			this.GenerateMapFromPrefab(this.levels[0]);
 			PlacePlayerOnTile(rootTile); // Root tile is found in the generating process
 		}
-
 		SortHierarchy();
-
-		
 	}
 
 	private void GenerateRandomMap() { // Generates a map of the given size and assigns random environments

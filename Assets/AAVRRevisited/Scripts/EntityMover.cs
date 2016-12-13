@@ -28,7 +28,7 @@ public class EntityMover : MonoBehaviour {
 	public TileDirection[] movements;
 	private int currentMovementIndex = 0;
 
-	private static bool debugMovement = true;
+	private static bool debugMovement = false;
 
 	public bool IsPlayerMovable {
 		get{ 
@@ -48,8 +48,10 @@ public class EntityMover : MonoBehaviour {
 			tiles.RemoveAt(0);
 			DebugMovement("Waiting until end of animation");
 			yield return new WaitForEndOfFrame();
-			yield return new WaitUntil(() => isMovingAnimationPlaying == false);
-			yield return new WaitForEndOfFrame();
+			while (isMovingAnimationPlaying == true) {
+				DebugMovement("Coroutine waiting for animation to end on "+gameObject.name);
+				yield return new WaitForEndOfFrame();
+			}
 		}
 		this.IsPlayerMovable = true;
 		DebugMovement("Moving along path finished");
@@ -75,7 +77,7 @@ public class EntityMover : MonoBehaviour {
 		yield return new WaitForEndOfFrame();
 		DebugMovement("Rotation finished");
 		movingGameObject.transform.localPosition = newPosition;
-		DebugMovement("Moving forward");
+		DebugMovement("Moving forward on");
 		movingGameObject.GetComponent<Animator>().Play("MoveForward");
 		OnAfterRotation(newPosition, newTile);
 	}
