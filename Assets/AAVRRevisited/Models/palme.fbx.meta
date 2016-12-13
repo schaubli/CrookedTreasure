@@ -1,0 +1,138 @@
+fileFormatVersion: 2
+guid: 466127f8c1c3c9b4295b4bebc6f0a623
+timeCreated: 1481285323
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Banane_1
+    100002: Banane_1_2
+    100004: Banane_1_2_2
+    100006: "Bl\xE4tter"
+    100008: CINEMA_4D_Editor
+    100010: Extrudieren
+    100012: Extrudieren_1
+    100014: Extrudieren_1_2
+    100016: Extrudieren_2
+    100018: Extrudieren_2_2
+    100020: Extrudieren_2_3
+    100022: Extrudieren_3
+    100024: Extrudieren_3_2
+    100026: Extrudieren_4
+    100028: Extrudieren_4_2
+    100030: //RootNode
+    100032: Palme1
+    100034: Stamm
+    100036: Stamm_2
+    100038: Statute
+    100040: Staute
+    400000: Banane_1
+    400002: Banane_1_2
+    400004: Banane_1_2_2
+    400006: "Bl\xE4tter"
+    400008: CINEMA_4D_Editor
+    400010: Extrudieren
+    400012: Extrudieren_1
+    400014: Extrudieren_1_2
+    400016: Extrudieren_2
+    400018: Extrudieren_2_2
+    400020: Extrudieren_2_3
+    400022: Extrudieren_3
+    400024: Extrudieren_3_2
+    400026: Extrudieren_4
+    400028: Extrudieren_4_2
+    400030: //RootNode
+    400032: Palme1
+    400034: Stamm
+    400036: Stamm_2
+    400038: Statute
+    400040: Staute
+    2300000: Banane_1_2_2
+    2300002: Extrudieren_1_2
+    2300004: Extrudieren_2_2
+    2300006: Extrudieren_2_3
+    2300008: Extrudieren_3_2
+    2300010: Extrudieren_4_2
+    2300012: Stamm_2
+    2300014: Staute
+    3300000: Banane_1_2_2
+    3300002: Extrudieren_1_2
+    3300004: Extrudieren_2_2
+    3300006: Extrudieren_2_3
+    3300008: Extrudieren_3_2
+    3300010: Extrudieren_4_2
+    3300012: Stamm_2
+    3300014: Staute
+    4300000: Extrudieren_4_2
+    4300002: Extrudieren_3_2
+    4300004: Extrudieren_2_2
+    4300006: Extrudieren_2_3
+    4300008: Extrudieren_1_2
+    4300010: Staute
+    4300012: Banane_1_2_2
+    4300014: Stamm_2
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

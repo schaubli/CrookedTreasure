@@ -28,7 +28,7 @@ public class EntityMover : MonoBehaviour {
 	public TileDirection[] movements;
 	private int currentMovementIndex = 0;
 
-	private static bool debugMovement = false;
+	private static bool debugMovement = true;
 
 	public bool IsPlayerMovable {
 		get{ 
