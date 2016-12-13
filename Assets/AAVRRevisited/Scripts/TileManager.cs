@@ -55,7 +55,11 @@ public class TileManager : MonoBehaviour {
 	}
 
 	private void GenerateMapFromPrefab(GameObject gameObj) {
-		GameObject level = Instantiate<GameObject>(gameObj);
+		GameObject level = Instantiate(gameObj, Vector3.zero, Quaternion.identity) as GameObject;
+		level.transform.SetParent(this.transform);
+		level.transform.localPosition = Vector3.zero;
+		level.transform.localRotation = Quaternion.identity;
+		level.transform.localScale = new Vector3(1,1,1);
 		Tile[] newTiles = level.GetComponentsInChildren<Tile>();
 		foreach(Tile tile in newTiles) {
 			tile.InitTile(TileVec.FromTransform(tile.transform));

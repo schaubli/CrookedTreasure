@@ -28,7 +28,7 @@ public class PlayerController : EntityMover {
     // Use this for initialization
     public void Initiate (Tile rootTile) {
 		instance = this;
-		movingGameObject = (GameObject) Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+		movingGameObject = (GameObject) Instantiate(playerPrefab, rootTile.gameObject.transform.position, Quaternion.identity);
 		movingGameObject.transform.SetParent(this.transform);
 		movingGameObject.transform.SetAsFirstSibling();
 		movers = FindObjectsOfType(typeof(EntityMover)) as EntityMover[];
