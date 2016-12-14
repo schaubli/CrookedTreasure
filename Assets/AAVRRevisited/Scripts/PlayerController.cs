@@ -86,7 +86,7 @@ public class PlayerController : EntityMover {
 				enemyShipCount++;
 			}
 		}
-		if(islandcount>0 || monstercount>0) {
+		if(islandcount>0 || monstercount>0 || enemyShipCount>0) {
             if (newTile != this.rootTile)
             {
                 StartVRMode(islandcount, monstercount, enemyShipCount);
