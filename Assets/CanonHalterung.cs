@@ -14,7 +14,7 @@ public class CanonHalterung : MonoBehaviour {
         var playerEulerX = Player.transform.eulerAngles.x;
         //if (playerEulerX < 0)
         //{
-            Vector3 eulerRotation = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, playerEulerX + 20);
+            Vector3 eulerRotation = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, playerEulerX);
             transform.rotation = Quaternion.Euler(eulerRotation);
         //}
     }

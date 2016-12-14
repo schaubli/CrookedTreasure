@@ -3,6 +3,7 @@ using System.Collections;
 
 public class LootCrate : MonoBehaviour {
 
+    public GameObject bananaVrPrefab;
 	// Use this for initialization
 	void Start () {
         this.transform.rotation = new Quaternion(Random.value / 5 ,Random.value * 3.14f*2,Random.value / 5, this.transform.rotation.w);
@@ -27,6 +28,9 @@ public class LootCrate : MonoBehaviour {
     }
 
     public void Hit() {
+        GameObject bananaObject = (GameObject)Instantiate(bananaVrPrefab, transform.position, Quaternion.identity);
+        BananaVR bananaScript = bananaObject.GetComponent<BananaVR>();
+        bananaScript.StartFlying();
         Destroy(this.gameObject);
     }
 }
