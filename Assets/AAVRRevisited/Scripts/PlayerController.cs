@@ -75,22 +75,26 @@ public class PlayerController : EntityMover {
 		List<Tile> neighbours = newTile.GetNeighbourTiles();
 		int islandcount = 0;
 		int monstercount = 0;
+		int enemyShipCount = 0;
 		foreach(Tile t in neighbours) {
 			if(t.Environment.type == EnvironmentType.Island){
 				islandcount++;
 			} else if(t.Environment.type == EnvironmentType.Monster){
 				monstercount++;
 			}
+			if(t.moverOnTile != null) {
+				enemyShipCount++;
+			}
 		}
 		if(islandcount>0 || monstercount>0) {
             if (newTile != this.rootTile)
             {
-                StartVRMode(islandcount, monstercount);
+                StartVRMode(islandcount, monstercount, enemyShipCount);
             }
 		}
 	}
 
-	private void StartVRMode(int islandCount, int monsterCount) {
+	private void StartVRMode(int islandCount, int monsterCount, int enemyShipCount) {
         bool goingBackToAR = (triggerType == TriggerType.AR_TRIGGER);
         #if !UNITY_EDITOR_OSX
 
