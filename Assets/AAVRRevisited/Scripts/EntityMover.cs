@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Pathfind;
 
 public enum TileDirection {
 	Left,
@@ -39,13 +40,14 @@ public class EntityMover : MonoBehaviour {
 		}
 	}
 
-	public IEnumerator MoveAlongPath(List<Tile> tiles) { //Called when clicking on
-		Debug.Log("Moving along "+tiles.Count+" tiles");
-		while(tiles.Count > 0) { //Move Player from Tile to Tile
+	public IEnumerator MoveAlongPath(Tile targetTile) { //Called when clicking on
+		Path currentPathToTile = PathFinder.FindPath(PlayerController.Instance.currentTile,targetTile, PathParameter.WalkableAndVisible);
+		Debug.Log("Moving along "+currentPathToTile.TilesOnPath().Count+" tiles");
+		while(currentPathToTile != null && PlayerController.Instance.currentTile != targetTile && currentPathToTile.TilesOnPath().Count>0) { //Move Player until we reached target or cant move there
 			this.isMovingAnimationPlaying = true;
-			Debug.Log("Moving to tile "+tiles[0].gameObject.name);
-			yield return StartCoroutine(MovePlayerToTile(tiles[0]));			
-			tiles.RemoveAt(0);
+			Debug.Log("Moving to tile "+currentPathToTile.TilesOnPath()[0].gameObject.name);
+			yield return StartCoroutine(MovePlayerToTile(currentPathToTile.TilesOnPath()[0]));
+			currentPathToTile = PathFinder.FindPath(currentPathToTile.TilesOnPath()[0], targetTile, PathParameter.WalkableAndVisible);
 			DebugMovement("Waiting until end of animation");
 			yield return new WaitForEndOfFrame();
 			while (isMovingAnimationPlaying == true) {
@@ -89,6 +91,7 @@ public class EntityMover : MonoBehaviour {
 	public IEnumerator MovePlayerToTile(Tile tile) { // Called by tile
 		lastTile = this.currentTile;
 		currentTile = tile;
+		lastTile.moverOnTile = null;
 		if(movingGameObject==null) {
 			Debug.LogError("Make sure there is not another Player active in the scene");
 		}
@@ -97,6 +100,7 @@ public class EntityMover : MonoBehaviour {
 		Quaternion rotation =  Quaternion.FromToRotation(Vector3.forward, tile.transform.localPosition-lastTile.transform.localPosition);
 		animationCoroutine = AnimateRotation(movingGameObject.transform, Mathf.RoundToInt(rotation.eulerAngles.y-movingGameObject.transform.localRotation.eulerAngles.y), tile.transform.localPosition, tile);
 		yield return StartCoroutine(animationCoroutine);
+		currentTile.moverOnTile = this;
 	}
 
 	public void OnAnimationEnded() { // Called at end of MoveForward animation

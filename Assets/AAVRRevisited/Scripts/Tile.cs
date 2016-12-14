@@ -13,6 +13,7 @@ public class Tile : MonoBehaviour {
 	private MeshRenderer tileRenderer;
 	private Environment environment;
 	public GameObject macroEnvironment;
+	public EntityMover moverOnTile;
 
 	public void InitTile(int x, int y) {
 		InitTile(new TileVec(x,y));
@@ -155,7 +156,7 @@ public class Tile : MonoBehaviour {
 			PlayerController.Instance.IsPlayerMovable = false;
 			Path pathToTile = PathFinder.FindPath(PlayerController.Instance.currentTile, this, PathParameter.WalkableAndVisible);
 			if(pathToTile != null) {
-				StartCoroutine(PlayerController.Instance.MoveAlongPath(pathToTile.TilesOnPath()));
+				StartCoroutine(PlayerController.Instance.MoveAlongPath(this));
 			} else {
 				PlayerController.Instance.IsPlayerMovable = true;
 				Debug.Log("Could not find path to "+gameObject.name);
@@ -247,7 +248,7 @@ public class Tile : MonoBehaviour {
 		List<Tile> tiles = new List<Tile>();
 		foreach(TileVec tilevec in GetNeighbours()) {
 			Tile neighbour = TileManager.Instance.GetTile(tilevec);
-			if( neighbour != null && neighbour.Environment.IsWalkable == true) {
+			if( neighbour != null && neighbour.Environment.IsWalkable == true && neighbour.moverOnTile == null) {
 				tiles.Add(neighbour);
 			}/* else {
 				if(neighbour == null) {
@@ -264,7 +265,7 @@ public class Tile : MonoBehaviour {
 		List<Tile> tiles = new List<Tile>();
 		foreach(TileVec tilevec in GetNeighbours()) {
 			Tile neighbour = TileManager.Instance.GetTile(tilevec);
-			if( neighbour != null && neighbour.Environment.IsWalkable == true && neighbour.IsDiscovered == true) {
+			if( neighbour != null && neighbour.Environment.IsWalkable == true && neighbour.IsDiscovered == true && neighbour.moverOnTile == null) {
 				tiles.Add(neighbour);
 			} /*else {
 				if(neighbour == null) {
