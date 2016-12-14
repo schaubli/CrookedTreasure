@@ -9,7 +9,7 @@ public class Tile : MonoBehaviour {
 	private bool isPlayerOnTile = false;
 	private bool isShown = false;
 	private bool isDiscovered = false;
-	//private bool isRimPiece = false;
+	//private bool isRimPiece = false;s
 	private MeshRenderer tileRenderer;
 	private Environment environment;
 	public GameObject macroEnvironment;
@@ -395,9 +395,9 @@ public class Tile : MonoBehaviour {
 	}
 
 	public void ShowTile() {
-		//tileRenderer.enabled = true;
 		gameObject.SetActive(true);
 		this.gameObject.GetComponent<Animator>().Play("FadeIn");
+		//tileRenderer.enabled = true;
 		this.isShown = true;
 		this.isDiscovered = true;
 		if(macroEnvironment != null) {
@@ -406,13 +406,14 @@ public class Tile : MonoBehaviour {
 	}
 	
 	public void HideTile() {
-		//tileRenderer.enabled = false;
+		
 		//gameObject.SetActive(false);
 		this.gameObject.GetComponent<Animator>().Play("FadeOut");
 		this.isShown = false;
 	}
 
 	public void DeactivateGameObject() {
+		//tileRenderer.enabled = false;
 		gameObject.SetActive(false);
 	}
 }

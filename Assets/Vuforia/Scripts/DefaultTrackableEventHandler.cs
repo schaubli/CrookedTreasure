@@ -72,6 +72,7 @@ namespace Vuforia
             Canvas[] canvasComponents = GetComponentsInChildren<Canvas>(true);
             Light[] lightComponents = GetComponentsInChildren<Light>(true);
             Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
+            EntityMover[] movingObjects = TileManager.Instance.moversInScene;
 
             // Enable rendering:
             foreach (Renderer component in rendererComponents)
@@ -94,6 +95,19 @@ namespace Vuforia
             foreach (Collider component in colliderComponents)
             {
                 component.enabled = true;
+            }
+
+            foreach (EntityMover mover in movingObjects) {
+            	Debug.Log("Checking moving Object "+mover.gameObject.name);
+            	if(mover.currentTile.IsShown == false ) {
+					Debug.Log("Hiding moving Object "+mover.gameObject.name);
+            		Renderer[] meshsInMovingObject = mover.gameObject.GetComponentsInChildren<Renderer>(true);
+            		foreach (Renderer component in meshsInMovingObject)
+					{
+						component.enabled = false;
+						Debug.Log("Disabling "+component.gameObject.name);
+					}
+            	}
             }
 
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");

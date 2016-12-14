@@ -81,11 +81,11 @@ public class EntityMover : MonoBehaviour {
 		movingGameObject.transform.localPosition = newPosition;
 		DebugMovement("Moving forward on");
 		movingGameObject.GetComponent<Animator>().Play("MoveForward");
-		OnAfterRotation(newPosition, newTile);
+		yield return StartCoroutine(OnAfterRotation(newPosition, newTile));
 	}
 
-	public virtual void OnAfterRotation(Vector3 newPosition, Tile newTile) {
-
+	public virtual IEnumerator OnAfterRotation(Vector3 newPosition, Tile newTile) {
+		yield return new WaitForEndOfFrame();
 	}
 
 	public IEnumerator MovePlayerToTile(Tile tile) { // Called by tile
