@@ -14,6 +14,7 @@ public class TileManager : MonoBehaviour {
 	public Dictionary<TileVec, Tile> tiles = new Dictionary<TileVec, Tile>();
 	public List<Tile> tilelist= new List<Tile>();
 	private static TileManager instance;
+	public EntityMover[] moversInScene;
 	private Tile rootTile;
 	public Tile RootTile{get {return this.rootTile;}}
 
@@ -57,6 +58,8 @@ public class TileManager : MonoBehaviour {
 		level.transform.localPosition = Vector3.zero;
 		level.transform.localRotation = Quaternion.identity;
 		level.transform.localScale = new Vector3(1,1,1);
+
+		this.moversInScene = level.GetComponentsInChildren<EntityMover>();
 		Tile[] newTiles = level.GetComponentsInChildren<Tile>();
 		foreach(Tile tile in newTiles) {
 			tile.InitTile(TileVec.FromTransform(tile.transform));
@@ -64,6 +67,7 @@ public class TileManager : MonoBehaviour {
 			if(tile.gameObject.tag == "Respawn") {
 				this.rootTile = tile;
 			}
+			//tile.tileRenderer.enabled = true;
 			tile.gameObject.SetActive(false);
 			if(tile.macroEnvironment != null) {
 				tile.macroEnvironment.SetActive(false);

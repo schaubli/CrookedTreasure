@@ -12,7 +12,6 @@ public class PlayerController : EntityMover {
     public GameObject vrHandlerGameobject;
     private VRhandler vrHandler; 
 
-    private TriggerType triggerType = TriggerType.VR_TRIGGER;
 	#if ! UNITY_EDITOR_OSX
     private TransitionManager mTransitionManager;
     #endif
@@ -42,7 +41,7 @@ public class PlayerController : EntityMover {
         #endif
     }
 
-    public override void OnAfterRotation(Vector3 newPosition, Tile newTile) {
+    public override IEnumerator OnAfterRotation(Vector3 newPosition, Tile newTile) {
 		// Move Player to new Position
 		List<Tile> oldFarNeighbours = this.lastTile.GetFarNeighbourTiles();
 		List<Tile> newFarNeighbours = newTile.GetFarNeighbourTiles();
@@ -90,13 +89,14 @@ public class PlayerController : EntityMover {
         if (islandcount>0 || monstercount>0 || enemyShipCount>0) {
             if (newTile != this.rootTile)
             {
-                StartVRMode(islandcount, monstercount, enemyShipCount);
+				yield return StartCoroutine(StartVRMode(islandcount, monstercount, enemyShipCount));
             }
 		}
+		yield return new WaitForEndOfFrame();
 	}
 
-	private void StartVRMode(int islandCount, int monsterCount, int enemyShipCount) {
-        bool goingBackToAR = (triggerType == TriggerType.AR_TRIGGER);
+	private IEnumerator StartVRMode(int islandCount, int monsterCount, int enemyShipCount) {
+        bool goingBackToAR = false;
         #if !UNITY_EDITOR_OSX
 
         if (vrHandler != null)
@@ -119,10 +119,13 @@ public class PlayerController : EntityMover {
 
         if (mTransitionManager != null) {
     		mTransitionManager.Play(goingBackToAR);
+			Debug.Log("Transition state in AR "+ mTransitionManager.InAR);
+			yield return new WaitForSeconds(1);
+			while (mTransitionManager.InAR == false){
+				Debug.Log("Waiting for return to AR Mode");
+				yield return new WaitForEndOfFrame();
+			}
 		}
-
-       
-            
         #endif
     }
 
