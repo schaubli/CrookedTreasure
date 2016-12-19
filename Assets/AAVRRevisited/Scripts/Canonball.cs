@@ -4,7 +4,7 @@ using System.Collections;
 public class Canonball : MonoBehaviour {
 
     private Rigidbody rb;
-    private int damage;
+    public int damage;
 
     void Start() {
         rb = this.gameObject.GetComponent<Rigidbody>();
@@ -30,8 +30,12 @@ public class Canonball : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-     this.transform.position = this.transform.position + transform.forward * 0.6f;
-        this.transform.Rotate(1.2f, 0, 0);
+        
+   
+    this.transform.position = this.transform.position + transform.forward * 0.6f;
+    this.transform.Rotate(1.2f, 0, 0);
+       
+
     }
     
     void OnTriggerEnter(Collider other)
@@ -39,7 +43,7 @@ public class Canonball : MonoBehaviour {
         if (other.gameObject.CompareTag("VREnemy"))
         {
             Debug.Log("Hit");
-            other.gameObject.GetComponent<VREnemyKrake>().TakeDamage(this.damage);
+            other.gameObject.GetComponentInParent<VREnemyKrake>().TakeDamage(this.damage);
             Destroy(this.gameObject);
         }
 

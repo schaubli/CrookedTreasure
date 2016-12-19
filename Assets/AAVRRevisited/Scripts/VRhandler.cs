@@ -89,7 +89,8 @@ public class VRhandler : MonoBehaviour {
             lootCrateObject.gameObject.transform.position = rndPosition;
         }
     }
-	
+
+    private int lootingTime = 0;
 	// Update is called once per frame
 	void Update () {
         if (krake != null) {
@@ -98,6 +99,24 @@ public class VRhandler : MonoBehaviour {
                 this.initLooting();
             }
         }
+        if (this.mode == 2) {
+            lootingTime++;
+            
+            if (lootingTime == 1200) {
+                this.mode = 99;
+                lootingTime = 0;
+                GameObject[] leftover_lootcrates = GameObject.FindGameObjectsWithTag("LootCrate");
+
+                foreach (GameObject lootcrate in leftover_lootcrates)
+                {
+                    Destroy(lootcrate);
+                }
+               
+                PlayerController.Instance.EndVRMode();
+            }
+
+        }
+
 	}
     /*
     private static VRhandler instance;

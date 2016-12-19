@@ -85,7 +85,8 @@ public class PlayerController : EntityMover {
 				enemyShipCount++;
 			}
 		}
-
+        
+       // monstercount = 1;
         if (islandcount>0 || monstercount>0 || enemyShipCount>0) {
             if (newTile != this.rootTile)
             {
@@ -128,10 +129,18 @@ public class PlayerController : EntityMover {
 		}
         #endif
     }
+    public void EndVRMode() {
+        #if !UNITY_EDITOR_OSX
+        if (mTransitionManager != null)
+        {
+
+            mTransitionManager.Play(true);
+        }
+        #endif
+    }
 
 
-	
-	private static PlayerController instance;
+    private static PlayerController instance;
 	public static PlayerController Instance { 
 		get {
 			if(instance == null)

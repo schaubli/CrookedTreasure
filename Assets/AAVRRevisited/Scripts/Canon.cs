@@ -46,6 +46,13 @@ public class Canon : MonoBehaviour {
 
             cooldowncounter += 1;
         }
+        else
+        {
+            if (cannonballObject != null)
+            {
+                Destroy(cannonballObject);
+            }
+        }
     }
 
     void Shoot() {
@@ -59,7 +66,7 @@ public class Canon : MonoBehaviour {
         cannonballScript.SetPosition(this.transform.position);
         cannonballScript.SetDamage(this.damage);
         cannonballScript.Fire();
-
+        
        
         GetComponent<Animation>().Play("CannonRecoil");
 

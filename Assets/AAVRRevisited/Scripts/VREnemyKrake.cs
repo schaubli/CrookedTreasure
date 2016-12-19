@@ -3,19 +3,25 @@ using System.Collections;
 
 public class VREnemyKrake : MonoBehaviour {
 
-    public int health;
+    public float health;
     public int attack;
     public int cooldown;
     public int cdcounter;
     public bool dead;
 
-    // Use this for initialization
+    VREnemyTentakel[] tentakel;
+
+
     void Start () {
+        /*
         this.health = 100;
         this.attack = 10;
-        this.cooldown = 180;
+        this.cooldown = 180;*/
         this.cdcounter = 0;
         this.dead = false;
+
+        tentakel = this.gameObject.GetComponentsInChildren<VREnemyTentakel>();
+
     }
 
     void Update() {
@@ -24,14 +30,23 @@ public class VREnemyKrake : MonoBehaviour {
         if (this.cdcounter == this.cooldown)
         {
             this.cdcounter = 0;
-            this.Attack();
+            this.Action();
         }
     }
 
-    void Attack() {
+    void Action() {
         // Start animation etc.
-        Debug.Log("Krake attacks");
-        Player.Instance.removeHealth(this.attack);
+        int ActionNr = (int)Mathf.Round(Random.value) + 1;
+        Debug.Log(ActionNr);
+
+        foreach (VREnemyTentakel et in tentakel)
+        {
+            et.PlayAnimation(ActionNr);
+        }
+
+        //tentakel1.PlayAnimation(ActionNr);
+
+        //Player.Instance.removeHealth(this.attack);
     }
 
     void Die() {
@@ -44,7 +59,7 @@ public class VREnemyKrake : MonoBehaviour {
 
 
 
-    public void TakeDamage(int dmg)
+    public void TakeDamage(float dmg)
     {
 
         Debug.Log("Krake took dmg");

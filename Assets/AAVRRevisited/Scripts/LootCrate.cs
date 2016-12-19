@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class LootCrate : MonoBehaviour {
-
     public GameObject bananaVrPrefab;
 	// Use this for initialization
 	void Start () {
@@ -12,8 +11,8 @@ public class LootCrate : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    
-	}
+     
+    }
 
     void OnTriggerEnter(Collider other)
     {
