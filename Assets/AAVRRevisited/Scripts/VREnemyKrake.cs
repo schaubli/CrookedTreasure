@@ -11,7 +11,6 @@ public class VREnemyKrake : MonoBehaviour {
 
     VREnemyTentakel[] tentakel;
 
-
     void Start () {
         /*
         this.health = 100;

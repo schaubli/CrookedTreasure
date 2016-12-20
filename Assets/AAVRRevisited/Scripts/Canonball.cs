@@ -43,7 +43,7 @@ public class Canonball : MonoBehaviour {
         if (other.gameObject.CompareTag("VREnemy"))
         {
             Debug.Log("Hit");
-            other.gameObject.GetComponentInParent<VREnemyKrake>().TakeDamage(this.damage);
+            other.gameObject.GetComponent<VREnemyKrakeKopf>().TakeDamage(this.damage);
             Destroy(this.gameObject);
         }
 
