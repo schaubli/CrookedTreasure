@@ -1,0 +1,51 @@
+<batchrender>
+  <environmentinfo>
+    <machineinfo>
+      <machinename>DESKTOP-D2IO7HD</machinename>
+      <username>Yannick</username>
+      <processortype>G, stepping 1, model 5, instruction family 6</processortype>
+      <processorname>Intel Core i7-4510U CPU </processorname>
+      <processornumber>4</processornumber>
+      <ostype>WINDOWS 64 BIT</ostype>
+      <osversion>Windows 10, 64 Bit, Professional Edition (build 14393)</osversion>
+      <oglvendorname>NVIDIA Corporation</oglvendorname>
+      <oglrendername>GeForce GT 750M/PCIe/SSE2</oglrendername>
+      <oglversion>4.5.0 NVIDIA 375.57</oglversion>
+    </machineinfo>
+    <c4dinfo>
+      <c4dversion>18028</c4dversion>
+      <c4dplugins>addons advanced render alembic archigrass bitmapfilter bpexchange browser ca ca2 cineman clothilde collada14 collada15 colorchoosergui compositing dwg dwgobjects dynamics exchanges expressiontag fbx hair houdiniconfig houdiniengine iges io_obj i_skp licenseserver metrics mocca model mograph motioncam motiontracker newman objects okino onlinehelp onlineupdater openexr python relaxuv sculpt sculptbrushes shader sketch sky sla spacemouse substance teamrender texturemanager thinking particles tpoperators walkthrough xpressocore xtensions </c4dplugins>
+    </c4dinfo>
+  </environmentinfo>
+  <fileinfo>
+    <filename>insel1.fbx</filename>
+    <filepath>C:\Users\Yannick\Documents\GitHub\VRRevisited\Assets\AAVRRevisited\Models</filepath>
+    <renderdatainfo>
+      <rendersettings>Meine Rendervoreinstellungen</rendersettings>
+      <take>Basis</take>
+      <camera>Standardkamera</camera>
+      <width>1280</width>
+      <height>720</height>
+      <filmaspect>1.778</filmaspect>
+      <pixelaspect>1</pixelaspect>
+      <fps>25</fps>
+      <from>0</from>
+      <to>0</to>
+      <steps>1</steps>
+      <saveinfo>
+        <imagepath>C:\Users\Yannick\Documents\CrookedTreasure</imagepath>
+        <imagedepth>8</imagedepth>
+        <imageformat>TIFF (PSD-Ebenen)</imageformat>
+      </saveinfo>
+    </renderdatainfo>
+  </fileinfo>
+  <renderinfo>
+    <imageinfo frame="0">00:00:00 C:\Users\Yannick\Documents\CrookedTreasure\inseltest.tif</imageinfo>
+  </renderinfo>
+  <batchinfo>
+    <added>21.12.2016, 15:10:54</added>
+    <started>21.12.2016, 15:11:20</started>
+    <rendertime>00:00:01</rendertime>
+    <result>Beendet</result>
+  </batchinfo>
+</batchrender>

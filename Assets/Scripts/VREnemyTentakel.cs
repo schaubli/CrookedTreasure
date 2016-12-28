@@ -8,11 +8,13 @@ public class VREnemyTentakel : MonoBehaviour {
     int attack1;
     int attack2;
     int hit;
+    int die;
     VREnemyKrake parentKrake;
     // Use this for initialization
     void Start () {
         anim = GetComponent<Animator>();
 
+        die = Animator.StringToHash("die");
         hit = Animator.StringToHash("hit");
         attack1 = Animator.StringToHash("attack1");
         attack2 = Animator.StringToHash("attack2");
@@ -20,11 +22,16 @@ public class VREnemyTentakel : MonoBehaviour {
 
         parentKrake = GetComponentInParent<VREnemyKrake>();
     }
-	
+    private bool alreadyDying = false;
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        if (parentKrake.dead && alreadyDying == false)
+        {
+            anim.SetTrigger(die);
+            alreadyDying = true;
+        }
+
+    }
 
     public void PlayAnimation(int animnr) {
         
@@ -59,8 +66,7 @@ public class VREnemyTentakel : MonoBehaviour {
         Player.Instance.removeHealth(parentKrake.attack);
         Debug.Log("Player took damage");
     }
-
-
+    
 
 
 }

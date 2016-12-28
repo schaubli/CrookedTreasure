@@ -67,11 +67,18 @@ public class VRhandler : MonoBehaviour {
         this.mode = 2;
         Debug.Log("Mode switched to Looting");
 
+        if (krake != null)
+        {
+           
+            Destroy(krake.gameObject);
+            
+        }
         // Set position and rotation of camera
-       // cameraRig.transform.position = new Vector3(-3.56f, 0.59f, -13.42f);
-       // Vector3 cameraRigEulerRotation = new Vector3(0, 180, 0);
-       // cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
-        
+        // cameraRig.transform.position = new Vector3(-3.56f, 0.59f, -13.42f);
+        // Vector3 cameraRigEulerRotation = new Vector3(0, 180, 0);
+        // cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
+
+        //Invoke("endVR", 15);
         this.spawnLoot();
     }
 
@@ -81,43 +88,43 @@ public class VRhandler : MonoBehaviour {
         for (int i = 0; i < rndNum; i++)
         {
             //x : zwischen 9 und 15
-            //y : -5
+            //y : -6
             //z : zwischen -7 und 7
-            Vector3 rndPosition = new Vector3(Random.value * 6 + 9, -5, Random.value * 14 - 7);
+            Vector3 rndPosition = new Vector3(Random.value * 6 + 9, -6, Random.value * 14 - 7);
             GameObject lootCrateObject = (GameObject)Instantiate(lootCratePrefab);
             // LootCrate lootCrateScript = lootCrateObject.GetComponent<LootCrate>();
             lootCrateObject.gameObject.transform.position = rndPosition;
         }
     }
 
-    private int lootingTime = 0;
+    private bool alreadydead = false;
 	// Update is called once per frame
 	void Update () {
-        if (krake != null) {
-            if (krake.dead == true) {
-                Destroy(krake.gameObject);
-                this.initLooting();
+
+        if (alreadydead == false)
+        {
+            if (krake != null && krake.dead == true)
+            {
+                Invoke("initLooting", 3);
+                alreadydead = true;
             }
         }
-        if (this.mode == 2) {
-            lootingTime++;
-            
-            if (lootingTime == 1200) {
-                this.mode = 99;
-                lootingTime = 0;
-                GameObject[] leftover_lootcrates = GameObject.FindGameObjectsWithTag("LootCrate");
-
-                foreach (GameObject lootcrate in leftover_lootcrates)
-                {
-                    Destroy(lootcrate);
-                }
-               
-                PlayerController.Instance.EndVRMode();
-            }
-
-        }
+     
 
 	}
+
+    void endVR()
+    {
+        this.mode = 99;
+        GameObject[] leftover_lootcrates = GameObject.FindGameObjectsWithTag("LootCrate");
+
+        foreach (GameObject lootcrate in leftover_lootcrates)
+        {
+            Destroy(lootcrate);
+        }
+
+        PlayerController.Instance.EndVRMode();
+    }
     /*
     private static VRhandler instance;
     public static VRhandler Instance

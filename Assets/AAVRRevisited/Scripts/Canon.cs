@@ -14,7 +14,6 @@ public class Canon : MonoBehaviour {
     private int cooldowncounter;
     private float rotationOffset;
 
-
     // Use this for initialization
     void Start () {
         rotationOffset = +90;
@@ -36,6 +35,7 @@ public class Canon : MonoBehaviour {
                 Vector3 eulerRotation = new Vector3(transform.eulerAngles.x, playerEulerY + rotationOffset, transform.eulerAngles.z);
                 transform.rotation = Quaternion.Euler(eulerRotation);
             }
+            
             if (this.cooldowncounter == cooldown)
             {
                 this.Shoot();
@@ -69,7 +69,8 @@ public class Canon : MonoBehaviour {
         
        
         GetComponent<Animation>().Play("CannonRecoil");
-
+        
+        
     }
 
 }

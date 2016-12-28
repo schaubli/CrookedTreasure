@@ -6,7 +6,7 @@ public class GenerateRandomIdleAnim : StateMachineBehaviour {
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         //
-        int rndNumber = Random.Range((int)0, (int)3);
+        int rndNumber = Random.Range((int)0, (int)4);
         int randomIdle = Animator.StringToHash("randomIdle");
         animator.SetInteger(randomIdle, rndNumber);
         

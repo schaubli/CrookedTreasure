@@ -36,7 +36,7 @@ public class VREnemyKrake : MonoBehaviour {
     void Action() {
         // Start animation etc.
         int ActionNr = (int)Mathf.Round(Random.value) + 1;
-        Debug.Log(ActionNr);
+        
 
         foreach (VREnemyTentakel et in tentakel)
         {
