@@ -102,17 +102,17 @@ public class PlayerController : EntityMover {
 
         if (vrHandler != null)
         {
-            if (monsterCount > 0 && islandCount == 0)
+            if (monsterCount > 0)
             {
-                vrHandler.mode = 0;
+                vrHandler.mode = 1;
                 vrHandler.enemy = 0;
                 vrHandler.initVR();
             }
-            else if (islandCount > 0 && monsterCount == 0) {
+            else if (islandCount > 0) {
                 //vrHandler.mode = 1;
                 //vrHandler.enemy = 0;
                 // Debugging:
-                vrHandler.mode = 0;
+                vrHandler.mode = 1;
                 vrHandler.enemy = 0;
                 vrHandler.initVR();
             }

@@ -10,9 +10,13 @@ public class VRhandler : MonoBehaviour {
     public GameObject monsterPrefab;
     private VREnemyKrake krake = null;
     public GameObject cameraRig;
+    private bool allowedToLeave = false;
     // public GameObject shipPrefab;
 
     public GameObject lootCratePrefab;
+
+    public GameObject actionIcon_crosshair_prefab;
+    public GameObject actionIcon_steeringwheel_prefab;
 
     void Start()
     {
@@ -26,22 +30,23 @@ public class VRhandler : MonoBehaviour {
        
         switch (this.mode)
         {
-            case 0:     // Fight
+            case 1:     // Fight
 
                 Debug.Log("Initiate VR Fight");
 
                 switch (this.enemy) {
 
                     case 0: //Monster 
-                        // Set position and rotation of camera
-                        cameraRig.transform.position = new Vector3(-1.79f, -2.553f, -1.459f);
-                        Vector3 cameraRigEulerRotation = new Vector3(0, 90, 0);
-                        cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
 
                         // init monster
                         GameObject monsterVRGameObject = (GameObject)Instantiate(monsterPrefab);
                         krake = monsterVRGameObject.GetComponent<VREnemyKrake>();
-  
+
+                        GameObject actionIcon_crosshair_go = (GameObject)Instantiate(actionIcon_crosshair_prefab);
+                        ActionIcon actionIcon_crosshair = actionIcon_crosshair_go.GetComponent<ActionIcon>();
+                        actionIcon_crosshair.setType(ActionIcon.ActionIconType.Crosshair);
+                        actionIcon_crosshair.setVrHandler(this.gameObject);
+
                         break;
                     case 1: //Ship
                         break;
@@ -52,16 +57,40 @@ public class VRhandler : MonoBehaviour {
 
                 break;
 
-            case 1:
+            case 3:
                 Debug.Log("Initiate VR Island");
                 break;
             default: break;
         }
 
 
-
-        
-	}
+        allowedToLeave = false;
+    }
+    public void actionIconEvent(ActionIcon.ActionIconType type) {
+        if (type == ActionIcon.ActionIconType.Crosshair)
+        {
+            this.switchToCannons();
+        }
+        else if (type == ActionIcon.ActionIconType.Steeringwheel)
+        {
+            this.switchToMap();
+        }
+    }
+    public void switchToCannons() {
+        // Set position and rotation of camera
+        cameraRig.transform.position = new Vector3(-1.79f, -2.553f, -1.459f);
+        Vector3 cameraRigEulerRotation = new Vector3(0, 90, 0);
+        cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
+        this.mode = 0;
+    }
+    public void switchToMap()
+    {
+        // Set position and rotation of camera
+        cameraRig.transform.position = new Vector3(-1.9f, 0.03f, -11.59f);
+        Vector3 cameraRigEulerRotation = new Vector3(0, 90, 0);
+        cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
+        this.mode = 1;
+    }
 
     void initLooting() {
         this.mode = 2;
@@ -73,6 +102,14 @@ public class VRhandler : MonoBehaviour {
             Destroy(krake.gameObject);
             
         }
+
+        GameObject actionIcon_steeringwheel_go = (GameObject)Instantiate(actionIcon_steeringwheel_prefab);
+        ActionIcon actionIcon_steeringwheel = actionIcon_steeringwheel_go.GetComponent<ActionIcon>();
+        actionIcon_steeringwheel.setType(ActionIcon.ActionIconType.Steeringwheel);
+        actionIcon_steeringwheel.setVrHandler(this.gameObject);
+
+
+        allowedToLeave = true;
         // Set position and rotation of camera
         // cameraRig.transform.position = new Vector3(-3.56f, 0.59f, -13.42f);
         // Vector3 cameraRigEulerRotation = new Vector3(0, 180, 0);
@@ -113,17 +150,24 @@ public class VRhandler : MonoBehaviour {
 
 	}
 
-    void endVR()
+    public void endVR()
     {
-        this.mode = 99;
-        GameObject[] leftover_lootcrates = GameObject.FindGameObjectsWithTag("LootCrate");
-
-        foreach (GameObject lootcrate in leftover_lootcrates)
+        if (allowedToLeave)
         {
-            Destroy(lootcrate);
-        }
+            GameObject[] leftover_lootcrates = GameObject.FindGameObjectsWithTag("LootCrate");
 
-        PlayerController.Instance.EndVRMode();
+            foreach (GameObject lootcrate in leftover_lootcrates)
+            {
+                if (lootcrate != null)
+                {
+                    Destroy(lootcrate);
+                }
+               
+            }
+
+            PlayerController.Instance.EndVRMode();
+        }
+        
     }
     /*
     private static VRhandler instance;
