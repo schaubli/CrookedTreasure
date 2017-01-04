@@ -36,7 +36,7 @@ public class Canon : MonoBehaviour {
                 transform.rotation = Quaternion.Euler(eulerRotation);
             }
             
-            if (this.cooldowncounter == cooldown)
+            if (this.cooldowncounter >= cooldown && Input.GetMouseButtonDown(0))
             {
                 this.Shoot();
                 this.cooldowncounter = 0;
