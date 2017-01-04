@@ -115,12 +115,15 @@ public class PlayerController : EntityMover {
                 vrHandler.enemy = 0;
                 vrHandler.initVR();
             }
-            else if (islandCount > 0) {
-                //vrHandler.mode = 1;
-                //vrHandler.enemy = 0;
-                // Debugging:
+            else if (islandCount > 0)
+            {
                 vrHandler.mode = 3;
                 vrHandler.island = 0;
+                vrHandler.initVR();
+            }
+            else if (enemyShipCount > 0) {
+                vrHandler.mode = 1;
+                vrHandler.enemy = 1;
                 vrHandler.initVR();
             }
         }
