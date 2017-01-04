@@ -25,6 +25,7 @@ public class EntityMover : MonoBehaviour {
 	[HideInInspector]
 	public Tile lastTile;
 	public AnimationCurve rotateAnimation;
+	public AnimationCurve moveForwardAnimation;
 	public IEnumerator animationCoroutine;
 	public TileDirection[] movements;
 	private int currentMovementIndex = 0;
@@ -48,12 +49,6 @@ public class EntityMover : MonoBehaviour {
 			Debug.Log("Moving to tile "+currentPathToTile.TilesOnPath()[0].gameObject.name);
 			yield return StartCoroutine(MovePlayerToTile(currentPathToTile.TilesOnPath()[0]));
 			currentPathToTile = PathFinder.FindPath(currentPathToTile.TilesOnPath()[0], targetTile, PathParameter.WalkableAndVisible);
-			DebugMovement("Waiting until end of animation");
-			yield return new WaitForEndOfFrame();
-			while (isMovingAnimationPlaying == true) {
-				DebugMovement("Coroutine waiting for animation to end on "+gameObject.name);
-				yield return new WaitForEndOfFrame();
-			}
 		}
 		this.IsPlayerMovable = true;
 		DebugMovement("Moving along path finished");
@@ -71,6 +66,9 @@ public class EntityMover : MonoBehaviour {
 		DebugMovement("Rotating towards new tile");
 		while( time<duration && degrees != 0) {//Rotate
 			time += Time.deltaTime;
+			if(time>duration) {
+				time=duration;
+			}
 			Vector3 newRot = startTransform.localRotation.eulerAngles;
 			newRot.y = startdegrees + degrees*this.rotateAnimation.Evaluate(time/duration);
 			movingGameObject.transform.localRotation = Quaternion.Euler(newRot);
@@ -78,10 +76,24 @@ public class EntityMover : MonoBehaviour {
 		}
 		yield return new WaitForEndOfFrame();
 		DebugMovement("Rotation finished");
-		movingGameObject.transform.localPosition = newPosition;
-		DebugMovement("Moving forward on");
-		movingGameObject.GetComponent<Animator>().Play("MoveForward");
+		yield return StartCoroutine(this.AnimateForward(newTile.transform.localPosition));
 		yield return StartCoroutine(OnAfterRotation(newPosition, newTile));
+	}
+
+	public IEnumerator AnimateForward(Vector3 endPosition) { // Should take 1s; Endposition has to be local in the tile coordinate system.
+		Vector3 startPosition = this.movingGameObject.transform.localPosition;
+		Vector3 movementVector = endPosition-startPosition; //Vector that points from start to end
+		float time = 0;
+		DebugMovement("Moving towards new Tile");
+		while(time <1) {
+			time += Time.deltaTime;
+			if(time>1) {
+				time=1;
+			}
+			this.movingGameObject.transform.localPosition = startPosition+this.moveForwardAnimation.Evaluate(time)*movementVector;
+			yield return new WaitForEndOfFrame();
+		}
+		OnAnimationEnded();
 	}
 
 	public virtual IEnumerator OnAfterRotation(Vector3 newPosition, Tile newTile) {
@@ -103,7 +115,7 @@ public class EntityMover : MonoBehaviour {
 		currentTile.moverOnTile = this;
 	}
 
-	public void OnAnimationEnded() { // Called at end of MoveForward animation
+	public virtual void OnAnimationEnded() { // Called at end of MoveForward animation
 		this.isMovingAnimationPlaying = false;
 		DebugMovement("Moving finished");
 	}
