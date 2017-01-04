@@ -93,7 +93,7 @@ public class PlayerController : EntityMover {
 			}
 		}
         
-        monstercount = 1;
+        //monstercount = 1;
         if (islandcount>0 || monstercount>0 || enemyShipCount>0) {
             if (newTile != this.rootTile)
             {
@@ -119,8 +119,8 @@ public class PlayerController : EntityMover {
                 //vrHandler.mode = 1;
                 //vrHandler.enemy = 0;
                 // Debugging:
-                vrHandler.mode = 1;
-                vrHandler.enemy = 0;
+                vrHandler.mode = 3;
+                vrHandler.island = 0;
                 vrHandler.initVR();
             }
         }

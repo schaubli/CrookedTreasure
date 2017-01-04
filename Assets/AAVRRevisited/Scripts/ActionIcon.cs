@@ -7,7 +7,8 @@ public class ActionIcon : MonoBehaviour {
     public enum ActionIconType
     {
         Crosshair,
-        Steeringwheel
+        Steeringwheel,
+        Shovel
     }
     // Use this for initialization
     void Start () {
@@ -16,7 +17,7 @@ public class ActionIcon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        this.transform.Rotate(0,1,0);
+        this.transform.Rotate(0,2,0);
 	}
     public void setType (ActionIconType inputtype)
     {
