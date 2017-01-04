@@ -122,6 +122,19 @@ public class EntityMover : MonoBehaviour {
 
 	public void MoveNext() { // Called 
 		Tile newTile = this.currentTile.GetNeighbourInDirection(movements[currentMovementIndex]);
+		if(newTile.IsShown == false ) {
+			Renderer[] meshsInMovingObject = this.gameObject.GetComponentsInChildren<Renderer>(true);
+			foreach (Renderer component in meshsInMovingObject)
+			{
+				component.enabled = false;
+			}
+		} else {
+			Renderer[] meshsInMovingObject = this.gameObject.GetComponentsInChildren<Renderer>(true);
+			foreach (Renderer component in meshsInMovingObject)
+			{
+				component.enabled = true;
+			}
+		}
 
 		//Debug.Log(gameObject.name+" moving to "+movements[currentMovementIndex]);
 		
