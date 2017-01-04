@@ -3,7 +3,7 @@ Copyright (c) 2010-2014 Qualcomm Connected Experiences, Inc.
 All Rights Reserved.
 Confidential and Proprietary - Protected under copyright and other laws.
 ==============================================================================*/
-
+#if !UNITY_EDITOR_OSX
 using UnityEngine;
 
 namespace Vuforia
@@ -107,7 +107,13 @@ namespace Vuforia
 						component.enabled = false;
 						Debug.Log("Disabling "+component.gameObject.name);
 					}
-            	}
+            	} else {
+                    Renderer[] meshsInMovingObject = mover.gameObject.GetComponentsInChildren<Renderer>(true);
+            		foreach (Renderer component in meshsInMovingObject)
+					{
+						component.enabled = true;
+					}
+                }
             }
 
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
@@ -150,3 +156,4 @@ namespace Vuforia
         #endregion // PRIVATE_METHODS
     }
 }
+#endif
