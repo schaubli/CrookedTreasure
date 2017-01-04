@@ -6,8 +6,11 @@ public class VRhandler : MonoBehaviour {
     public int mode;
     [HideInInspector]
     public int enemy;
+    [HideInInspector]
+    public int island;
 
     public GameObject monsterPrefab;
+    public GameObject islandPrefab0;
     private VREnemyKrake krake = null;
     public GameObject cameraRig;
     private bool allowedToLeave = false;
@@ -17,6 +20,7 @@ public class VRhandler : MonoBehaviour {
 
     public GameObject actionIcon_crosshair_prefab;
     public GameObject actionIcon_steeringwheel_prefab;
+    public GameObject actionIcon_shovel_prefab;
 
     void Start()
     {
@@ -42,10 +46,6 @@ public class VRhandler : MonoBehaviour {
                         GameObject monsterVRGameObject = (GameObject)Instantiate(monsterPrefab);
                         krake = monsterVRGameObject.GetComponent<VREnemyKrake>();
 
-                        GameObject actionIcon_crosshair_go = (GameObject)Instantiate(actionIcon_crosshair_prefab);
-                        ActionIcon actionIcon_crosshair = actionIcon_crosshair_go.GetComponent<ActionIcon>();
-                        actionIcon_crosshair.setType(ActionIcon.ActionIconType.Crosshair);
-                        actionIcon_crosshair.setVrHandler(this.gameObject);
 
                         break;
                     case 1: //Ship
@@ -55,11 +55,34 @@ public class VRhandler : MonoBehaviour {
 
                 }
 
+                GameObject actionIcon_crosshair_go = (GameObject)Instantiate(actionIcon_crosshair_prefab);
+                ActionIcon actionIcon_crosshair = actionIcon_crosshair_go.GetComponent<ActionIcon>();
+                actionIcon_crosshair.setType(ActionIcon.ActionIconType.Crosshair);
+                actionIcon_crosshair.setVrHandler(this.gameObject);
                 break;
 
-            case 3:
-                Debug.Log("Initiate VR Island");
+            case 3: //Insel
+
+                switch (this.island)
+                {
+                    default:
+                    case 0:
+                        Debug.Log("Initiate VR Island");
+                        GameObject islandVRGameObject = (GameObject)Instantiate(islandPrefab0);
+
+                        break;
+                    case 1:
+                    case 2:
+                        break;
+                    
+                }
+                GameObject actionIcon_shovel_go = (GameObject)Instantiate(actionIcon_shovel_prefab);
+                ActionIcon actionIcon_shovel = actionIcon_shovel_go.GetComponent<ActionIcon>();
+                actionIcon_shovel.setType(ActionIcon.ActionIconType.Shovel);
+                actionIcon_shovel.setVrHandler(this.gameObject);
+
                 break;
+
             default: break;
         }
 
@@ -74,6 +97,10 @@ public class VRhandler : MonoBehaviour {
         else if (type == ActionIcon.ActionIconType.Steeringwheel)
         {
             this.switchToMap();
+        }
+        else if (type == ActionIcon.ActionIconType.Shovel)
+        {
+            this.goToDigging();
         }
     }
     public void switchToCannons() {
@@ -90,6 +117,13 @@ public class VRhandler : MonoBehaviour {
         Vector3 cameraRigEulerRotation = new Vector3(0, 90, 0);
         cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
         this.mode = 1;
+    }
+    public void goToDigging()
+    {
+        cameraRig.transform.position = new Vector3(36.5f, 0f, -10.72f);
+        Vector3 cameraRigEulerRotation = new Vector3(0, 90, 0);
+        cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
+        this.mode = 4;
     }
 
     void initLooting() {
