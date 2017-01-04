@@ -17,6 +17,8 @@ public class TileManager : MonoBehaviour {
 	public EntityMover[] moversInScene;
 	private Tile rootTile;
 	public Tile RootTile{get {return this.rootTile;}}
+	public delegate void UpdateVisibility();
+	public static event UpdateVisibility OnEnterNewTile;
 
 	// Use this for initialization
 	void Start () {
@@ -97,6 +99,12 @@ public class TileManager : MonoBehaviour {
 		foreach(Tile tile in tilelist) {
 			tile.transform.SetAsLastSibling();
 			tile.gameObject.name = "Tile "+index++;
+		}
+	}
+
+	public void EnteredNewTile() {
+		if(TileManager.OnEnterNewTile != null) {
+			TileManager.OnEnterNewTile();
 		}
 	}
 

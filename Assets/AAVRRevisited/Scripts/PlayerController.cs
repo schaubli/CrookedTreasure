@@ -63,8 +63,9 @@ public class PlayerController : EntityMover {
     		}
     	}
 
+		TileManager.Instance.EnteredNewTile();
+
 		//Check for Enemies and Islands
-		
 		EnvironmentType newEnvironment = newTile.Environment.type;
 		if(newEnvironment == EnvironmentType.Banana) {
 			Player.Instance.addHealth(20);
@@ -77,8 +78,13 @@ public class PlayerController : EntityMover {
 		int monstercount = 0;
 		int enemyShipCount = 0;
 		foreach(Tile t in neighbours) {
-			if(t.Environment.type == EnvironmentType.Island){
-				islandcount++;
+			if(t.Environment.type == EnvironmentType.TreasureIsland){
+				Debug.Log("Next to Treasure Island");
+				if(t.Environment.model.GetComponent<TreasureIsland>() == GameObjectiveController.Instance.nextTreasure) {
+					Debug.Log("Starting VR for Treasure Island");
+					GameObjectiveController.Instance.GoToNextState();
+					islandcount = 3-GameObjectiveController.Instance.treasureIslands.Count;
+				}
 			} else if(t.Environment.type == EnvironmentType.Monster){
 				monstercount++;
 			}
@@ -154,5 +160,4 @@ public class PlayerController : EntityMover {
     		return instance;
     	}
 	}
-
 }

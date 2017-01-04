@@ -9,7 +9,8 @@ public enum EnvironmentType{
 	Reef,
 	Treasure,
 	Banana,
-	EnemyShip
+	EnemyShip,
+	TreasureIsland
 }
 
 [System.Serializable]
@@ -18,7 +19,7 @@ public class Environment : MonoBehaviour{
 	new public string name =  "Environment";
 	[SerializeField]
 	public EnvironmentType type;
-	private GameObject model;
+	public GameObject model;
 	private bool isWalkable;
 	public bool IsWalkable{get{return this.isWalkable;}}
 

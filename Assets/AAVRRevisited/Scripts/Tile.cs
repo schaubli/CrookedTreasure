@@ -12,7 +12,7 @@ public class Tile : MonoBehaviour {
 	//private bool isRimPiece = false;s
 	private MeshRenderer tileRenderer;
 	private Environment environment;
-	public GameObject macroEnvironment;
+	public GameObject macroEnvironment; //A big island that is on multiple tiles
 	public EntityMover moverOnTile;
 
 	public void InitTile(int x, int y) {
