@@ -55,6 +55,7 @@ public class PlayerController : EntityMover {
 				tile.ShowTile();
 			}
 		}
+		newTile.ShowTile();
 		EntityMover[] movers = FindObjectsOfType(typeof(EntityMover)) as EntityMover[];  
     	foreach(EntityMover mover in movers) {
     		if ( mover.gameObject != this.gameObject) {
@@ -127,6 +128,8 @@ public class PlayerController : EntityMover {
 				yield return new WaitForEndOfFrame();
 			}
 		}
+		#else
+			yield return new WaitForEndOfFrame();
         #endif
     }
     public void EndVRMode() {
