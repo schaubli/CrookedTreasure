@@ -10,8 +10,10 @@ public class VRhandler : MonoBehaviour {
     public int island;
 
     public GameObject monsterPrefab;
+    public GameObject enemyShipPrefab;
     public GameObject islandPrefab0;
     private VREnemyKrake krake = null;
+    private VREnemyShip enemyShip = null;
     public GameObject cameraRig;
     private bool allowedToLeave = false;
     // public GameObject shipPrefab;
@@ -27,6 +29,10 @@ public class VRhandler : MonoBehaviour {
         if (monsterPrefab == null)
         {
             Debug.LogError("monsterPrefab is not defined in VRhandler");
+        }
+        if (enemyShipPrefab == null)
+        {
+            Debug.LogError("enemyShipPrefab is not defined in VRhandler");
         }
     }
 
@@ -49,6 +55,8 @@ public class VRhandler : MonoBehaviour {
 
                         break;
                     case 1: //Ship
+                        GameObject shipVRGameObject = (GameObject)Instantiate(enemyShipPrefab);
+                        enemyShip = shipVRGameObject.GetComponent<VREnemyShip>();
                         break;
                     default:
                         break;
