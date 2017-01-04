@@ -12,6 +12,8 @@ public class VRhandler : MonoBehaviour {
     public GameObject monsterPrefab;
     public GameObject enemyShipPrefab;
     public GameObject islandPrefab0;
+    private GameObject monsterVRGameObject = null;
+    private GameObject shipVRGameObject = null;
     private VREnemyKrake krake = null;
     private VREnemyShip enemyShip = null;
     public GameObject cameraRig;
@@ -46,16 +48,13 @@ public class VRhandler : MonoBehaviour {
 
                 switch (this.enemy) {
 
-                    case 0: //Monster 
-
+                    case 0: //Monster                     
                         // init monster
-                        GameObject monsterVRGameObject = (GameObject)Instantiate(monsterPrefab);
+                        monsterVRGameObject = (GameObject)Instantiate(monsterPrefab);
                         krake = monsterVRGameObject.GetComponent<VREnemyKrake>();
-
-
                         break;
                     case 1: //Ship
-                        GameObject shipVRGameObject = (GameObject)Instantiate(enemyShipPrefab);
+                        shipVRGameObject = (GameObject)Instantiate(enemyShipPrefab);
                         enemyShip = shipVRGameObject.GetComponent<VREnemyShip>();
                         break;
                     default:
@@ -67,6 +66,8 @@ public class VRhandler : MonoBehaviour {
                 ActionIcon actionIcon_crosshair = actionIcon_crosshair_go.GetComponent<ActionIcon>();
                 actionIcon_crosshair.setType(ActionIcon.ActionIconType.Crosshair);
                 actionIcon_crosshair.setVrHandler(this.gameObject);
+
+                alreadydead = false;
                 break;
 
             case 3: //Insel
@@ -142,7 +143,7 @@ public class VRhandler : MonoBehaviour {
         {
            
             Destroy(krake.gameObject);
-            
+            krake = null;
         }
 
         GameObject actionIcon_steeringwheel_go = (GameObject)Instantiate(actionIcon_steeringwheel_prefab);
@@ -206,7 +207,6 @@ public class VRhandler : MonoBehaviour {
                 }
                
             }
-
             PlayerController.Instance.EndVRMode();
         }
         
