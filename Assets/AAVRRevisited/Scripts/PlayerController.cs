@@ -29,7 +29,8 @@ public class PlayerController : EntityMover {
 		movingGameObject = (GameObject) Instantiate(playerPrefab, rootTile.gameObject.transform.position, Quaternion.identity);
 		movingGameObject.transform.SetParent(this.transform);
 		movingGameObject.transform.SetAsFirstSibling();
-		lastTile = rootTile;
+        movingGameObject.transform.localScale = new Vector3(1, 1, 1);
+        lastTile = rootTile;
 		this.currentTile = rootTile;
         this.rootTile = rootTile;
 
