@@ -321,6 +321,18 @@ public class Tile : MonoBehaviour {
 		neighbours.Add(new TileVec(ownX+1, ownY));
 		return neighbours;
 	}
+	
+	public Tile GetOceanNeighbour() {
+		List<Tile> neighbours = GetNeighbourTiles();
+		neighbours = Randomize(neighbours);
+		foreach(Tile t in neighbours) {
+			if(t.Environment.type == EnvironmentType.Ocean) {
+				return t;
+			}
+		}
+		Debug.LogWarning("Could not find empty tile next to tile "+this.gameObject.name);
+		return null;
+	}
 
 	public List<TileVec> GetFarNeighbours() {
 		List<TileVec> neighbours = new List<TileVec>();
@@ -416,4 +428,16 @@ public class Tile : MonoBehaviour {
 		//tileRenderer.enabled = false;
 		gameObject.SetActive(false);
 	}
+
+	public static List<T> Randomize<T>(List<T> list)
+    {
+        List<T> randomizedList = new List<T>();
+        while (list.Count > 0)
+        {
+            int index = Random.Range(0, list.Count); //pick a random item from the master list
+            randomizedList.Add(list[index]); //place it at the end of the randomized list
+            list.RemoveAt(index);
+        }
+        return randomizedList;
+    }
 }

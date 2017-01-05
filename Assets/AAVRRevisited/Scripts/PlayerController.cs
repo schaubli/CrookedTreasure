@@ -93,6 +93,11 @@ public class PlayerController : EntityMover {
 		if(islandcount==0 && enemyShipCount == 0) {
 			if(Random.value <= GameConfig.Instance.monsterProbability) {
 				Debug.Log("Encountered Monster");
+				Tile neighbourTile = newTile.GetOceanNeighbour();
+				GameObject ARKraken = (GameObject) Instantiate(EnvironmentManager.Instance.GetEnvironmentByType(EnvironmentType.Monster).modelPrefab, neighbourTile.gameObject.transform.position, 
+									Quaternion.LookRotation(newTile.transform.localPosition-neighbourTile.transform.localPosition, Vector3.up));
+				ARKraken.transform.SetParent(TileManager.Instance.transform);
+				Destroy(ARKraken, 1.5f);
 				monstercount = 1;
 			}
 		}
