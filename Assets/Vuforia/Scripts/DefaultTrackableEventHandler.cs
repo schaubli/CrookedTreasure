@@ -5,7 +5,7 @@ Confidential and Proprietary - Protected under copyright and other laws.
 ==============================================================================*/
 #if !UNITY_EDITOR_OSX
 using UnityEngine;
-
+using System.Collections.Generic;
 namespace Vuforia
 {
     /// <summary>
@@ -72,7 +72,7 @@ namespace Vuforia
             Canvas[] canvasComponents = GetComponentsInChildren<Canvas>(true);
             Light[] lightComponents = GetComponentsInChildren<Light>(true);
             Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
-            EntityMover[] movingObjects = TileManager.Instance.moversInScene;
+            List<EntityMover> movingObjects = TileManager.Instance.moversInScene;
 
             // Enable rendering:
             foreach (Renderer component in rendererComponents)

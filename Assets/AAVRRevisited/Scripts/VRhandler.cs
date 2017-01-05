@@ -148,7 +148,7 @@ public class VRhandler : MonoBehaviour {
     private void switchToMap()
     {
         // Set position and rotation of camera
-        cameraRig.transform.position = new Vector3(-1.9f, 0.03f, -11.59f);
+        cameraRig.transform.position = new Vector3(-3.81f, 0.52f, -11.59f);
         Vector3 cameraRigEulerRotation = new Vector3(0, 90, 0);
         cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
         this.mode = 1;
@@ -236,14 +236,17 @@ public class VRhandler : MonoBehaviour {
                     Destroy(lootcrate);
                 }
                
-            }/*
-            foreach (GameObject icon in actionIcons)
+            }
+            if (actionIcons != null)
             {
-                if (icon != null)
+                foreach (GameObject icon in actionIcons)
                 {
-                    Destroy(icon);
+                    if (icon != null)
+                    {
+                        Destroy(icon.gameObject);
+                    }
                 }
-            }*/
+            }
             PlayerController.Instance.EndVRMode();
         }
         
