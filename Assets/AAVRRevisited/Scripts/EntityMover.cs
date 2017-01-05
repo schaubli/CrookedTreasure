@@ -121,7 +121,12 @@ public class EntityMover : MonoBehaviour {
 	}
 
 	public void MoveNext() { // Called 
-		Tile newTile = this.currentTile.GetNeighbourInDirection(movements[currentMovementIndex]);
+		Tile newTile;
+		if(movements.Length == 0) {
+			newTile = this.currentTile;
+		} else {
+			newTile = this.currentTile.GetNeighbourInDirection(movements[currentMovementIndex]);
+		}
 		if(newTile.IsShown == false ) {
 			Renderer[] meshsInMovingObject = this.gameObject.GetComponentsInChildren<Renderer>(true);
 			foreach (Renderer component in meshsInMovingObject)
@@ -135,9 +140,13 @@ public class EntityMover : MonoBehaviour {
 				component.enabled = true;
 			}
 		}
-		
+
 		this.currentTile.Environment.type = EnvironmentType.Ocean;
 		newTile.Environment.type = EnvironmentType.EnemyShip;
+
+		if(movements.Length == 0) {
+			return;
+		}
 
 		//Debug.Log(gameObject.name+" moving to "+movements[currentMovementIndex]);
 		

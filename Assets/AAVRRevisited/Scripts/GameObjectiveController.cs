@@ -11,7 +11,6 @@ public class GameObjectiveController : MonoBehaviour {
 	void OnEnable () {
 		instance = this;
 		this.treasureIslands = FindObjectsOfType<TreasureIsland>().ToList();
-		Debug.Log(FindObjectsOfType<TreasureIsland>().Length);
 		treasureIslands.Sort((x,y) => (int) ((x.index).CompareTo(y.index)));
 		GoToNextState();
 	}

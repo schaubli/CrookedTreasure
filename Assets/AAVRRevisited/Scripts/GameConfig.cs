@@ -4,6 +4,8 @@ using System.Collections;
 public class GameConfig : MonoBehaviour {
 
 
+	[Range(0.0f, 1.0f)]
+	public float monsterProbability;
 	public float minDistanceBetweenTreasures;
 	public float minTreasureDistance;
 	

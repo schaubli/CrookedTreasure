@@ -85,11 +85,15 @@ public class PlayerController : EntityMover {
 					GameObjectiveController.Instance.GoToNextState();
 					islandcount = 3-GameObjectiveController.Instance.treasureIslands.Count;
 				}
-			} else if(t.Environment.type == EnvironmentType.Monster){
-				monstercount++;
 			}
-			if(t.moverOnTile != null) {
+			if(t.moverOnTile != null || t.Environment.type == EnvironmentType.EnemyShip) {
 				enemyShipCount++;
+			}
+		}
+		if(islandcount==0 && enemyShipCount == 0) {
+			if(Random.value <= GameConfig.Instance.monsterProbability) {
+				Debug.Log("Encountered Monster");
+				monstercount = 1;
 			}
 		}
         
