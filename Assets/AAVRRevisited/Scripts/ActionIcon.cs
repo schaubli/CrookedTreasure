@@ -31,7 +31,7 @@ public class ActionIcon : MonoBehaviour {
     public void activate() {
         if (this.vrHandler != null) {
             this.vrHandler.actionIconEvent(this.type);
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
     }
 }

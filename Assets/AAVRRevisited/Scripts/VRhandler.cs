@@ -25,6 +25,12 @@ public class VRhandler : MonoBehaviour {
     public GameObject actionIcon_crosshair_prefab;
     public GameObject actionIcon_steeringwheel_prefab;
     public GameObject actionIcon_shovel_prefab;
+    private GameObject actionIcon_crosshair_go = null;
+    private GameObject actionIcon_steeringwheel_go = null;
+    private GameObject actionIcon_shovel_go = null;
+    private GameObject[] actionIcons = null;
+
+    private bool alreadydead = false;
 
     void Start()
     {
@@ -36,6 +42,7 @@ public class VRhandler : MonoBehaviour {
         {
             Debug.LogError("enemyShipPrefab is not defined in VRhandler");
         }
+        actionIcons = new GameObject[] { actionIcon_crosshair_go, actionIcon_steeringwheel_go, actionIcon_shovel_go };
     }
 
     public void initVR () {
@@ -62,7 +69,7 @@ public class VRhandler : MonoBehaviour {
 
                 }
 
-                GameObject actionIcon_crosshair_go = (GameObject)Instantiate(actionIcon_crosshair_prefab);
+                actionIcon_crosshair_go = (GameObject)Instantiate(actionIcon_crosshair_prefab);
                 ActionIcon actionIcon_crosshair = actionIcon_crosshair_go.GetComponent<ActionIcon>();
                 actionIcon_crosshair.setType(ActionIcon.ActionIconType.Crosshair);
                 actionIcon_crosshair.setVrHandler(this.gameObject);
@@ -85,7 +92,7 @@ public class VRhandler : MonoBehaviour {
                         break;
                     
                 }
-                GameObject actionIcon_shovel_go = (GameObject)Instantiate(actionIcon_shovel_prefab);
+                actionIcon_shovel_go = (GameObject)Instantiate(actionIcon_shovel_prefab);
                 ActionIcon actionIcon_shovel = actionIcon_shovel_go.GetComponent<ActionIcon>();
                 actionIcon_shovel.setType(ActionIcon.ActionIconType.Shovel);
                 actionIcon_shovel.setVrHandler(this.gameObject);
@@ -112,14 +119,15 @@ public class VRhandler : MonoBehaviour {
             this.goToDigging();
         }
     }
-    public void switchToCannons() {
+    
+    private void switchToCannons() {
         // Set position and rotation of camera
         cameraRig.transform.position = new Vector3(-1.79f, -2.553f, -1.459f);
         Vector3 cameraRigEulerRotation = new Vector3(0, 90, 0);
         cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
         this.mode = 0;
     }
-    public void switchToMap()
+    private void switchToMap()
     {
         // Set position and rotation of camera
         cameraRig.transform.position = new Vector3(-1.9f, 0.03f, -11.59f);
@@ -127,7 +135,7 @@ public class VRhandler : MonoBehaviour {
         cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
         this.mode = 1;
     }
-    public void goToDigging()
+    private void goToDigging()
     {
         cameraRig.transform.position = new Vector3(36.5f, 0f, -10.72f);
         Vector3 cameraRigEulerRotation = new Vector3(0, 90, 0);
@@ -141,12 +149,17 @@ public class VRhandler : MonoBehaviour {
 
         if (krake != null)
         {
-           
             Destroy(krake.gameObject);
             krake = null;
         }
+        if (enemyShip != null)
+        {
+            Destroy(enemyShip.gameObject);
+            enemyShip = null;
+        }
+        
 
-        GameObject actionIcon_steeringwheel_go = (GameObject)Instantiate(actionIcon_steeringwheel_prefab);
+        actionIcon_steeringwheel_go = (GameObject)Instantiate(actionIcon_steeringwheel_prefab);
         ActionIcon actionIcon_steeringwheel = actionIcon_steeringwheel_go.GetComponent<ActionIcon>();
         actionIcon_steeringwheel.setType(ActionIcon.ActionIconType.Steeringwheel);
         actionIcon_steeringwheel.setVrHandler(this.gameObject);
@@ -163,8 +176,7 @@ public class VRhandler : MonoBehaviour {
     }
 
     void spawnLoot() {
-        int rndNum = (int)Random.Range(3, 6);
-        Debug.Log(rndNum + " Lootcrates spawned");
+        int rndNum = (int)Random.Range(4, 10);
         for (int i = 0; i < rndNum; i++)
         {
             //x : zwischen 9 und 15
@@ -177,17 +189,17 @@ public class VRhandler : MonoBehaviour {
         }
     }
 
-    private bool alreadydead = false;
 	// Update is called once per frame
 	void Update () {
 
         if (alreadydead == false)
         {
-            if (krake != null && krake.dead == true)
+            if ((krake != null && krake.dead == true) || (enemyShip != null && enemyShip.dead == true))
             {
                 Invoke("initLooting", 3);
                 alreadydead = true;
             }
+            
         }
      
 
