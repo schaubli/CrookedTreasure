@@ -87,6 +87,7 @@ public class PlayerController : EntityMover {
 				}
 			}
 			if(t.moverOnTile != null || t.Environment.type == EnvironmentType.EnemyShip) {
+				Debug.Log("Mover "+t.moverOnTile.gameObject.name);
 				enemyShipCount++;
 			}
 		}

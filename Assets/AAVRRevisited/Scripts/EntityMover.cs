@@ -104,6 +104,7 @@ public class EntityMover : MonoBehaviour {
 		lastTile = this.currentTile;
 		currentTile = tile;
 		lastTile.moverOnTile = null;
+		currentTile.moverOnTile = this;
 		if(movingGameObject==null) {
 			Debug.LogError("Make sure there is not another Player active in the scene");
 		}
@@ -112,7 +113,6 @@ public class EntityMover : MonoBehaviour {
 		Quaternion rotation =  Quaternion.FromToRotation(Vector3.forward, tile.transform.localPosition-lastTile.transform.localPosition);
 		animationCoroutine = AnimateRotation(movingGameObject.transform, Mathf.RoundToInt(rotation.eulerAngles.y-movingGameObject.transform.localRotation.eulerAngles.y), tile.transform.localPosition, tile);
 		yield return StartCoroutine(animationCoroutine);
-		currentTile.moverOnTile = this;
 	}
 
 	public virtual void OnAnimationEnded() { // Called at end of MoveForward animation
