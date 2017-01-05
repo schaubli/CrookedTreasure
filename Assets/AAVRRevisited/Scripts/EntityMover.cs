@@ -135,6 +135,9 @@ public class EntityMover : MonoBehaviour {
 				component.enabled = true;
 			}
 		}
+		
+		this.currentTile.Environment.type = EnvironmentType.Ocean;
+		newTile.Environment.type = EnvironmentType.EnemyShip;
 
 		//Debug.Log(gameObject.name+" moving to "+movements[currentMovementIndex]);
 		
