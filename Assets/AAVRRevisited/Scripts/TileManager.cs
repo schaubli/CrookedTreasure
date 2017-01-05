@@ -145,6 +145,10 @@ public class TileManager : MonoBehaviour {
 		return null;
 	}
 
+	public void ResetPositionToRoot(Vector3 playerPosition) {
+		this.gameObject.transform.position = -playerPosition;
+	}
+
     public static TileManager Instance { 
 		get {
 			if(instance == null)

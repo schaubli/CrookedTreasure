@@ -97,6 +97,7 @@ public class PlayerController : EntityMover {
         if (islandcount>0 || monstercount>0 || enemyShipCount>0) {
             if (newTile != this.rootTile)
             {
+				Debug.Log("Going to VR Mode");
 				yield return StartCoroutine(StartVRMode(islandcount, monstercount, enemyShipCount));
             }
 		}
@@ -104,8 +105,9 @@ public class PlayerController : EntityMover {
 	}
 
 	private IEnumerator StartVRMode(int islandCount, int monsterCount, int enemyShipCount) {
-        bool goingBackToAR = false;
         #if !UNITY_EDITOR_OSX
+
+        bool goingBackToAR = false;
 
         if (vrHandler != null)
         {
@@ -133,11 +135,13 @@ public class PlayerController : EntityMover {
 			Debug.Log("Transition state in AR "+ mTransitionManager.InAR);
 			yield return new WaitForSeconds(1);
 			while (mTransitionManager.InAR == false){
-				Debug.Log("Waiting for return to AR Mode");
 				yield return new WaitForEndOfFrame();
 			}
+			Debug.Log("Came back to AR mode");
+			TileManager.Instance.ResetPositionToRoot(this.currentTile.transform.localPosition);
 		}
 		#else
+			TileManager.Instance.ResetPositionToRoot(this.currentTile.transform.localPosition);
 			yield return new WaitForEndOfFrame();
         #endif
     }
