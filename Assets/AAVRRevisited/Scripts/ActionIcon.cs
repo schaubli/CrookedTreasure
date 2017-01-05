@@ -3,7 +3,7 @@ using System.Collections;
 public class ActionIcon : MonoBehaviour {
 
     VRhandler vrHandler = null;
-    ActionIconType type;
+    public ActionIconType type;
     public enum ActionIconType
     {
         Crosshair,

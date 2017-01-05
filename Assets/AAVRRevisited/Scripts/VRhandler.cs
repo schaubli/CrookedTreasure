@@ -42,7 +42,6 @@ public class VRhandler : MonoBehaviour {
         {
             Debug.LogError("enemyShipPrefab is not defined in VRhandler");
         }
-        actionIcons = new GameObject[] { actionIcon_crosshair_go, actionIcon_steeringwheel_go, actionIcon_shovel_go };
     }
 
     public void initVR () {
@@ -118,8 +117,27 @@ public class VRhandler : MonoBehaviour {
         {
             this.goToDigging();
         }
+
+        this.setActionIconsVisible(type);
     }
-    
+    private void setActionIconsVisible(ActionIcon.ActionIconType type) {
+
+        actionIcons = new GameObject[] { actionIcon_crosshair_go, actionIcon_steeringwheel_go, actionIcon_shovel_go };
+        foreach (GameObject icon in actionIcons)
+        {
+            if (icon != null)
+            {
+                if (icon.GetComponent<ActionIcon>().type == type) {
+                    icon.SetActive(false);
+                }
+                else
+                {
+                    icon.SetActive(true);
+                }               
+            }
+
+        }
+    }
     private void switchToCannons() {
         // Set position and rotation of camera
         cameraRig.transform.position = new Vector3(-1.79f, -2.553f, -1.459f);
@@ -218,7 +236,14 @@ public class VRhandler : MonoBehaviour {
                     Destroy(lootcrate);
                 }
                
-            }
+            }/*
+            foreach (GameObject icon in actionIcons)
+            {
+                if (icon != null)
+                {
+                    Destroy(icon);
+                }
+            }*/
             PlayerController.Instance.EndVRMode();
         }
         
