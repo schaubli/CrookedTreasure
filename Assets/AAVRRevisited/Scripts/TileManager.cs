@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 
 public class TileManager : MonoBehaviour {
@@ -14,7 +15,7 @@ public class TileManager : MonoBehaviour {
 	public Dictionary<TileVec, Tile> tiles = new Dictionary<TileVec, Tile>();
 	public List<Tile> tilelist= new List<Tile>();
 	private static TileManager instance;
-	public EntityMover[] moversInScene;
+	public List<EntityMover> moversInScene;
 	private Tile rootTile;
 	public Tile RootTile{get {return this.rootTile;}}
 	public delegate void UpdateVisibility();
@@ -61,7 +62,7 @@ public class TileManager : MonoBehaviour {
 		level.transform.localRotation = Quaternion.identity;
 		level.transform.localScale = new Vector3(1,1,1);
 
-		this.moversInScene = level.GetComponentsInChildren<EntityMover>();
+		this.moversInScene = level.GetComponentsInChildren<EntityMover>().ToList();
 		Tile[] newTiles = level.GetComponentsInChildren<Tile>();
 		foreach(Tile tile in newTiles) {
 			tile.InitTile(TileVec.FromTransform(tile.transform));

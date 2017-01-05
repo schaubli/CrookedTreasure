@@ -89,6 +89,7 @@ public class PlayerController : EntityMover {
 			}
 			if(t.moverOnTile != null || t.Environment.type == EnvironmentType.EnemyShip) {
 				Debug.Log("Mover "+t.moverOnTile.gameObject.name);
+				TileManager.Instance.moversInScene.Remove(t.moverOnTile);
 				Destroy(t.moverOnTile.gameObject, 1.5f);
 				t.Environment.type = EnvironmentType.Ocean;
 				enemyShipCount++;
@@ -99,7 +100,7 @@ public class PlayerController : EntityMover {
 				Debug.Log("Encountered Monster");
 				Tile neighbourTile = newTile.GetOceanNeighbour();
 				GameObject ARKraken = (GameObject) Instantiate(EnvironmentManager.Instance.GetEnvironmentByType(EnvironmentType.Monster).modelPrefab, neighbourTile.gameObject.transform.position, 
-									Quaternion.LookRotation(newTile.transform.localPosition-neighbourTile.transform.localPosition, Vector3.up));
+									Quaternion.LookRotation(newTile.transform.localPosition-neighbourTile.transform.localPosition, newTile.transform.up));
 				ARKraken.transform.SetParent(TileManager.Instance.transform);
 				Destroy(ARKraken, 1.5f);
 				monstercount = 1;
