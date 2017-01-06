@@ -1,0 +1,135 @@
+fileFormatVersion: 2
+guid: 6a0d527216f804e4482660396c53a18a
+timeCreated: 1483701847
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Ebene
+    100004: Ebene_1
+    100006: Ebene_2
+    100008: Ebene_3
+    100010: Ebene_4
+    100012: Ebene_5
+    100014: Ebene_6
+    100016: Ebene_7
+    100018: Lid
+    100020: Lock_bottom
+    100022: Lock_top
+    100024: Null
+    100026: "W\xFCrfel_1"
+    400000: //RootNode
+    400002: Ebene
+    400004: Ebene_1
+    400006: Ebene_2
+    400008: Ebene_3
+    400010: Ebene_4
+    400012: Ebene_5
+    400014: Ebene_6
+    400016: Ebene_7
+    400018: Lid
+    400020: Lock_bottom
+    400022: Lock_top
+    400024: Null
+    400026: "W\xFCrfel_1"
+    2300000: Ebene
+    2300002: Ebene_1
+    2300004: Ebene_2
+    2300006: Ebene_3
+    2300008: Ebene_4
+    2300010: Ebene_5
+    2300012: Ebene_6
+    2300014: Ebene_7
+    2300016: Lid
+    2300018: Lock_bottom
+    2300020: Lock_top
+    2300022: "W\xFCrfel_1"
+    3300000: Ebene
+    3300002: Ebene_1
+    3300004: Ebene_2
+    3300006: Ebene_3
+    3300008: Ebene_4
+    3300010: Ebene_5
+    3300012: Ebene_6
+    3300014: Ebene_7
+    3300016: Lid
+    3300018: Lock_bottom
+    3300020: Lock_top
+    3300022: "W\xFCrfel_1"
+    4300000: "W\xFCrfel_1"
+    4300002: Lock_top
+    4300004: Lock_bottom
+    4300006: Ebene_7
+    4300008: Ebene_6
+    4300010: Ebene_5
+    4300012: Ebene_3
+    4300014: Ebene_2
+    4300016: Ebene_1
+    4300018: Ebene
+    4300020: Ebene_4
+    4300022: Lid
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
