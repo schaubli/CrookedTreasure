@@ -24,16 +24,18 @@ public class Canonball : MonoBehaviour {
     }
 
     public void Fire(){
-
+        Invoke("DestroyMe", 3);
        // rb.AddForce(transform.forward * 1, ForceMode.Impulse);
     }
-	
+    void DestroyMe() {
+        Destroy(this.gameObject);
+    }
 	// Update is called once per frame
 	void Update () {
         
    
     this.transform.position = this.transform.position + transform.forward * 0.6f;
-    this.transform.Rotate(1.2f, 0, 0);
+    this.transform.Rotate(0.8f, 0, 0);
        
 
     }

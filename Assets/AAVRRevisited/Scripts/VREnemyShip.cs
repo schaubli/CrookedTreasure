@@ -4,31 +4,41 @@ using System.Collections;
 public class VREnemyShip : MonoBehaviour {
 
     public float health;
-    public int attack;
-    public int cooldown;
-    public int cdcounter;
     public bool dead;
+    public GameObject cannonballsRightPrefab;
+    private GameObject cannonballsRight;
+    public GameObject cannonballsLeftPrefab;
+    private GameObject cannonballsLeft;
+
     // Use this for initialization
     void Start () {
-        this.cdcounter = 0;
         this.dead = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        this.cdcounter += 1;
-
-        if (this.cdcounter == this.cooldown)
+       
+    }
+    void ShootLeft()
+    {
+        Debug.Log("Ship attacks left!");
+        cannonballsLeft = (GameObject)Instantiate(cannonballsLeftPrefab);
+        Invoke("DestroyEmpty", 5);
+    }
+    void ShootRight()
+    {
+        Debug.Log("Ship attacks right!");
+        cannonballsRight = (GameObject)Instantiate(cannonballsRightPrefab);
+        Invoke("DestroyEmpty",5);
+    }
+    void DestroyEmpty() {
+        
+        if (cannonballsRight != null)
         {
-            this.cdcounter = 0;
-            this.Action();
+            Destroy(cannonballsRight.gameObject);
+            cannonballsRight = null;
         }
     }
-    void Action()
-    {
-        Debug.Log("Ship attacks!");
-    }
-
     void Die()
     {
         this.dead = true;
