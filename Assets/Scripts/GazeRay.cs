@@ -16,6 +16,7 @@ public class GazeRay : MonoBehaviour
     #region MONOBEHAVIOUR_METHODS
     void Update()
     {
+        /*
         // Check if the Head gaze direction is intersecting any of the ViewTriggers
         RaycastHit hit;
         Ray cameraGaze = new Ray(this.transform.position, this.transform.forward);
@@ -24,6 +25,7 @@ public class GazeRay : MonoBehaviour
         {
             trigger.Focused = hit.collider && (hit.collider.gameObject == trigger.gameObject);
         }
+        */
     }
     #endregion // MONOBEHAVIOUR_METHODS
 }

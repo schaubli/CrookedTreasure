@@ -106,7 +106,7 @@ public class PlayerController : EntityMover {
 				monstercount = 1;
 			}
 		}
-
+        islandcount = 1;
         if (islandcount>0 || monstercount>0 || enemyShipCount>0) {
             if (newTile != this.rootTile)
             {
@@ -133,7 +133,7 @@ public class PlayerController : EntityMover {
             else if (islandCount > 0)
             {
                 vrHandler.mode = 3;
-                vrHandler.island = 0;
+                vrHandler.treasure = islandCount;
                 vrHandler.initVR();
             }
             else if (enemyShipCount > 0) {

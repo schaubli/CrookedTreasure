@@ -7,26 +7,30 @@ public class VRhandler : MonoBehaviour {
     [HideInInspector]
     public int enemy;
     [HideInInspector]
-    public int island;
+    public int treasure;
 
     public GameObject monsterPrefab;
     public GameObject enemyShipPrefab;
-    public GameObject islandPrefab0;
+    public GameObject VRisland;
+    public GameObject shovelPrefab;
+    private GameObject shovel = null;
     private GameObject monsterVRGameObject = null;
     private GameObject shipVRGameObject = null;
     private VREnemyKrake krake = null;
     private VREnemyShip enemyShip = null;
     public GameObject cameraRig;
-    private bool allowedToLeave = false;
+    public bool allowedToLeave = false;
     // public GameObject shipPrefab;
 
     public GameObject lootCratePrefab;
 
     public GameObject actionIcon_crosshair_prefab;
     public GameObject actionIcon_steeringwheel_prefab;
+    public GameObject actionIcon_steeringwheel2_prefab;
     public GameObject actionIcon_shovel_prefab;
     private GameObject actionIcon_crosshair_go = null;
     private GameObject actionIcon_steeringwheel_go = null;
+    private GameObject actionIcon_steeringwheel2_go = null;
     private GameObject actionIcon_shovel_go = null;
     private GameObject[] actionIcons = null;
 
@@ -78,19 +82,19 @@ public class VRhandler : MonoBehaviour {
 
             case 3: //Insel
 
-                switch (this.island)
+                
+                Debug.Log("Initiate VR Island");
+                VRisland.SetActive(true);
+                
+                if (this.treasure == 3)
                 {
-                    default:
-                    case 0:
-                        Debug.Log("Initiate VR Island");
-                        GameObject islandVRGameObject = (GameObject)Instantiate(islandPrefab0);
-
-                        break;
-                    case 1:
-                    case 2:
-                        break;
-                    
+                    DiggController.Instance.Reset(TreasureChestMode.CrookedTreasure);
                 }
+                else
+                {
+                    DiggController.Instance.Reset(TreasureChestMode.Compass);
+                }
+                
                 actionIcon_shovel_go = (GameObject)Instantiate(actionIcon_shovel_prefab);
                 ActionIcon actionIcon_shovel = actionIcon_shovel_go.GetComponent<ActionIcon>();
                 actionIcon_shovel.setType(ActionIcon.ActionIconType.Shovel);
@@ -122,7 +126,7 @@ public class VRhandler : MonoBehaviour {
     }
     private void setActionIconsVisible(ActionIcon.ActionIconType type) {
 
-        actionIcons = new GameObject[] { actionIcon_crosshair_go, actionIcon_steeringwheel_go, actionIcon_shovel_go };
+        actionIcons = new GameObject[] { actionIcon_crosshair_go, actionIcon_steeringwheel_go, actionIcon_shovel_go, actionIcon_steeringwheel2_go };
         foreach (GameObject icon in actionIcons)
         {
             if (icon != null)
@@ -141,24 +145,32 @@ public class VRhandler : MonoBehaviour {
     private void switchToCannons() {
         // Set position and rotation of camera
         cameraRig.transform.position = new Vector3(-1.79f, -2.553f, -1.459f);
-        Vector3 cameraRigEulerRotation = new Vector3(0, 90, 0);
-        cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
         this.mode = 0;
     }
     private void switchToMap()
     {
         // Set position and rotation of camera
         cameraRig.transform.position = new Vector3(-3.81f, 0.52f, -11.59f);
-        Vector3 cameraRigEulerRotation = new Vector3(0, 90, 0);
-        cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
         this.mode = 1;
     }
     private void goToDigging()
     {
-        cameraRig.transform.position = new Vector3(36.5f, 0f, -10.72f);
-        Vector3 cameraRigEulerRotation = new Vector3(0, 90, 0);
-        cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
+        
         this.mode = 4;
+
+        if (shovel == null)
+        {
+            shovel = (GameObject)Instantiate(shovelPrefab);
+        }
+        cameraRig.transform.position = shovelPrefab.transform.position;
+
+        if (actionIcon_steeringwheel2_go == null)
+        {
+            actionIcon_steeringwheel2_go = (GameObject)Instantiate(actionIcon_steeringwheel2_prefab);
+            ActionIcon actionIcon_steeringwheel = actionIcon_steeringwheel2_go.GetComponent<ActionIcon>();
+            actionIcon_steeringwheel.setType(ActionIcon.ActionIconType.Steeringwheel);
+            actionIcon_steeringwheel.setVrHandler(this.gameObject);
+        }
     }
 
     void initLooting() {
@@ -266,6 +278,12 @@ public class VRhandler : MonoBehaviour {
                         Destroy(icon.gameObject);
                     }
                 }
+            }
+            VRisland.SetActive(false);
+            if (shovel != null)
+            {
+                Destroy(shovel.gameObject);
+                shovel = null;
             }
             PlayerController.Instance.EndVRMode();
         }

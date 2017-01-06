@@ -20,6 +20,7 @@ public class CollectibleItem : MonoBehaviour {
 	   this.duration = duration;
 	   this.counter = 0;
        started = true;
+       FindObjectOfType<VRhandler>().allowedToLeave = true;
 	}
 	
 
