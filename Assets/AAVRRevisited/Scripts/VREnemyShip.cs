@@ -9,27 +9,39 @@ public class VREnemyShip : MonoBehaviour {
     private GameObject cannonballsRight;
     public GameObject cannonballsLeftPrefab;
     private GameObject cannonballsLeft;
-
+    int die;
+    Animator anim;
     // Use this for initialization
     void Start () {
         this.dead = false;
+        anim = GetComponent<Animator>();
+        die = Animator.StringToHash("die");
     }
 	
 	// Update is called once per frame
 	void Update () {
-       
+       if (this.dead)
+        {
+            anim.SetTrigger(die);
+        }
     }
     void ShootLeft()
     {
-        Debug.Log("Ship attacks left!");
-        cannonballsLeft = (GameObject)Instantiate(cannonballsLeftPrefab);
-        Invoke("DestroyEmpty", 5);
+        if (!this.dead)
+        {
+            Debug.Log("Ship attacks left!");
+            cannonballsLeft = (GameObject)Instantiate(cannonballsLeftPrefab);
+            Invoke("DestroyEmpty", 5);
+        }       
     }
     void ShootRight()
     {
-        Debug.Log("Ship attacks right!");
-        cannonballsRight = (GameObject)Instantiate(cannonballsRightPrefab);
-        Invoke("DestroyEmpty",5);
+        if (!this.dead)
+        {
+            Debug.Log("Ship attacks right!");
+            cannonballsRight = (GameObject)Instantiate(cannonballsRightPrefab);
+            Invoke("DestroyEmpty", 5);
+        }
     }
     void DestroyEmpty() {
         
@@ -37,6 +49,11 @@ public class VREnemyShip : MonoBehaviour {
         {
             Destroy(cannonballsRight.gameObject);
             cannonballsRight = null;
+        }
+        if (cannonballsLeft != null)
+        {
+            Destroy(cannonballsLeft.gameObject);
+            cannonballsLeft = null;
         }
     }
     void Die()

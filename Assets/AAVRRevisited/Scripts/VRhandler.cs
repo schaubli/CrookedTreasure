@@ -167,11 +167,13 @@ public class VRhandler : MonoBehaviour {
 
         if (krake != null)
         {
+            this.spawnLoot();
             Destroy(krake.gameObject);
             krake = null;
         }
         if (enemyShip != null)
         {
+            this.spawnLoot(enemyShip.transform.position);
             Destroy(enemyShip.gameObject);
             enemyShip = null;
         }
@@ -190,7 +192,7 @@ public class VRhandler : MonoBehaviour {
         // cameraRig.transform.rotation = Quaternion.Euler(cameraRigEulerRotation);
 
         //Invoke("endVR", 15);
-        this.spawnLoot();
+        
     }
 
     void spawnLoot() {
@@ -206,15 +208,33 @@ public class VRhandler : MonoBehaviour {
             lootCrateObject.gameObject.transform.position = rndPosition;
         }
     }
+    void spawnLoot(Vector3 pos) {
+        int rndNum = (int)Random.Range(4, 10);
+        for (int i = 0; i < rndNum; i++)
+        {
+            //x : zwischen 9 und 15
+            //y : -6
+            //z : zwischen -7 und 7
+            Vector3 rndPosition = new Vector3(Random.value * 10 -5 + pos.x, -6, Random.value * 10 - 5 + pos.z);
+            GameObject lootCrateObject = (GameObject)Instantiate(lootCratePrefab);
+            // LootCrate lootCrateScript = lootCrateObject.GetComponent<LootCrate>();
+            lootCrateObject.gameObject.transform.position = rndPosition;
+        }
+    }
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
 
         if (alreadydead == false)
         {
-            if ((krake != null && krake.dead == true) || (enemyShip != null && enemyShip.dead == true))
+            if (krake != null && krake.dead == true)
             {
                 Invoke("initLooting", 3);
+                alreadydead = true;
+            }
+            if (enemyShip != null && enemyShip.dead == true)
+            {
+                Invoke("initLooting", 9);
                 alreadydead = true;
             }
             
