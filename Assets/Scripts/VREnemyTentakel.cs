@@ -65,6 +65,7 @@ public class VREnemyTentakel : MonoBehaviour {
     void DoDamage (){
         Player.Instance.removeHealth(parentKrake.attack);
         Debug.Log("Player took damage");
+        FindObjectOfType<VRhandler>().ShipHitByTentakel();
     }
     
 

@@ -13,6 +13,7 @@ public class VRhandler : MonoBehaviour {
     public GameObject enemyShipPrefab;
     public GameObject VRisland;
     public GameObject shovelPrefab;
+    public GameObject wholeShip;
     private GameObject shovel = null;
     private GameObject monsterVRGameObject = null;
     private GameObject shipVRGameObject = null;
@@ -254,6 +255,15 @@ public class VRhandler : MonoBehaviour {
      
 
 	}
+    public void ShipVibrate()
+    {
+        wholeShip.GetComponent<Animator>().SetTrigger(Animator.StringToHash("hit"));
+    }
+    public void ShipHitByTentakel()
+    {
+        wholeShip.GetComponent<Animator>().SetTrigger(Animator.StringToHash("hitByTentakel"));
+    }
+
 
     public void endVR()
     {

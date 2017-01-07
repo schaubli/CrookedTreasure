@@ -8,7 +8,9 @@ public class VREnemyShipShoot : StateMachineBehaviour {
         //
         Destroy(animator.gameObject);
         Player.Instance.removeHealth(2);
-	}
+
+        FindObjectOfType<VRhandler>().ShipHitByTentakel();
+    }
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	//override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
