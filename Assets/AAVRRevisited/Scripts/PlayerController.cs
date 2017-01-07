@@ -41,14 +41,14 @@ public class PlayerController : EntityMover {
 		}
         #endif
     }
-
-    public override IEnumerator OnAfterRotation(Vector3 newPosition, Tile newTile) {
-		// Move Player to new Position
+	
+	public override int[] OnAfterRotation(Vector3 newPosition, Tile newTile) {
 		List<Tile> oldFarNeighbours = this.lastTile.GetFarNeighbourTiles();
 		List<Tile> newFarNeighbours = newTile.GetFarNeighbourTiles();
 		newTile.ShowTile();
+		this.lastTile.ShowTile();
 		foreach(Tile tile in oldFarNeighbours) {
-			if(newFarNeighbours.Contains(tile) == false) {
+			if(newFarNeighbours.Contains(tile) == false && tile != this.lastTile && tile != newTile) {
 				tile.HideTile();
 			}
 		}
@@ -63,8 +63,44 @@ public class PlayerController : EntityMover {
     		if ( mover.gameObject != this.gameObject) {
     			mover.MoveNext();
     		}
-    	}
+		}
 
+		List<Tile> neighbours = newTile.GetNeighbourTiles();
+		int islandcount = 0;
+		int monstercount = 0;
+		int enemyShipCount = 0;
+		foreach(Tile t in neighbours) {
+			if(t.Environment.type == EnvironmentType.TreasureIsland){
+				Debug.Log("Next to Treasure Island");
+				if(t.Environment.model.GetComponent<TreasureIsland>() == GameObjectiveController.Instance.nextTreasure) { // Remove Shovel icon
+					Debug.Log("Starting VR for Treasure Island");
+					GameObjectiveController.Instance.nextTreasure.Visit();
+					GameObjectiveController.Instance.GoToNextState();
+					islandcount = 3-GameObjectiveController.Instance.treasureIslands.Count;
+				}
+			}
+			if(t.moverOnTile != null || t.Environment.type == EnvironmentType.EnemyShip) {
+				enemyShipCount++;
+			}
+		}
+		if(islandcount==0 && enemyShipCount == 0) {
+			if(Random.value <= GameConfig.Instance.monsterProbability) { //Spawn Kraken
+				Debug.Log("Encountered Monster");
+				Tile neighbourTile = newTile.GetOceanNeighbour();
+				GameObject ARKraken = (GameObject) Instantiate(EnvironmentManager.Instance.GetEnvironmentByType(EnvironmentType.Monster).modelPrefab, neighbourTile.gameObject.transform.position, 
+									Quaternion.LookRotation(newTile.transform.localPosition-neighbourTile.transform.localPosition, newTile.transform.up));
+				ARKraken.transform.SetParent(TileManager.Instance.transform);
+				Destroy(ARKraken, 1.5f);
+				monstercount = 1;
+			}
+		}
+		return new int[] {islandcount, monstercount, enemyShipCount};
+	}
+
+    public override IEnumerator OnAfterMovement(Vector3 newPosition, Tile newTile, int[] eventarray) {
+		int islandcount = eventarray[0];
+		int monstercount = eventarray[1];
+		int enemyShipCount = eventarray[2];
 		TileManager.Instance.EnteredNewTile();
 
 		//Check for Enemies and Islands
@@ -75,39 +111,18 @@ public class PlayerController : EntityMover {
 			newTile.Environment.ApplySettings(EnvironmentManager.Instance.GetEnvironmentByType(EnvironmentType.Ocean));
 		}
 
-		List<Tile> neighbours = newTile.GetNeighbourTiles();
-		int islandcount = 0;
-		int monstercount = 0;
-		int enemyShipCount = 0;
-		foreach(Tile t in neighbours) {
-			if(t.Environment.type == EnvironmentType.TreasureIsland){
-				Debug.Log("Next to Treasure Island");
-				if(t.Environment.model.GetComponent<TreasureIsland>() == GameObjectiveController.Instance.nextTreasure) {
-					Debug.Log("Starting VR for Treasure Island");
-					GameObjectiveController.Instance.nextTreasure.Visit();
-					GameObjectiveController.Instance.GoToNextState();
-					islandcount = 3-GameObjectiveController.Instance.treasureIslands.Count;
+		if(enemyShipCount > 0 ) {
+			List<Tile> neighbours = newTile.GetNeighbourTiles();
+			foreach(Tile t in neighbours) { 
+				if(t.moverOnTile != null || t.Environment.type == EnvironmentType.EnemyShip) {
+					TileManager.Instance.moversInScene.Remove(t.moverOnTile);
+					Destroy(t.moverOnTile.gameObject, 1.5f);
+					t.Environment.type = EnvironmentType.Ocean;
 				}
 			}
-			if(t.moverOnTile != null || t.Environment.type == EnvironmentType.EnemyShip) {
-				Debug.Log("Mover "+t.moverOnTile.gameObject.name);
-				TileManager.Instance.moversInScene.Remove(t.moverOnTile);
-				Destroy(t.moverOnTile.gameObject, 1.5f);
-				t.Environment.type = EnvironmentType.Ocean;
-				enemyShipCount++;
-			}
 		}
-		if(islandcount==0 && enemyShipCount == 0) {
-			if(Random.value <= GameConfig.Instance.monsterProbability) {
-				Debug.Log("Encountered Monster");
-				Tile neighbourTile = newTile.GetOceanNeighbour();
-				GameObject ARKraken = (GameObject) Instantiate(EnvironmentManager.Instance.GetEnvironmentByType(EnvironmentType.Monster).modelPrefab, neighbourTile.gameObject.transform.position, 
-									Quaternion.LookRotation(newTile.transform.localPosition-neighbourTile.transform.localPosition, newTile.transform.up));
-				ARKraken.transform.SetParent(TileManager.Instance.transform);
-				Destroy(ARKraken, 1.5f);
-				monstercount = 1;
-			}
-		}
+
+		
         //enemyShipCount = 1;
         if (islandcount>0 || monstercount>0 || enemyShipCount>0) {
             if (newTile != this.rootTile)
@@ -116,7 +131,6 @@ public class PlayerController : EntityMover {
 				yield return StartCoroutine(StartVRMode(islandcount, monstercount, enemyShipCount));
             }
 		}
-		yield return new WaitForEndOfFrame();
 	}
 
 	private IEnumerator StartVRMode(int islandCount, int monsterCount, int enemyShipCount) {

@@ -76,8 +76,10 @@ public class EntityMover : MonoBehaviour {
 		}
 		yield return new WaitForEndOfFrame();
 		DebugMovement("Rotation finished");
+		int [] eventarray = OnAfterRotation(newPosition, newTile);
 		yield return StartCoroutine(this.AnimateForward(newTile.transform.localPosition));
-		yield return StartCoroutine(OnAfterRotation(newPosition, newTile));
+
+		yield return StartCoroutine(OnAfterMovement(newPosition, newTile, eventarray));
 	}
 
 	public IEnumerator AnimateForward(Vector3 endPosition) { // Should take 1s; Endposition has to be local in the tile coordinate system.
@@ -96,7 +98,11 @@ public class EntityMover : MonoBehaviour {
 		OnAnimationEnded();
 	}
 
-	public virtual IEnumerator OnAfterRotation(Vector3 newPosition, Tile newTile) {
+	public virtual int[] OnAfterRotation(Vector3 newPosition, Tile newTile) {
+		return new int[] {0,0,0};
+	}
+
+	public virtual IEnumerator OnAfterMovement(Vector3 newPosition, Tile newTile, int[] eventarray) {
 		yield return new WaitForEndOfFrame();
 	}
 
