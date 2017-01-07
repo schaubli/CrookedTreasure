@@ -6,7 +6,6 @@ public class TreasureIsland : MonoBehaviour{
 	public Tile tile;
 	public int index; //at what position this should be found
 	public GameObject icon; //The rotating icon above the treasure island
-	public Animator iconAnimator;
 
 	void Start() {
 		
@@ -18,13 +17,12 @@ public class TreasureIsland : MonoBehaviour{
 		}
 	}
 
-	public void Visit() {
-		icon.gameObject.SetActive(false);
+	public void SetActive() {
+		icon.gameObject.SetActive(true);
 	}
 
-	void OnValidate() {
-		if(this.icon != null && this.iconAnimator == null) {
-			this.iconAnimator = icon.GetComponentInChildren<Animator>();
-		}
+	public void Visit() {
+		icon.gameObject.SetActive(false);
+		Debug.Log("Set "+icon.gameObject+" unactive");
 	}
 }
