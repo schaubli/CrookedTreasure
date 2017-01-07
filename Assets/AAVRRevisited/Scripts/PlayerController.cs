@@ -46,6 +46,7 @@ public class PlayerController : EntityMover {
 		// Move Player to new Position
 		List<Tile> oldFarNeighbours = this.lastTile.GetFarNeighbourTiles();
 		List<Tile> newFarNeighbours = newTile.GetFarNeighbourTiles();
+		newTile.ShowTile();
 		foreach(Tile tile in oldFarNeighbours) {
 			if(newFarNeighbours.Contains(tile) == false) {
 				tile.HideTile();
@@ -83,6 +84,7 @@ public class PlayerController : EntityMover {
 				Debug.Log("Next to Treasure Island");
 				if(t.Environment.model.GetComponent<TreasureIsland>() == GameObjectiveController.Instance.nextTreasure) {
 					Debug.Log("Starting VR for Treasure Island");
+					GameObjectiveController.Instance.nextTreasure.Visit();
 					GameObjectiveController.Instance.GoToNextState();
 					islandcount = 3-GameObjectiveController.Instance.treasureIslands.Count;
 				}

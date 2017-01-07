@@ -12,12 +12,16 @@ public class GameObjectiveController : MonoBehaviour {
 		instance = this;
 		this.treasureIslands = FindObjectsOfType<TreasureIsland>().ToList();
 		treasureIslands.Sort((x,y) => (int) ((x.index).CompareTo(y.index)));
+		foreach(TreasureIsland island in this.treasureIslands) {
+			island.icon.SetActive(false);
+		}
 		GoToNextState();
 	}
 
 	public void GoToNextState() {
 		if(treasureIslands.Count>0){
 			this.nextTreasure = treasureIslands[0];
+			this.nextTreasure.icon.SetActive(true);
 			treasureIslands.RemoveAt(0);
 		}
 	}
