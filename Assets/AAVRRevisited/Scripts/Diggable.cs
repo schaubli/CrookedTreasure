@@ -29,8 +29,12 @@ public class Diggable : MonoBehaviour {
 	public void OnOut() { // When Player stops hovering over Collider
 		ShovelController.Instance.OnEndHoverOverDiggable(this);
 	}
-	void OnEnable() {
+
+	void Start() {
 		this.startPosition = this.transform.localPosition;
+	}
+
+	void OnEnable() {
 		VRInteractiveItem item = gameObject.GetComponent<VRInteractiveItem>();
 		item.OnOver += OnOver;
 		item.OnClick += Digg;
