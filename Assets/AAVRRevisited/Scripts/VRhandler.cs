@@ -14,6 +14,8 @@ public class VRhandler : MonoBehaviour {
     public GameObject VRisland;
     public GameObject shovelPrefab;
     public GameObject wholeShip;
+    public GameObject water;
+    private Water waterscript;
     private GameObject shovel = null;
     private GameObject monsterVRGameObject = null;
     private GameObject shipVRGameObject = null;
@@ -47,7 +49,9 @@ public class VRhandler : MonoBehaviour {
         {
             Debug.LogError("enemyShipPrefab is not defined in VRhandler");
         }
+        waterscript = water.GetComponent<Water>();
     }
+
 
     public void initVR () {
        
@@ -61,23 +65,15 @@ public class VRhandler : MonoBehaviour {
 
                     case 0: //Monster                     
                         // init monster
-                        monsterVRGameObject = (GameObject)Instantiate(monsterPrefab);
-                        krake = monsterVRGameObject.GetComponent<VREnemyKrake>();
+                        Invoke("initMonster", 1);
                         break;
                     case 1: //Ship
-                        shipVRGameObject = (GameObject)Instantiate(enemyShipPrefab);
-                        enemyShip = shipVRGameObject.GetComponent<VREnemyShip>();
+                        Invoke("initShip", 1);
                         break;
                     default:
                         break;
 
                 }
-
-                actionIcon_crosshair_go = (GameObject)Instantiate(actionIcon_crosshair_prefab);
-                ActionIcon actionIcon_crosshair = actionIcon_crosshair_go.GetComponent<ActionIcon>();
-                actionIcon_crosshair.setType(ActionIcon.ActionIconType.Crosshair);
-                actionIcon_crosshair.setVrHandler(this.gameObject);
-
                 alreadydead = false;
                 break;
 
@@ -85,22 +81,7 @@ public class VRhandler : MonoBehaviour {
 
                 
                 Debug.Log("Initiate VR Island");
-                VRisland.SetActive(true);
-                
-                if (this.treasure == 3)
-                {
-                    DiggController.Instance.Reset(TreasureChestMode.CrookedTreasure);
-                }
-                else
-                {
-                    DiggController.Instance.Reset(TreasureChestMode.Compass);
-                }
-                
-                actionIcon_shovel_go = (GameObject)Instantiate(actionIcon_shovel_prefab);
-                ActionIcon actionIcon_shovel = actionIcon_shovel_go.GetComponent<ActionIcon>();
-                actionIcon_shovel.setType(ActionIcon.ActionIconType.Shovel);
-                actionIcon_shovel.setVrHandler(this.gameObject);
-
+                Invoke("initIsland", 1);
                 break;
 
             default: break;
@@ -109,6 +90,50 @@ public class VRhandler : MonoBehaviour {
 
         allowedToLeave = false;
     }
+
+    private void initMonster()
+    {
+        monsterVRGameObject = (GameObject)Instantiate(monsterPrefab);
+        krake = monsterVRGameObject.GetComponent<VREnemyKrake>();
+        actionIcon_crosshair_go = (GameObject)Instantiate(actionIcon_crosshair_prefab);
+        ActionIcon actionIcon_crosshair = actionIcon_crosshair_go.GetComponent<ActionIcon>();
+        actionIcon_crosshair.setType(ActionIcon.ActionIconType.Crosshair);
+        actionIcon_crosshair.setVrHandler(this.gameObject);
+        waterscript.waveHeight = 0.06f;
+    }
+    private void initShip()
+    {
+        shipVRGameObject = (GameObject)Instantiate(enemyShipPrefab);
+        enemyShip = shipVRGameObject.GetComponent<VREnemyShip>();
+        actionIcon_crosshair_go = (GameObject)Instantiate(actionIcon_crosshair_prefab);
+        ActionIcon actionIcon_crosshair = actionIcon_crosshair_go.GetComponent<ActionIcon>();
+        actionIcon_crosshair.setType(ActionIcon.ActionIconType.Crosshair);
+        actionIcon_crosshair.setVrHandler(this.gameObject);
+        waterscript.waveHeight = 0.06f;
+    }
+    private void initIsland()
+    {
+        VRisland.SetActive(true);
+
+        waterscript.waveHeight = 0.006f;
+
+        if (this.treasure == 3)
+        {
+            DiggController.Instance.Reset(TreasureChestMode.CrookedTreasure);
+        }
+        else
+        {
+            DiggController.Instance.Reset(TreasureChestMode.Compass);
+        }
+
+        actionIcon_shovel_go = (GameObject)Instantiate(actionIcon_shovel_prefab);
+        ActionIcon actionIcon_shovel = actionIcon_shovel_go.GetComponent<ActionIcon>();
+        actionIcon_shovel.setType(ActionIcon.ActionIconType.Shovel);
+        actionIcon_shovel.setVrHandler(this.gameObject);
+
+    }
+
+
     public void actionIconEvent(ActionIcon.ActionIconType type) {
         if (type == ActionIcon.ActionIconType.Crosshair)
         {
@@ -151,7 +176,7 @@ public class VRhandler : MonoBehaviour {
     private void switchToMap()
     {
         // Set position and rotation of camera
-        cameraRig.transform.position = new Vector3(-3.81f, 0.52f, -11.59f);
+        cameraRig.transform.position = new Vector3(-1.95f, 0.52f, -11.59f);
         this.mode = 1;
     }
     private void goToDigging()

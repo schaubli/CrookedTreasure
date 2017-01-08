@@ -123,7 +123,7 @@ public class PlayerController : EntityMover {
 		}
 
 		
-        //enemyShipCount = 1;
+        //islandcount = 1;
         if (islandcount>0 || monstercount>0 || enemyShipCount>0) {
             if (newTile != this.rootTile)
             {
