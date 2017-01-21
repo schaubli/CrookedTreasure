@@ -75,8 +75,9 @@ public class PlayerController : EntityMover {
 				if(t.Environment.model.GetComponent<TreasureIsland>() == GameObjectiveController.Instance.nextTreasure) { // Remove Shovel icon
 					Debug.Log("Starting VR for Treasure Island");
 					GameObjectiveController.Instance.nextTreasure.Visit();
-					GameObjectiveController.Instance.GoToNextState();
 					islandcount = 3-GameObjectiveController.Instance.treasureIslands.Count;
+					Debug.Log("islandcount "+islandcount);
+					GameObjectiveController.Instance.GoToNextState();
 				}
 			}
 			if(t.moverOnTile != null || t.Environment.type == EnvironmentType.EnemyShip) {
@@ -94,6 +95,9 @@ public class PlayerController : EntityMover {
 				monstercount = 1;
 			}
 		}
+		monstercount = 0;
+		enemyShipCount = 0;
+		TileManager.Instance.ResetPositionToRoot(this.currentTile.transform.localPosition);
 		return new int[] {islandcount, monstercount, enemyShipCount};
 	}
 
@@ -123,7 +127,7 @@ public class PlayerController : EntityMover {
 		}
 
 		
-        //islandcount = 1;
+        //enemyShipCount = 1;
         if (islandcount>0 || monstercount>0 || enemyShipCount>0) {
             if (newTile != this.rootTile)
             {
