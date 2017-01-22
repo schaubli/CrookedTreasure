@@ -1,0 +1,166 @@
+fileFormatVersion: 2
+guid: 53e533888d631fc42a504ae9d853d3d1
+timeCreated: 1485094707
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Boole
+    100002: Boole_1
+    100004: Boole_2
+    100006: Boole_3
+    100008: Boole_4
+    100010: Boole_5
+    100012: Boole_6
+    100014: Boole_7
+    100016: Boole_8
+    100018: CINEMA_4D_Editor
+    100020: Kapsel
+    100022: //RootNode
+    100024: Symmetrie
+    100026: "W\xFCrfel_1"
+    100028: Zylinder
+    100030: Zylinder_1
+    100032: Zylinder_2
+    100034: Zylinder_3
+    100036: Zylinder_4
+    100038: Zylinder_5
+    400000: Boole
+    400002: Boole_1
+    400004: Boole_2
+    400006: Boole_3
+    400008: Boole_4
+    400010: Boole_5
+    400012: Boole_6
+    400014: Boole_7
+    400016: Boole_8
+    400018: CINEMA_4D_Editor
+    400020: Kapsel
+    400022: //RootNode
+    400024: Symmetrie
+    400026: "W\xFCrfel_1"
+    400028: Zylinder
+    400030: Zylinder_1
+    400032: Zylinder_2
+    400034: Zylinder_3
+    400036: Zylinder_4
+    400038: Zylinder_5
+    2300000: Boole
+    2300002: Boole_1
+    2300004: Boole_2
+    2300006: Boole_3
+    2300008: Boole_4
+    2300010: Boole_5
+    2300012: Boole_6
+    2300014: Boole_7
+    2300016: Boole_8
+    2300018: Kapsel
+    2300020: Symmetrie
+    2300022: "W\xFCrfel_1"
+    2300024: Zylinder
+    2300026: Zylinder_1
+    2300028: Zylinder_2
+    2300030: Zylinder_3
+    2300032: Zylinder_4
+    2300034: Zylinder_5
+    3300000: Boole
+    3300002: Boole_1
+    3300004: Boole_2
+    3300006: Boole_3
+    3300008: Boole_4
+    3300010: Boole_5
+    3300012: Boole_6
+    3300014: Boole_7
+    3300016: Boole_8
+    3300018: Kapsel
+    3300020: Symmetrie
+    3300022: "W\xFCrfel_1"
+    3300024: Zylinder
+    3300026: Zylinder_1
+    3300028: Zylinder_2
+    3300030: Zylinder_3
+    3300032: Zylinder_4
+    3300034: Zylinder_5
+    4300000: Boole_8
+    4300002: Boole_7
+    4300004: Zylinder_5
+    4300006: Boole_6
+    4300008: Boole_5
+    4300010: Zylinder
+    4300012: Boole
+    4300014: Symmetrie
+    4300016: Kapsel
+    4300018: Boole_4
+    4300020: Boole_3
+    4300022: Zylinder_4
+    4300024: "W\xFCrfel_1"
+    4300026: Zylinder_3
+    4300028: Zylinder_2
+    4300030: Boole_1
+    4300032: Boole_2
+    4300034: Zylinder_1
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

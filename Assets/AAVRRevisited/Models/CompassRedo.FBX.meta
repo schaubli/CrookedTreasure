@@ -1,64 +1,56 @@
 fileFormatVersion: 2
-guid: 50b062bdeb8c0064994f5824700c56a7
-timeCreated: 1485090598
+guid: 89c253db9a686ee4c9ac5aa24894c928
+timeCreated: 1485016163
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Landschaft_4
-    100004: Object001
-    100006: Object002
-    100008: Object003
-    100010: Object004
-    100012: Object005
-    100014: Object006
-    100016: Object007
-    100018: Object008
-    100020: zz
-    100022: zz001
-    400000: //RootNode
-    400002: Landschaft_4
-    400004: Object001
-    400006: Object002
-    400008: Object003
-    400010: Object004
-    400012: Object005
-    400014: Object006
-    400016: Object007
-    400018: Object008
-    400020: zz
-    400022: zz001
-    2300000: Object001
-    2300002: Object002
-    2300004: Object003
-    2300006: Object004
-    2300008: Object005
-    2300010: Object006
-    2300012: Object007
-    2300014: Object008
-    2300016: zz
-    2300018: zz001
-    3300000: Object001
-    3300002: Object002
-    3300004: Object003
-    3300006: Object004
-    3300008: Object005
-    3300010: Object006
-    3300012: Object007
-    3300014: Object008
-    3300016: zz
-    3300018: zz001
-    4300000: Object001
-    4300002: Object002
-    4300004: Object003
-    4300006: zz
-    4300008: zz001
-    4300010: Object004
-    4300012: Object005
-    4300014: Object006
-    4300016: Object007
-    4300018: Object008
+    100000: Arrow
+    100002: Beschriftung
+    100004: CINEMA_4D_Editor
+    100006: //RootNode
+    100008: "Deckfl\xE4che_1"
+    100010: "Deckfl\xE4che_2"
+    100012: drehzylinder
+    100014: Extrudieren_1_2
+    100016: Nadel
+    100018: Nadel_2
+    100020: "S\xFCden_2"
+    400000: Arrow
+    400002: Beschriftung
+    400004: CINEMA_4D_Editor
+    400006: //RootNode
+    400008: "Deckfl\xE4che_1"
+    400010: "Deckfl\xE4che_2"
+    400012: drehzylinder
+    400014: Extrudieren_1_2
+    400016: Nadel
+    400018: Nadel_2
+    400020: "S\xFCden_2"
+    2300000: Arrow
+    2300002: Beschriftung
+    2300004: "Deckfl\xE4che_1"
+    2300006: "Deckfl\xE4che_2"
+    2300008: drehzylinder
+    2300010: Extrudieren_1_2
+    2300012: Nadel_2
+    2300014: "S\xFCden_2"
+    3300000: Arrow
+    3300002: Beschriftung
+    3300004: "Deckfl\xE4che_1"
+    3300006: "Deckfl\xE4che_2"
+    3300008: drehzylinder
+    3300010: Extrudieren_1_2
+    3300012: Nadel_2
+    3300014: "S\xFCden_2"
+    4300000: Beschriftung
+    4300002: "Deckfl\xE4che_1"
+    4300004: "Deckfl\xE4che_2"
+    4300006: Nadel_2
+    4300008: drehzylinder
+    4300010: Arrow
+    4300012: "S\xFCden_2"
+    4300014: Extrudieren_1_2
     9500000: //RootNode
   materials:
     importMaterials: 1
