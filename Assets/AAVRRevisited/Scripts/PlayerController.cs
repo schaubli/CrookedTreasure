@@ -95,9 +95,6 @@ public class PlayerController : EntityMover {
 				monstercount = 1;
 			}
 		}
-		monstercount = 0;
-		enemyShipCount = 0;
-		TileManager.Instance.ResetPositionToRoot(this.currentTile.transform.localPosition);
 		return new int[] {islandcount, monstercount, enemyShipCount};
 	}
 
