@@ -21,6 +21,11 @@ public class PlayerController : EntityMover {
         AR_TRIGGER
     }
 
+    void Update()
+    {
+
+        TileManager.Instance.ResetPositionToRoot(movingGameObject.transform.localPosition);
+    }
  
     
     // Use this for initialization
