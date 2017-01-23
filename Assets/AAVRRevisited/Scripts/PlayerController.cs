@@ -94,7 +94,8 @@ public class PlayerController : EntityMover {
 				Debug.Log("Encountered Monster");
 				Tile neighbourTile = newTile.GetOceanNeighbour();
 				GameObject ARKraken = (GameObject) Instantiate(EnvironmentManager.Instance.GetEnvironmentByType(EnvironmentType.Monster).modelPrefab, neighbourTile.gameObject.transform.position, 
-									Quaternion.LookRotation(newTile.transform.localPosition-neighbourTile.transform.localPosition, newTile.transform.up));
+				neighbourTile.transform.rotation);
+				ARKraken.transform.rotation = Quaternion.LookRotation(newTile.transform.position-neighbourTile.transform.position,neighbourTile.transform.up);
 				ARKraken.transform.SetParent(TileManager.Instance.transform);
 				Destroy(ARKraken, 1.5f);
 				monstercount = 1;
