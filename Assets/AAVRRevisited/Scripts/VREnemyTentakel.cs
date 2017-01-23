@@ -49,7 +49,7 @@ public class VREnemyTentakel : MonoBehaviour {
             
 
     }
-
+    
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Cannonball"))
@@ -57,7 +57,7 @@ public class VREnemyTentakel : MonoBehaviour {
             anim.SetTrigger(hit);
             Destroy(other.gameObject);
             Debug.Log("Tentakel was hit");
-            parentKrake.TakeDamage(other.gameObject.GetComponent<Canonball>().damage / 2);
+            parentKrake.TakeDamage(other.gameObject.GetComponent<Canonball>().damage * 2.5f );
 
         }
     }

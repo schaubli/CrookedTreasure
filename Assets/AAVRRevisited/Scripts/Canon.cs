@@ -56,9 +56,9 @@ public class Canon : MonoBehaviour {
     }
 
     void Shoot() {
-        if (cannonballObject != null) {
+        /*if (cannonballObject != null) {
             Destroy(cannonballObject);
-        }
+        }*/
         cannonballObject = (GameObject)Instantiate(Cannonball,transform.position, Quaternion.identity);
         Canonball cannonballScript = cannonballObject.GetComponent<Canonball>();
         
