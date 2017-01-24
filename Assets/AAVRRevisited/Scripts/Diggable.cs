@@ -6,7 +6,10 @@ public class Diggable : MonoBehaviour {
 
 	public int diggCount = 0; //How often this has been digged
 	public bool isFinished = false;
+
+	public Transform dirt;
 	public Vector3 startPosition;
+	private Vector3 dirtStartPosition;
 
 	public void Digg() {
 		ShovelController.Instance.OnClick();
@@ -15,6 +18,10 @@ public class Diggable : MonoBehaviour {
 			Vector3 surfacePosition = this.transform.position;
 			surfacePosition.y -= DiggController.Instance.diggOffset;
 			this.transform.position = surfacePosition;
+
+			Vector3 dirtPosition = this.dirt.position;
+			dirtPosition.y += DiggController.Instance.diggOffset/2f;
+			this.dirt.position = dirtPosition;
 
 			if(this.diggCount == DiggController.Instance.maxDiggCount) {
 				this.isFinished = true;
@@ -32,6 +39,7 @@ public class Diggable : MonoBehaviour {
 
 	void Start() {
 		this.startPosition = this.transform.localPosition;
+		this.dirtStartPosition = this.dirt.localPosition;
 	}
 
 	void OnEnable() {
@@ -55,5 +63,7 @@ public class Diggable : MonoBehaviour {
 		this.isFinished = false;
 		this.diggCount = 0;
 		this.transform.localPosition = startPosition;
+		if(dirtStartPosition != Vector3.zero) 
+			this.dirt.localPosition = dirtStartPosition;
 	}
 }
